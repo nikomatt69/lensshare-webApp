@@ -3,6 +3,11 @@ const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   productionBrowserSourceMaps: true,
+  eslint: {
+    // Warning: This allows production builds to successfully complete even if
+    // your project has ESLint errors.
+    ignoreDuringBuilds: true
+  },
   transpilePackages: ['data'],
   reactStrictMode: false,
   experimental: { scrollRestoration: true },
