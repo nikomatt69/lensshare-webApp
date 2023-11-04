@@ -1,5 +1,5 @@
 {
-  "name": "hey",
+  "name": "lensshare",
   "version": "2.0.0-beta",
   "private": true,
   "license": "AGPL-3.0",
@@ -40,6 +40,7 @@
     "@xmtp/xmtp-js": "^11.2.1",
     "hooks": "link:@huddle01/react/hooks",
     "idb-keyval": "^6.2.1",
+    "next": "^14.0.1",
     "xmtp-content-type-remote-attachment": "^1.0.7"
   }
 }
