@@ -96,9 +96,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       if (account) {
         setHasConnected?.(true);
       }
-      Leafwatch.track(AUTH.CONNECT_WALLET, {
-        wallet: connector.name.toLowerCase()
-      });
+      
     } catch {}
   };
 
@@ -127,7 +125,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
       const accessToken = auth.data?.authenticate.accessToken;
       const refreshToken = auth.data?.authenticate.refreshToken;
       signIn({ accessToken, refreshToken });
-      Leafwatch.track(AUTH.SIWL);
+
       location.reload();
     } catch {}
   };
@@ -187,7 +185,7 @@ const WalletSelector: FC<WalletSelectorProps> = ({
         <button
           onClick={() => {
             disconnect?.();
-            Leafwatch.track(AUTH.CHANGE_WALLET);
+           
           }}
           className="flex items-center space-x-1 text-sm underline"
         >

@@ -3,7 +3,7 @@ import localFont from 'next/font/local';
 const heyFont = localFont({
   src: [
     {
-      path: '../../public/fonts/SofiaProSoftReg-webfont.woff2',
+      path: '../../public/fonts/helvetica-rounded-bold-5871d05ead8de.ttf',
       weight: '400',
       style: 'normal'
     },
@@ -13,7 +13,7 @@ const heyFont = localFont({
       style: 'medium'
     },
     {
-      path: '../../public/fonts/SofiaProSoftBold-webfont.woff2',
+      path: '../../public/fonts/Helvetica-Bold.ttf',
       weight: '700',
       style: 'bold'
     }

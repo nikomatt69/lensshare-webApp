@@ -20,7 +20,7 @@ const Waitlist: FC = () => {
             <Button
               variant="black"
               size="lg"
-              onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_LENS_WAITLIST)}
+             
             >
               Join waitlist
             </Button>

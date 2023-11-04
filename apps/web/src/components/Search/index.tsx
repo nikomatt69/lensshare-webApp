@@ -18,9 +18,6 @@ const Search: NextPage = () => {
     ? encodeURIComponent(query.q.join(' '))
     : encodeURIComponent(query.q || '');
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'search' });
-  });
 
   if (!query.q || !['pubs', 'profiles'].includes(query.type as string)) {
     return <Custom404 />;

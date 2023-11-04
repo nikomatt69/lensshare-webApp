@@ -65,7 +65,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
         />
       )}
       <PublicationHeader publication={rootPublication} feedItem={feedItem} />
-      <div className="ml-[53px]">
+      <div className="ml-[53px] border-blue-500">
         {publication.isHidden ? (
           <HiddenPublication type={publication.__typename} />
         ) : (

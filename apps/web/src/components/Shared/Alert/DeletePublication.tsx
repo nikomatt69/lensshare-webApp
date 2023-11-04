@@ -20,7 +20,7 @@ const DeletePublication: FC = () => {
   const [hidePost, { loading }] = useHidePublicationMutation({
     onCompleted: () => {
       setShowPublicationDeleteAlert(false, null);
-      Leafwatch.track(PUBLICATION.DELETE);
+
       toast.success('Publication deleted successfully');
     },
     update: (cache) => {

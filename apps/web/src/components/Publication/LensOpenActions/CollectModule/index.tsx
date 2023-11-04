@@ -147,10 +147,7 @@ const CollectModule: FC<CollectModuleProps> = ({ publication, openAction }) => {
       acted: true
     });
     toast.success('Collected successfully!');
-    Leafwatch.track(PUBLICATION.COLLECT_MODULE.COLLECT, {
-      publication_id: targetPublication?.id,
-      collect_module: collectModule?.type
-    });
+
   };
 
   const onError = (error: any) => {

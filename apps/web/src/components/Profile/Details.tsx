@@ -84,7 +84,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         <Image
           onClick={() => setExpandedImage(getAvatar(profile, EXPANDED_AVATAR))}
           src={getAvatar(profile)}
-          className="h-32 w-32 cursor-pointer rounded-xl bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
+          className="h-32 w-32 cursor-pointer rounded-full bg-gray-200 ring-8 ring-gray-50 dark:bg-gray-700 dark:ring-black sm:h-52 sm:w-52"
           height={128}
           width={128}
           alt={profile.id}
@@ -221,7 +221,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
-                  src={`${STATIC_ASSETS_URL}/brands/ens.svg`}
+                  src={`${STATIC_ASSETS_URL}/images/brands/ens.svg`}
                   className="h-4 w-4"
                   height={16}
                   width={16}
@@ -274,7 +274,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             <MetaDetails
               icon={
                 <img
-                  src={`${STATIC_ASSETS_URL}/brands/${
+                  src={`${STATIC_ASSETS_URL}/images/brands/${
                     resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
                   }`}
                   className="h-4 w-4"
@@ -309,7 +309,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           <InvitedBy profile={profile.invitedBy} />
         </>
       ) : null}
-      <Badges profile={profile} />
+     
       {isStaff && staffMode ? <ProfileStaffTool profile={profile} /> : null}
     </div>
   );

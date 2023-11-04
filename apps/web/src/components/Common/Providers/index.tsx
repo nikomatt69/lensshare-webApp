@@ -16,10 +16,12 @@ import FeaturedGroupsProvider from './FeaturedGroupsProvider';
 import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import Web3Provider from './Web3Provider';
+import { LENSTOK_URL } from '@lensshare/data/constants';
 
 const lensApolloClient = apolloClient(authLink);
 const livepeerClient = createReactClient({
-  provider: studioProvider({ apiKey: '' })
+  provider: studioProvider({ apiKey: '9e17a7ab-3370-4e31-85c3-43072da2315e'|| '',
+  baseUrl: LENSTOK_URL })
 });
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }

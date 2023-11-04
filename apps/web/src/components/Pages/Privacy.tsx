@@ -10,10 +10,6 @@ import { useEffectOnce } from 'usehooks-ts';
 const Privacy: FC = () => {
   const updatedAt = 'October 30, 2023';
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'privacy' });
-  });
-
   return (
     <>
       <MetaTags title={`Privacy Policy • ${APP_NAME}`} />

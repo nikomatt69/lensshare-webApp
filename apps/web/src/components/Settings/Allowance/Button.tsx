@@ -54,11 +54,7 @@ const AllowanceButton: FC<AllowanceButtonProps> = ({
       );
       setShowWarningModal(false);
       setAllowed(!allowed);
-      Leafwatch.track(SETTINGS.ALLOWANCE.TOGGLE, {
-        module: module.moduleName,
-        currency: module.allowance.asset.symbol,
-        allowed: !allowed
-      });
+     
     },
     onError
   });

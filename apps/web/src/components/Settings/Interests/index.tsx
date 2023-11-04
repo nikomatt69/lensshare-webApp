@@ -15,10 +15,6 @@ import SettingsSidebar from '../Sidebar';
 const InterestsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'interests' });
-  });
-
   if (!currentProfile) {
     return <NotLoggedIn />;
   }

@@ -41,11 +41,11 @@ const Interests: FC = () => {
     variables: { request: { forProfileId: currentProfile?.id } }
   });
   const [addProfileInterests] = useAddProfileInterestsMutation({
-    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.ADD),
+  
     onError
   });
   const [removeProfileInterests] = useRemoveProfileInterestsMutation({
-    onCompleted: () => Leafwatch.track(SETTINGS.INTERESTS.REMOVE),
+   
     onError
   });
 

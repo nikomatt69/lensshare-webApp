@@ -31,7 +31,7 @@ const Logout: FC<LogoutProps> = ({ onClick, className = '' }) => {
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
     onCompleted: () => {
-      Leafwatch.track(PROFILE.LOGOUT);
+
       resetPreferences();
       signOut();
       disconnect?.();

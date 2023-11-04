@@ -45,9 +45,7 @@ const Mention: FC<MarkupLinkProps> = ({ title, mentions }) => {
       href={`/u/${getLocalNameFromFullHandle(handle)}`}
       onClick={(event) => {
         stopEventPropagation(event);
-        Leafwatch.track(PUBLICATION.CLICK_MENTION, {
-          handle: getLocalNameFromFullHandle(handle)
-        });
+    
       }}
     >
       <UserPreview handle={handle}>

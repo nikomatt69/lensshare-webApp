@@ -22,9 +22,7 @@ const ThemeSwitch: FC<ThemeSwitchProps> = ({ onClick, className = '' }) => {
       )}
       onClick={() => {
         setTheme(theme === 'light' ? 'dark' : 'light');
-        Leafwatch.track(SYSTEM.SWITCH_THEME, {
-          mode: theme === 'light' ? 'dark' : 'light'
-        });
+   
         onClick?.();
       }}
     >

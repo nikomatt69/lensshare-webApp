@@ -26,7 +26,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         {
           headers: {
             'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'mainnet'
           }
         }
       ),
@@ -34,7 +34,7 @@ const GardenerMode: FC<ModModeProps> = ({ className = '' }) => {
         loading: 'Toggling gardener mode...',
         success: () => {
           setGardenerMode(!gardenerMode);
-          Leafwatch.track(GARDENER.TOGGLE_MODE);
+      
 
           return 'Gardener mode toggled!';
         },

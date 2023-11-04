@@ -22,9 +22,6 @@ const ViewGroup: NextPage = () => {
     isReady
   } = useRouter();
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'group' });
-  });
 
   const fetchGroup = async (): Promise<Group> => {
     const response: {

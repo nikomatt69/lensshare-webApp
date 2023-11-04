@@ -34,9 +34,7 @@ const ProtectProfile: FC = () => {
     address: LENSHUB_PROXY,
     abi: LensHub,
     functionName: 'enableTokenGuardian',
-    onSuccess: () => {
-      Leafwatch.track(SETTINGS.DANGER.PROTECT_PROFILE);
-    },
+
     onError
   });
 

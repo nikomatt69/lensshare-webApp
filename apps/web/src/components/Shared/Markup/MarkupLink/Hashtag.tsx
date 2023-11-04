@@ -25,9 +25,7 @@ const Hashtag: FC<MarkupLinkProps> = ({ title }) => {
           href={`/search?q=${title.slice(1)}&type=pubs&src=link_click`}
           onClick={(event) => {
             stopEventPropagation(event);
-            Leafwatch.track(PUBLICATION.CLICK_HASHTAG, {
-              hashtag: title.slice(1)
-            });
+          
           }}
         >
           {isPrideHashtag ? <span className="pride-text">{title}</span> : title}

@@ -27,9 +27,6 @@ const Notification: FC = () => {
       : 'ALL'
   );
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'notifications' });
-  });
 
   if (!currentProfile) {
     return <NotLoggedIn />;

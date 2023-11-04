@@ -43,11 +43,7 @@ const Metadata: FC<MetadataProps> = ({ nft, zoraLink }) => {
         className="flex items-center space-x-2"
         target="_blank"
         rel="noopener noreferrer"
-        onClick={() => {
-          Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
-            from: 'mint_modal_link'
-          });
-        }}
+       
       >
         <ArrowTopRightOnSquareIcon className="lt-text-gray-500 h-4 w-4" />
         <b>Open in Zora</b>

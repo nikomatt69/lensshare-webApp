@@ -50,17 +50,13 @@ const Audio: FC<AudioProps> = ({
     }
     if (playerRef.current?.plyr.paused && !playing) {
       setPlaying(true);
-      Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PLAY, {
-        publication_id: publication?.id
-      });
+  
 
       return playerRef.current?.plyr.play();
     }
     setPlaying(false);
     playerRef.current?.plyr.pause();
-    Leafwatch.track(PUBLICATION.ATTACHMENT.AUDIO.PAUSE, {
-      publication_id: publication?.id
-    });
+
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

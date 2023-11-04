@@ -41,9 +41,7 @@ const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
             showOnSm
             onClick={() => {
               setFeedType(algorithm.feedType as HomeFeedType);
-              Leafwatch.track(HOME.ALGORITHMS.SWITCH_ALGORITHMIC_FEED, {
-                algorithm: algorithm.feedType
-              });
+  
             }}
           />
         );

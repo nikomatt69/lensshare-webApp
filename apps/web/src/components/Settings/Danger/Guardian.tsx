@@ -33,7 +33,7 @@ const GuardianSettings: FC = () => {
     abi: LensHub,
     functionName: 'DANGER__disableTokenGuardian',
     onSuccess: () => {
-      Leafwatch.track(SETTINGS.DANGER.UNPROTECT_PROFILE);
+      
     },
     onError: (error) => {
       onError(error);

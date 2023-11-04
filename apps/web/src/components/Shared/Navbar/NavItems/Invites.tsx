@@ -22,7 +22,7 @@ const Invites: FC<InvitesProps> = ({ className = '' }) => {
       )}
       onClick={() => {
         setShowInvitesModal(true);
-        Leafwatch.track(INVITE.OPEN_INVITE);
+
       }}
     >
       <div>

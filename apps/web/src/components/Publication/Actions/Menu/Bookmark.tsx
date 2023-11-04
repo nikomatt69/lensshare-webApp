@@ -86,10 +86,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     },
     onCompleted: () => {
       toast.success('Publication bookmarked!');
-      Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
-        publication_id: targetPublication.id,
-        bookmarked: true
-      });
+     
     },
     update: updateCache
   });
@@ -105,10 +102,7 @@ const Bookmark: FC<BookmarkProps> = ({ publication }) => {
     },
     onCompleted: () => {
       toast.success('Removed publication bookmark!');
-      Leafwatch.track(PUBLICATION.TOGGLE_BOOKMARK, {
-        publication_id: targetPublication.id,
-        bookmarked: false
-      });
+   
     },
     update: updateCache
   });

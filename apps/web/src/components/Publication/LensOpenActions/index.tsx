@@ -60,7 +60,7 @@ const OpenAction: FC<OpenActionProps> = ({ publication, showCount }) => {
           whileTap={{ scale: 0.9 }}
           onClick={() => {
             setShowOpenActionModal(true);
-            Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_COLLECT);
+           
           }}
           aria-label="Action"
         >

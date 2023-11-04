@@ -25,7 +25,7 @@ const Gitcoin: FC = () => {
             href="https://lenshareapp.xyz/gitcoin"
             className="font-bold underline"
             target="_blank"
-            onClick={() => Leafwatch.track(MISCELLANEOUS.OPEN_GITCOIN)}
+        
           >
             Contribute now
           </Link>

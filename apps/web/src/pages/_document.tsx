@@ -14,6 +14,10 @@ class HeyDocument extends Document {
             rel="dns-prefetch"
             href="https://static-assets.lenshareapp.xyz"
           />
+          <link rel="preconnect" href="https://asset.lenshareapp.xyz" />
+          <link rel="dns-prefetch" href="https://asset.lenshareapp.xyz" />
+          <link rel="preconnect" href="https://prerender.lenshareapp.xyz" />
+          <link rel="dns-prefetch" href="https://prerender.lenshareapp.xyz" />
 
           {/* Misc */}
           <meta name="application-name" content="LensShare" />

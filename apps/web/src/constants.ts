@@ -12,4 +12,4 @@ const POLYGON_MUMBAI = {
   name: 'Polygon Mumbai',
   rpcUrls: { default: 'https://polygon-mumbai-bor.publicnode.com' }
 };
-export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MUMBAI.id;
+export const CHAIN_ID = IS_MAINNET ? POLYGON_MAINNET.id : POLYGON_MAINNET.id;

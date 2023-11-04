@@ -22,9 +22,7 @@ const FeedFocusType: FC<FeedFocusTypeProps> = ({ focus, setFocus }) => {
       type="button"
       onClick={() => {
         setFocus(type as PublicationMetadataMainFocusType);
-        Leafwatch.track(EXPLORE.SWITCH_EXPLORE_FEED_FOCUS, {
-          explore_feed_focus: (type ?? 'all_posts').toLowerCase()
-        });
+      
       }}
       className={cn(
         { '!bg-brand-500 !text-white': focus === type },

@@ -98,10 +98,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
                 setQuantity(1);
                 setCanMintOnHey(false);
                 setShowMintModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_MINT, {
-                  publication_id: publication.id,
-                  from: 'mint_embed'
-                });
+              
               }}
             >
               Mint
@@ -121,12 +118,7 @@ const ZoraNft: FC<ZoraNftProps> = ({ nftMetadata, publication }) => {
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
               size="md"
-              onClick={() =>
-                Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_LINK, {
-                  publication_id: publication.id,
-                  from: 'mint_embed'
-                })
-              }
+             
             >
               {nft.contractType === 'ERC1155_COLLECTION'
                 ? 'Mint all on Zora'

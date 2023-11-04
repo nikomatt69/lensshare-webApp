@@ -49,9 +49,7 @@ const ViewProfile: NextPage = () => {
       : ProfileFeedType.Feed
   );
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'profile' });
-  });
+
 
   const { data, loading, error } = useProfileQuery({
     variables: {

@@ -224,14 +224,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
       comment_on: isComment ? targetPublication.id : null,
       quote_on: isQuote ? quotedPublication?.id : null
     };
-    Leafwatch.track(
-      isComment
-        ? PUBLICATION.NEW_COMMENT
-        : isQuote
-        ? PUBLICATION.NEW_QUOTE
-        : PUBLICATION.NEW_POST,
-      eventProperties
-    );
+
   };
 
   const {

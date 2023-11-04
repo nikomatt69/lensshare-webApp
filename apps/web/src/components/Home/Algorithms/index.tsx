@@ -16,7 +16,7 @@ const Algorithms: FC = () => {
         className="rounded-md p-1 hover:bg-gray-300/20"
         onClick={() => {
           setShowAlgorithmsModal(true);
-          Leafwatch.track(HOME.ALGORITHMS.OPEN_ALGORITHMS);
+     
         }}
       >
         <Tooltip placement="top" content="Algorithms">

@@ -1,7 +1,4 @@
-import {
-  IS_MAINNET,
-  SNAPSHOR_RELAY_WORKER_URL
-} from '@lensshare/data/constants';
+import { BASE_URL, IS_MAINNET } from '@lensshare/data/constants';
 import getProfile from '@lensshare/lib/getProfile';
 import axios from 'axios';
 import { useAppStore } from 'src/store/useAppStore';
@@ -20,21 +17,20 @@ const useCreatePoll = () => {
   // TODO: use useCallback
   const createPoll = async (): Promise<CreatePollResponse> => {
     try {
-      const response = await axios.post(
-        `${SNAPSHOR_RELAY_WORKER_URL}/createPoll`,
-        {
+      const response = await axios({
+        url: `${BASE_URL}/api/createPoll`,
+        method: 'POST',
+        data: {
           title: `Poll by ${getProfile(currentProfile).slugWithPrefix}`,
           description: publicationContent,
           choices: pollConfig.choices,
           length: pollConfig.length
         },
-        {
-          headers: {
-            'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
-          }
+        headers: {
+          'X-Access-Token': hydrateAuthTokens().accessToken,
+          'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'mainnet'
         }
-      );
+      });
 
       return `${publicationContent}\n\n${response.data.snapshotUrl}`;
     } catch (error) {

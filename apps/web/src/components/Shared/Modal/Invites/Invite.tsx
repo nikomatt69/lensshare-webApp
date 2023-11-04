@@ -42,7 +42,7 @@ const Invite: FC<InviteProps> = ({ invitesLeft, refetch }) => {
       form.reset();
       setInviting(false);
       setTotalInvitesLeft(totalInvitesLeft - 1);
-      Leafwatch.track(INVITE.INVITE);
+
 
       return toast.success('Invited successfully!');
     },

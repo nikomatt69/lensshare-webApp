@@ -19,9 +19,6 @@ const ManagerSettings: NextPage = () => {
   const { address } = useAccount();
   const disabled = currentProfile?.ownedBy.address !== address;
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'manager' });
-  });
 
   if (!currentProfile) {
     return <NotLoggedIn />;

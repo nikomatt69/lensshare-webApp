@@ -24,7 +24,7 @@ const Profile: FC = () => {
   });
 
   const handleExportClick = () => {
-    Leafwatch.track(SETTINGS.EXPORT.PROFILE);
+  
     setExporting(true);
     exportProfile({
       onCompleted: ({ profile }) => {

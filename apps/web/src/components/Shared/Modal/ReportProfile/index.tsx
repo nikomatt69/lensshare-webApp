@@ -41,11 +41,7 @@ const ReportProfile: FC<ReportProfileProps> = ({ profile }) => {
         onSubmit={() => {
           const data = form.getValues();
           const { type, description } = data;
-          Leafwatch.track(PROFILE.REPORT_PROFILE, {
-            type,
-            ...(description && { description }),
-            profile: profile?.id
-          });
+          
           setShowReportProfileModal(false, null);
           toast.success('Reported Successfully!');
         }}

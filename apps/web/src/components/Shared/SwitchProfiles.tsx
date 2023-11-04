@@ -102,9 +102,7 @@ const SwitchProfiles: FC = () => {
       });
 
       const switchedProfile = loadedProfile?.profile;
-      Leafwatch.track(PROFILE.SWITCH_PROFILE, {
-        switch_profile_to: switchedProfile?.id
-      });
+      
       location.reload();
     } catch (error) {
       onError(error);

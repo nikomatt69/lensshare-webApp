@@ -40,7 +40,7 @@ const ToggleLensManager: FC<ToggleLensManagerProps> = ({
 
     setIsLoading(false);
     toast.success('Profile updated successfully!');
-    Leafwatch.track(SETTINGS.MANAGER.TOGGLE);
+
   };
 
   const onError = (error: any) => {

@@ -81,7 +81,7 @@ const Access: FC<RankProps> = ({ profile }) => {
         {
           headers: {
             'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'mainnet'
           }
         }
       ),

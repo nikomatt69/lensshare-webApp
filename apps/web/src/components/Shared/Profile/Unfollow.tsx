@@ -77,12 +77,7 @@ const Unfollow: FC<UnfollowProps> = ({
     setIsLoading(false);
     setFollowing(false);
     toast.success('Unfollowed successfully!');
-    Leafwatch.track(PROFILE.UNFOLLOW, {
-      path: pathname,
-      ...(unfollowPosition && { position: unfollowPosition }),
-      ...(unfollowSource && { source: unfollowSource }),
-      target: profile?.id
-    });
+
   };
 
   const onError = (error: any) => {

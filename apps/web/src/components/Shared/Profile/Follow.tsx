@@ -77,12 +77,7 @@ const Follow: FC<FollowProps> = ({
     setIsLoading(false);
     setFollowing(true);
     toast.success('Followed successfully!');
-    Leafwatch.track(PROFILE.FOLLOW, {
-      path: pathname,
-      ...(followPosition && { position: followPosition }),
-      ...(followSource && { source: followSource }),
-      target: profile?.id
-    });
+
   };
 
   const onError = (error: any) => {

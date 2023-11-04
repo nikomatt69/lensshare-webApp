@@ -108,7 +108,7 @@ const RecommendedProfiles: FC = () => {
           type="button"
           onClick={() => {
             setShowSuggestedModal(true);
-            Leafwatch.track(MISCELLANEOUS.OPEN_RECOMMENDED_PROFILES);
+  
           }}
         >
           <EllipsisHorizontalCircleIcon className="h-4 w-4" />

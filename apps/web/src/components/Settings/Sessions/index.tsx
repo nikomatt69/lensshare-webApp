@@ -14,9 +14,7 @@ import List from './List';
 const SessionsSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'sessions' });
-  });
+
 
   if (!currentProfile) {
     return <NotLoggedIn />;

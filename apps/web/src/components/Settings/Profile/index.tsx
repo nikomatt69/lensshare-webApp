@@ -14,9 +14,6 @@ import ProfileSettingsForm from './Profile';
 const ProfileSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'profile' });
-  });
 
   if (!currentProfile) {
     return <NotLoggedIn />;

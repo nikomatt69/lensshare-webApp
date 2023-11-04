@@ -28,10 +28,6 @@ const ViewNft: NextPage = () => {
     enabled: isReady
   });
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'nft' });
-  });
-
   if (loading) {
     return <NftPageShimmer />;
   }

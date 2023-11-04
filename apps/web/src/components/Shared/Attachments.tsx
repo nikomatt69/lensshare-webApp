@@ -89,9 +89,7 @@ const Attachments: FC<AttachmentsProps> = ({ attachments, asset }) => {
       }}
       onClick={() => {
         setExpandedImage(uri);
-        Leafwatch.track(PUBLICATION.ATTACHMENT.IMAGE.OPEN, {
-          // publication_id: publication?.id
-        });
+      
       }}
       src={imageKit(uri, ATTACHMENT)}
       alt={imageKit(uri, ATTACHMENT)}

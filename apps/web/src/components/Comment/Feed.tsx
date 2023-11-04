@@ -83,15 +83,6 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     return <ErrorMessage title="Failed to load comment feed" error={error} />;
   }
 
-  if (!publication?.isHidden && totalComments === 0) {
-    return (
-      <EmptyState
-        message="Be the first one to comment!"
-        icon={<ChatBubbleLeftRightIcon className="text-brand h-8 w-8" />}
-      />
-    );
-  }
-
   return (
     <>
       {queuedComments.map((txn) => (

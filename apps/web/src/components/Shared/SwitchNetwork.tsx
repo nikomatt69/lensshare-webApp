@@ -34,9 +34,7 @@ const SwitchNetwork: FC<SwitchNetworkProps> = ({
         } else {
           toast.error('Please change your network wallet!');
         }
-        Leafwatch.track(SYSTEM.SWITCH_NETWORK, {
-          chain: toChainId
-        });
+       
       }}
     >
       {title}

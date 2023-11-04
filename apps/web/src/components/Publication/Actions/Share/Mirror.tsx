@@ -85,9 +85,7 @@ const Mirror: FC<MirrorProps> = ({ publication, setIsLoading, isLoading }) => {
       mirroredOrQuoted: true
     });
     toast.success('Post has been mirrored!');
-    Leafwatch.track(PUBLICATION.MIRROR, {
-      publication_id: publication.id
-    });
+
   };
 
   const { signTypedDataAsync } = useSignTypedData({ onError });

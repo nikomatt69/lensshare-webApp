@@ -2,8 +2,8 @@ import packageJson from '../../package.json';
 import getEnvConfig from './utils/getEnvConfig';
 
 export const IS_MAINNET = process.env.NEXT_PUBLIC_NETWORK === 'mainnet';
-export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
-export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/';
+
+export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'lens/';
 export const LENSSHARE_API_URL = 'https://api.lenshareapp.xyz';
 
 export const APP_ID = 'lensshare';
@@ -95,18 +95,18 @@ export const SPACES_WORKER_URL = IS_MAINNET
   ? 'https://spaces.lenshareapp.xyz'
   : 'https://spaces.lenshareapp.xyz';
 export const LEAFWATCH_WORKER_URL = IS_MAINNET
-  ? 'https://leafwatch.lenster.xyz'
+  ? 'https://leafwatch.hey.xyz'
   : 'http://localhost:8089';
-export const ENS_WORKER_URL = IS_PRODUCTION
+export const ENS_WORKER_URL = IS_MAINNET
   ? 'https://ens.lenshareapp.xyz'
   : 'http://localhost:8086';
-export const NFT_WORKER_URL = IS_PRODUCTION
+export const NFT_WORKER_URL = IS_MAINNET
   ? 'https://nft.lenshareapp.xyz'
   : 'https://nft.lenshareapp.xyz';
-export const PREFERENCES_WORKER_URL = IS_PRODUCTION
-  ? 'https://preferences.lenshareapp.xyz'
+export const PREFERENCES_WORKER_URL = IS_MAINNET
+  ? 'https://preferences.hey.xyz'
   : 'http://localhost:8091';
-export const GROUPS_WORKER_URL = IS_PRODUCTION
+export const GROUPS_WORKER_URL = IS_MAINNET
   ? 'https://groups.lenshareapp.xyz'
   : 'http://localhost:8092';
 export const CHANNELS_WORKER_URL = IS_MAINNET
@@ -118,12 +118,12 @@ export const COMMUNITIES_WORKER_URL = IS_MAINNET
 export const LIVE_WORKER_URL = IS_MAINNET
   ? 'https://live.lenshareapp.xyz'
   : 'https://live.lenshareapp.xyz';
-export const STAFF_PICKS_WORKER_URL = IS_PRODUCTION
+export const STAFF_PICKS_WORKER_URL = IS_MAINNET
   ? 'https://staff-picks.lenshareapp.xyz'
   : 'http://localhost:8094';
 
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenshareapp.xyz';
-export const FEEDS_WORKER_URL = IS_PRODUCTION
+export const FEEDS_WORKER_URL = IS_MAINNET
   ? 'https://feeds.lenshareapp.xyz'
   : 'http://localhost:8090';
 export const S3_BUCKET = {
@@ -157,7 +157,7 @@ export const SCROLL_ROOT_MARGIN = '40% 0px';
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
 export const XMTP_PREFIX = 'lens.dev/dm';
 
-export const CHAIN_ID = IS_MAINNET ? 137 : 80001;
+export const CHAIN_ID = IS_MAINNET ? 137 : 137;
 
 export const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_ID;
 export const INFURA_RPC = IS_MAINNET

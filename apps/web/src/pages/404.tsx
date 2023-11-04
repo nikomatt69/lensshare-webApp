@@ -10,8 +10,8 @@ const Custom404: FC = () => {
     <div className="page-center flex-col">
       <MetaTags title={`404 • ${APP_NAME}`} />
       <img
-        src={`${STATIC_ASSETS_URL}/gifs/nyan-cat.gif`}
-        alt="Nyan Cat"
+        src={`${STATIC_ASSETS_URL}/images/icon.png`}
+        alt="Icon"
         className="h-60"
         height={240}
       />

@@ -97,12 +97,7 @@ const UnlonelyChannel: FC<UnlonelyChannelProps> = ({
             className="text-sm"
             icon={<CursorArrowRaysIcon className="h-4 w-4" />}
             size="md"
-            onClick={() =>
-              Leafwatch.track(
-                PUBLICATION.OPEN_ACTIONS.UNLONELY_CHANNEL.OPEN_LINK,
-                { publication_id: publication.id, from: 'mint_embed' }
-              )
-            }
+  
           >
             Open
           </Button>

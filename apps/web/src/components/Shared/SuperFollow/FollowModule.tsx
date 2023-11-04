@@ -75,12 +75,7 @@ const FollowModule: FC<FollowModuleProps> = ({
     setFollowing(true);
     setShowFollowModal(false);
     toast.success('Followed successfully!');
-    Leafwatch.track(PROFILE.SUPER_FOLLOW, {
-      path: pathname,
-      ...(superFollowPosition && { position: superFollowPosition }),
-      ...(superFollowSource && { source: superFollowSource }),
-      target: profile?.id
-    });
+
   };
 
   const onError = (error: any) => {

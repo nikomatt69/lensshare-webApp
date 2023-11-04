@@ -15,9 +15,6 @@ import Verification from './Verification';
 const AccountSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'account' });
-  });
 
   if (!currentProfile) {
     return <NotLoggedIn />;

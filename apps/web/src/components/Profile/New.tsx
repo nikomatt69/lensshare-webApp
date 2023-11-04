@@ -13,9 +13,7 @@ import { useEffectOnce } from 'usehooks-ts';
 const NewProfile: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'new-profile' });
-  });
+
 
   if (!currentProfile) {
     return <NotLoggedIn />;

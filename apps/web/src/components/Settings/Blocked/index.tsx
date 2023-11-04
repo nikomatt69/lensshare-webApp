@@ -14,9 +14,7 @@ import List from './List';
 const BlockedSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'blocked' });
-  });
+
 
   if (!currentProfile) {
     return <NotLoggedIn />;

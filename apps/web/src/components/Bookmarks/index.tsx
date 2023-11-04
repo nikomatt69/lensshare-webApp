@@ -22,9 +22,7 @@ const Bookmarks: NextPage = () => {
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
   const isLensMember = usePreferencesStore((state) => state.isLensMember);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'bookmarks' });
-  });
+
 
   if (!currentProfile) {
     return <NotLoggedIn />;

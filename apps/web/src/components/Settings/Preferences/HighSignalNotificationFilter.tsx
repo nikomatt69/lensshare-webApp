@@ -25,7 +25,7 @@ const HighSignalNotificationFilter: FC = () => {
         {
           headers: {
             'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'mainnet'
           }
         }
       ),
@@ -33,13 +33,7 @@ const HighSignalNotificationFilter: FC = () => {
         loading: 'Updating preference settings...',
         success: () => {
           setHighSignalNotificationFilter(!highSignalNotificationFilter);
-          Leafwatch.track(
-            SETTINGS.PREFERENCES.TOGGLE_HIGH_SIGNAL_NOTIFICATION_FILTER,
-            {
-              enabled: !highSignalNotificationFilter
-            }
-          );
-
+       
           return 'Notification preference updated';
         },
         error: 'Error updating notification preference'

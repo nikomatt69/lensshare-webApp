@@ -50,9 +50,7 @@ const Mod: NextPage = () => {
   ]);
   const [apps, setApps] = useState<string[] | null>(null);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'mod' });
-  });
+
 
   if (!isGardener) {
     return <Custom404 />;

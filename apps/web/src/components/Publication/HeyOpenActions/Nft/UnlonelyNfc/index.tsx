@@ -77,12 +77,8 @@ const UnlonelyNfc: FC<UnlonelyNfcProps> = ({ nftMetadata, publication }) => {
             className="text-sm"
             icon={<CursorArrowRaysIcon className="h-4 w-4" />}
             size="md"
-            onClick={() =>
-              Leafwatch.track(PUBLICATION.OPEN_ACTIONS.UNLONELY_NFC.OPEN_LINK, {
-                publication_id: publication.id,
-                from: 'mint_embed'
-              })
-            }
+          
+            
           >
             Open
           </Button>

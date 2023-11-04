@@ -19,9 +19,7 @@ import Tokens from './Tokens';
 const ExportSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'export' });
-  });
+
 
   if (!currentProfile) {
     return <NotLoggedIn />;

@@ -21,9 +21,7 @@ import SettingsSidebar from '../Sidebar';
 const CleanupSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'cleanup' });
-  });
+
 
   if (!currentProfile) {
     return <NotLoggedIn />;

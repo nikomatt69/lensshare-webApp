@@ -25,11 +25,7 @@ const DismissRecommendedProfile: FC<DismissRecommendedProfileProps> = ({
 
   const handleDismiss = async () => {
     await dismissRecommendedProfile();
-    Leafwatch.track(PROFILE.DISMISS_RECOMMENDED_PROFILE, {
-      ...(dismissSource && { dismiss_source: dismissSource }),
-      ...(dismissPosition && { dismiss_position: dismissPosition }),
-      dismiss_target: profile.id
-    });
+
   };
 
   return (

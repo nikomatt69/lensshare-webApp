@@ -7,6 +7,7 @@
     "build:sw": "node script/build-sw.mjs",
     "build": "yarn run build:sw; next build",
     "dev": "next dev --port 4550",
+    "export":"yarn run build:sw; next build",
   
     "start": "next start --port 4783",
     "typecheck": "tsc --pretty"
@@ -70,6 +71,10 @@
     "wagmi": "^1.4.5",
     "zod": "^3.22.4",
     "zustand": "^4.4.6"
+  },
+  "packageManager": "pnpm@8.6.11",
+  "engines": {
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "@lensshare/config": "workspace:*",

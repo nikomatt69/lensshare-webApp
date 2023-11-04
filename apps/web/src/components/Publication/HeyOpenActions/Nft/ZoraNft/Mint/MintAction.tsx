@@ -104,14 +104,7 @@ const MintAction: FC<MintActionProps> = ({
   useUpdateEffect(() => {
     if (txnData?.transactionHash) {
       onCompleted?.();
-      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.MINT, {
-        ...(publication && { publication_id: publication.id }),
-        chain: nft.chainId,
-        nft: nftAddress,
-        price: (nftPriceInEth + mintFee) * quantity,
-        quantity,
-        hash: txnData.transactionHash
-      });
+      
     }
   }, [isSuccess]);
 

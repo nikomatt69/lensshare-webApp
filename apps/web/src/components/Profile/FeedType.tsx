@@ -24,11 +24,9 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
   const switchTab = (type: string) => {
     setFeedType(type);
     if (type === ProfileFeedType.Stats.toLowerCase()) {
-      Leafwatch.track(PROFILE.SWITCH_PROFILE_STATS_TAB);
+     
     } else {
-      Leafwatch.track(PROFILE.SWITCH_PROFILE_FEED_TAB, {
-        profile_feed_type: type.toLowerCase()
-      });
+    
     }
   };
 

@@ -39,10 +39,6 @@ const ViewPublication: NextPage = () => {
     query: { id }
   } = useRouter();
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'publication' });
-  });
-
   const { data, loading, error } = usePublicationQuery({
     variables: { request: { forId: id } },
     skip: !id

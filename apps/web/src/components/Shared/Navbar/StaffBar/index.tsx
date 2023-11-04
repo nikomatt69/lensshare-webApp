@@ -2,7 +2,7 @@ import { GlobeAltIcon, HashtagIcon } from '@heroicons/react/24/outline';
 import {
   GIT_COMMIT_SHA,
   IS_MAINNET,
-  IS_PRODUCTION
+
 } from '@lensshare/data/constants';
 import cn from '@lensshare/ui/cn';
 import Link from 'next/link';
@@ -29,14 +29,14 @@ const StaffBar: FC = () => {
         <div className="flex items-center space-x-1">
           <GlobeAltIcon
             className={cn(
-              IS_PRODUCTION ? 'text-green-500' : 'text-yellow-500',
+              IS_MAINNET ? 'text-green-500' : 'text-yellow-500',
               'h-4 w-4'
             )}
           />
           <Badge>
-            {IS_PRODUCTION ? 'prod' : 'dev'}{' '}
+            {IS_MAINNET ? 'prod' : 'prod'}{' '}
             <span className="text-[10px]">
-              ({IS_MAINNET ? 'mainnet' : 'testnet'})
+              ({IS_MAINNET ? 'mainnet' : 'mainnet'})
             </span>
           </Badge>
         </div>

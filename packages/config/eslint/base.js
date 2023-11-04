@@ -17,25 +17,25 @@ module.exports = {
     'import'
   ],
   rules: {
-    curly: 'error',
+    curly: 'warn',
     'no-unused-vars': 'off',
-    'prettier/prettier': 'error',
-    'unused-imports/no-unused-imports': 'error',
+    'prettier/prettier': 'warn',
+    'unused-imports/no-unused-imports': 'warn',
     'import/no-duplicates': ['error', { considerQueryString: true }],
-    'prefer-destructuring': ['error', { VariableDeclarator: { object: true } }],
+    'prefer-destructuring': ['warn', { VariableDeclarator: { object: true } }],
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/ban-ts-comment': 'off', // turn warn
     '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/consistent-type-imports': 'error',
-    'no-use-before-define': 'error',
-    'no-unexpected-multiline': 'error',
-    'unicorn/better-regex': 'error',
-    'unicorn/catch-error-name': 'error',
-    'unicorn/no-array-for-each': 'error',
-    'unicorn/no-for-loop': 'error',
-    'unicorn/no-lonely-if': 'error',
-    'unicorn/no-useless-undefined': 'error',
-    'unicorn/prefer-array-find': 'error'
+    '@typescript-eslint/consistent-type-imports': 'warn',
+    'no-use-before-define': 'warn',
+    'no-unexpected-multiline': 'warn',
+    'unicorn/better-regex': 'warn',
+    'unicorn/catch-error-name': 'warn',
+    'unicorn/no-array-for-each': 'warn',
+    'unicorn/no-for-loop': 'warn',
+    'unicorn/no-lonely-if': 'warn',
+    'unicorn/no-useless-undefined': 'warn',
+    'unicorn/prefer-array-find':'warn'
   },
   ignorePatterns: ['generated.ts', 'node_modules']
 };

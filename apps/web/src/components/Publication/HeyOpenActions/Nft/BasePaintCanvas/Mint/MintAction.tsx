@@ -78,12 +78,7 @@ const MintAction: FC<MintActionProps> = ({
 
   useUpdateEffect(() => {
     if (txnData?.transactionHash) {
-      Leafwatch.track(PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.MINT, {
-        publication_id: publication.id,
-        nft: nftAddress,
-        price: openEditionPrice * quantity,
-        quantity
-      });
+      
     }
   }, [isSuccess]);
 

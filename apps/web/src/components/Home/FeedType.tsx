@@ -25,7 +25,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           active={feedType === HomeFeedType.FOLLOWING}
           onClick={() => {
             setFeedType(HomeFeedType.FOLLOWING);
-            Leafwatch.track(HOME.SWITCH_FOLLOWING_FEED);
+ 
           }}
         />
         <TabButton
@@ -34,7 +34,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
           active={feedType === HomeFeedType.HIGHLIGHTS}
           onClick={() => {
             setFeedType(HomeFeedType.HIGHLIGHTS);
-            Leafwatch.track(HOME.SWITCH_HIGHLIGHTS_FEED);
+     
           }}
         />
       </div>

@@ -24,7 +24,7 @@ const IsPride: FC = () => {
         {
           headers: {
             'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'mainnet'
           }
         }
       ),
@@ -32,9 +32,7 @@ const IsPride: FC = () => {
         loading: 'Updating pride preference...',
         success: () => {
           setIsPride(!isPride);
-          Leafwatch.track(SETTINGS.PREFERENCES.TOGGLE_IS_PRIDE, {
-            enabled: !isPride
-          });
+      
 
           return 'Pride preference updated';
         },

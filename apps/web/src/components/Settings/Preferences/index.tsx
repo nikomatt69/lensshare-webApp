@@ -16,9 +16,7 @@ import PushNotifications from './PushNotifications';
 const PreferencesSettings: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'preferences' });
-  });
+
 
   if (!currentProfile) {
     return <NotLoggedIn />;

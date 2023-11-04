@@ -94,9 +94,7 @@ const HeyMembershipNft: FC = () => {
             className="w-full"
             onClick={() => {
               setShowMintModal(true);
-              Leafwatch.track(PUBLICATION.OPEN_ACTIONS.ZORA_NFT.OPEN_MINT, {
-                from: 'mint_membership_nft'
-              });
+      
             }}
             disabled={loading}
           >
@@ -117,7 +115,7 @@ const HeyMembershipNft: FC = () => {
           <button
             className="text-sm underline"
             onClick={() => {
-              Leafwatch.track(MISCELLANEOUS.DISMISSED_MEMBERSHIP_NFT_BANNER);
+           
               updateHeyMemberNftStatus();
             }}
           >

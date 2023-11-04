@@ -28,7 +28,7 @@ const NoBalanceError: FC<NoBalanceErrorProps> = ({ moduleAmount }) => {
       </div>
       <Link
         href={getUniswapURL(parseFloat(amount), assetAddress)}
-        onClick={() => Leafwatch.track(PUBLICATION.COLLECT_MODULE.OPEN_UNISWAP)}
+
         className="flex items-center space-x-1.5 text-xs font-bold text-pink-500"
         target="_blank"
         rel="noreferrer noopener"

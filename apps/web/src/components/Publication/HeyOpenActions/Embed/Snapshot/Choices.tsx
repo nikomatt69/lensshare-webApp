@@ -82,9 +82,7 @@ const Choices: FC<ChoicesProps> = ({
     }
 
     setVoteConfig({ show: true, position });
-    Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.OPEN_CAST_VOTE, {
-      proposal_id: id
-    });
+    
   };
 
   const voteHeyPoll = async (position: number) => {
@@ -119,10 +117,7 @@ const Choices: FC<ChoicesProps> = ({
       });
 
       refetch?.();
-      Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
-        proposal_id: id,
-        proposal_source: APP_NAME.toLowerCase()
-      });
+  
       toast.success('Your vote has been casted!');
     } catch {
       toast.error(Errors.SomethingWentWrong);

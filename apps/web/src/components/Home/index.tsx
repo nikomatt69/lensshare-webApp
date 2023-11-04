@@ -2,10 +2,10 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
-import { IS_MAINNET } from '@lensshare/data/constants';
+import { IS_MAINNET, STATIC_ASSETS_URL } from '@lensshare/data/constants';
 import { HomeFeedType } from '@lensshare/data/enums';
 import { PAGEVIEW } from '@lensshare/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout } from '@lensshare/ui';
+import { GridItemEight, GridItemFour, GridLayout ,Image} from '@lensshare/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
@@ -24,6 +24,7 @@ import SetProfile from './SetProfile';
 import StaffPicks from './StaffPicks';
 import Timeline from './Timeline';
 import Waitlist from './Waitlist';
+import { useTheme } from 'next-themes';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -31,18 +32,37 @@ const Home: NextPage = () => {
     HomeFeedType.FOLLOWING
   );
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'home' });
-  });
-
+ 
   const loggedIn = Boolean(currentProfile);
   const loggedOut = !loggedIn;
+  const { resolvedTheme } = useTheme();
 
   return (
     <>
       <MetaTags />
       {!currentProfile ? <Hero /> : null}
       <GridLayout>
+      <GridItemEight>
+          <>
+            
+
+            {resolvedTheme === 'dark' ? (
+              <Image
+                className="cursor-pointer"
+                src={`${STATIC_ASSETS_URL}/images/Lenstoknewlogo3.png`}
+                alt="logo"
+              />
+            ) : (
+              <Image
+                className="cursor-pointer"
+                src={`${STATIC_ASSETS_URL}/images/Lenstoknewlogo.png`}
+                alt="logo"
+              />
+            )}
+
+           
+          </>
+        </GridItemEight>
         <GridItemEight className="space-y-5">
           {currentProfile ? (
             <>
@@ -66,7 +86,6 @@ const Home: NextPage = () => {
         <GridItemFour>
           {/* <Gitcoin /> */}
           {loggedOut && <Waitlist />}
-          {loggedIn && <HeyMembershipNft />}
           {/* Onboarding steps */}
           {loggedIn && (
             <>

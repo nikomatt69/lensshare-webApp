@@ -110,9 +110,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               type="button"
               onClick={() => {
                 setShowMirrorsModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_MIRRORS, {
-                  publication_id: publicationId
-                });
+
               }}
             >
               <b className="text-black dark:text-white">
@@ -136,9 +134,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               type="button"
               onClick={() => {
                 setShowQuotesModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_QUOTES, {
-                  publication_id: publicationId
-                });
+             
               }}
             >
               <b className="text-black dark:text-white">
@@ -162,9 +158,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               type="button"
               onClick={() => {
                 setShowLikesModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_LIKES, {
-                  publication_id: publicationId
-                });
+        
               }}
             >
               <b className="text-black dark:text-white">
@@ -188,9 +182,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
               type="button"
               onClick={() => {
                 setShowCollectorsModal(true);
-                Leafwatch.track(PUBLICATION.OPEN_COLLECTORS, {
-                  publication_id: publicationId
-                });
+              
               }}
             >
               <b className="text-black dark:text-white">

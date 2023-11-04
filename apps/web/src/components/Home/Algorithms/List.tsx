@@ -65,10 +65,7 @@ const List: FC = () => {
               } else {
                 disableAlgorithm(algorithm.feedType);
               }
-              Leafwatch.track(HOME.ALGORITHMS.TOGGLE_ALGORITHM, {
-                algorithm: algorithm.feedType,
-                enabled: !enabled
-              });
+
             }}
           />
         </div>

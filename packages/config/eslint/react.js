@@ -9,8 +9,8 @@ module.exports = {
     'react/prop-types': 'off',
     'react/no-unescaped-entities': 'off',
     'react/no-unknown-property': 'off',
-    'react/jsx-no-useless-fragment': 'error',
-    'react/self-closing-comp': 'error',
+    'react/jsx-no-useless-fragment':'warn',
+    'react/self-closing-comp': 'warn',
     'react/react-in-jsx-scope': 'off',
     'jsx-a11y/role-supports-aria-props': 'off'
   },

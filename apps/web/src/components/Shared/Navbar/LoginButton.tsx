@@ -26,7 +26,7 @@ const LoginButton: FC<LoginButtonProps> = ({ isBig = false }) => {
       }
       onClick={() => {
         setShowAuthModal(true);
-        Leafwatch.track(AUTH.LOGIN);
+
       }}
     >
       Login

@@ -13,7 +13,7 @@ const getUniswapURL = (amount: number, outputCurrency: string): string => {
     exactField: 'output',
     exactAmount: amount,
     outputCurrency,
-    chain: IS_MAINNET ? 'polygon' : 'polygon_mumbai'
+    chain: IS_MAINNET ? 'polygon' : 'polygon'
   });
 };
 

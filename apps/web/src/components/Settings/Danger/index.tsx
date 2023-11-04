@@ -19,9 +19,6 @@ const DangerSettings: NextPage = () => {
   const { address } = useAccount();
   const disabled = currentProfile?.ownedBy.address !== address;
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'danger' });
-  });
 
   if (!currentProfile) {
     return <NotLoggedIn />;

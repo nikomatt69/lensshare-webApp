@@ -48,9 +48,6 @@ const Contact: FC = () => {
     schema: newContactSchema
   });
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'contact' });
-  });
 
   const submitToFreshdesk = async (
     email: string,

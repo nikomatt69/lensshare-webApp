@@ -47,10 +47,6 @@ const AllowanceSettings: NextPage = () => {
     variables: { request: { limit: LimitType.TwentyFive } }
   });
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'settings', subpage: 'allowance' });
-  });
-
   const { data, loading, error, refetch } =
     useApprovedModuleAllowanceAmountQuery({
       variables: { request: getAllowancePayload(DEFAULT_COLLECT_TOKEN) },

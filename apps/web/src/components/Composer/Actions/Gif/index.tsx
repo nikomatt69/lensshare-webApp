@@ -30,7 +30,7 @@ const Gif: FC<GiphyProps> = ({ setGifAttachment }) => {
           type="button"
           onClick={() => {
             setShowModal(!showModal);
-            Leafwatch.track(PUBLICATION.OPEN_GIFS);
+         
           }}
           disabled={attachments.length >= 4}
           aria-label="Choose GIFs"

@@ -35,19 +35,13 @@ const ReportPublication: FC<ReportProps> = ({ publication }) => {
   const [type, setType] = useState('');
   const [subReason, setSubReason] = useState('');
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'report' });
-  });
+
 
   const [
     createReport,
     { data: submitData, loading: submitLoading, error: submitError }
   ] = useReportPublicationMutation({
-    onCompleted: () => {
-      Leafwatch.track(PUBLICATION.REPORT, {
-        report_publication_id: publication?.id
-      });
-    }
+  
   });
 
   const form = useZodForm({

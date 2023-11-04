@@ -93,10 +93,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               onClick={() => {
                 setQuantity(1);
                 setShowMintModal(true);
-                Leafwatch.track(
-                  PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_MINT,
-                  { publication_id: publication.id }
-                );
+                
               }}
             >
               Mint
@@ -120,12 +117,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
               size="md"
-              onClick={() =>
-                Leafwatch.track(
-                  PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_LINK,
-                  { publication_id: publication.id, from: 'mint_embed' }
-                )
-              }
+           
             >
               Contribute
             </Button>
@@ -143,12 +135,7 @@ const BasePaintCanvas: FC<BasePaintCanvasProps> = ({
               className="text-sm"
               icon={<CursorArrowRaysIcon className="h-4 w-4" />}
               size="md"
-              onClick={() =>
-                Leafwatch.track(
-                  PUBLICATION.OPEN_ACTIONS.BASEPAINT_NFT.OPEN_OPENSEA_LINK,
-                  { publication_id: publication.id, from: 'mint_embed' }
-                )
-              }
+            
             >
               View on OpenSea
             </Button>

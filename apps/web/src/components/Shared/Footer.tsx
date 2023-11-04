@@ -23,7 +23,7 @@ const Footer: FC = () => {
           href="https://lenshareapp.xyz/discord"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DISCORD)}
+   
         >
           Discord
         </Link>
@@ -31,7 +31,7 @@ const Footer: FC = () => {
           href="https://lenshareapp.xyz/donate"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_DONATE)}
+     
         >
           Donate
         </Link>
@@ -39,7 +39,7 @@ const Footer: FC = () => {
           href="https://status.lenshareapp.xyz"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_STATUS)}
+  
         >
           Status
         </Link>
@@ -47,7 +47,7 @@ const Footer: FC = () => {
           href="https://feedback.lenshareapp.xyz"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_FEEDBACK)}
+
         >
           Feedback
         </Link>
@@ -56,7 +56,7 @@ const Footer: FC = () => {
           href="https://github.com/heyxyz/hey"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_GITHUB)}
+
         >
           GitHub
         </Link>
@@ -64,7 +64,7 @@ const Footer: FC = () => {
           href="https://translate.lenshareapp.xyz"
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_TRANSLATE)}
+
         >
           Translate
         </Link>
@@ -78,7 +78,7 @@ const Footer: FC = () => {
           })}
           target="_blank"
           rel="noreferrer noopener"
-          onClick={() => Leafwatch.track(MISCELLANEOUS.FOOTER.OPEN_VERCEL)}
+
         >
           ▲ Powered by Vercel
         </Link>

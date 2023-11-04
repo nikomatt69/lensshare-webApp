@@ -26,7 +26,7 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
         {
           headers: {
             'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'mainnet'
           }
         }
       ),
@@ -34,7 +34,6 @@ const StaffMode: FC<StaffModeProps> = ({ className = '' }) => {
         loading: 'Toggling staff mode...',
         success: () => {
           setStaffMode(!staffMode);
-          Leafwatch.track(STAFFTOOLS.TOGGLE_MODE);
 
           return 'Staff mode toggled!';
         },

@@ -53,7 +53,7 @@ const SuperFollow: FC<SuperFollowProps> = ({
             return;
           }
           setShowFollowModal(!showFollowModal);
-          Leafwatch.track(PROFILE.OPEN_SUPER_FOLLOW);
+
         }}
         aria-label="Super follow"
         icon={<StarIcon className="h-4 w-4" />}
