@@ -1,4 +1,4 @@
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient } from '../../../../packages/lens/node_modules/@apollo/client';
 import { LensHub } from '@lensshare/abis';
 import { LENSHUB_PROXY } from '@lensshare/data/constants';
 import type {
