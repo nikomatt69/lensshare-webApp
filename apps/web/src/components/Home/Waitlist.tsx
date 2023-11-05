@@ -9,16 +9,16 @@ const Waitlist: FC = () => {
   return (
     <Card as="aside" className="mb-4 space-y-4 p-5">
       <img
-        src={`${STATIC_ASSETS_URL}/emojis/dizzy.png`}
+        src={`${STATIC_ASSETS_URL}/images/icon.png`}
         alt="Dizzy emoji"
         className="mx-auto h-14 w-14"
       />
       <div className="space-y-3 text-center">
         <div className="font-bold">Get early access to Lens!</div>
         <div>
-          <Link href="https://waitlist.lens.xyz?utm_source=hey" target="_blank">
+          <Link href="https://waitlist.lens.xyz?utm_source=lensshare" target="_blank">
             <Button
-              variant="black"
+              variant="secondary"
               size="lg"
              
             >

@@ -25,6 +25,8 @@ import StaffPicks from './StaffPicks';
 import Timeline from './Timeline';
 import Waitlist from './Waitlist';
 import { useTheme } from 'next-themes';
+import AddToHome from './AddToHome';
+import Algorithms from './Algorithms';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -44,7 +46,7 @@ const Home: NextPage = () => {
       <GridLayout>
       <GridItemEight>
           <>
-            
+          <AddToHome />
 
             {resolvedTheme === 'dark' ? (
               <Image
@@ -75,8 +77,10 @@ const Home: NextPage = () => {
                 <Timeline />
               ) : feedType === HomeFeedType.HIGHLIGHTS ? (
                 <Highlights />
-              ) : (
+              ) : feedType === HomeFeedType.ALGO ? (
                 <AlgorithmicFeed feedType={feedType} />
+              ) : (
+                <ExploreFeed />
               )}
             </>
           ) : (

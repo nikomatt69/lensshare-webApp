@@ -20,7 +20,7 @@ const AlgorithmicFeed: FC<AlgorithmicFeedProps> = ({ feedType }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [displayedPublications, setDisplayedPublications] = useState<any[]>([]);
 
-  const limit = LimitType.TwentyFive;
+  const limit = LimitType.Ten;
   const offset = displayedPublications.length;
 
   const {

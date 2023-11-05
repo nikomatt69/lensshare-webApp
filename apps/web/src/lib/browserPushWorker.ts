@@ -3,4 +3,4 @@ const onBrowserPushWorkerMessage = (event: MessageEvent) => {
   postMessage(data);
 };
 
-addEventListener('message', onBrowserPushWorkerMessage);
+self.addEventListener('message', onBrowserPushWorkerMessage);

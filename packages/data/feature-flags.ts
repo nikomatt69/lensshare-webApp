@@ -5,6 +5,6 @@ export enum FeatureFlag {
 export const featureFlags = [
   {
     key: FeatureFlag.Spaces,
-    enabledFor: ['0x0d']
+    enabledFor: ['0x933b']
   }
 ];

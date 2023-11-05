@@ -97,7 +97,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       <Markup
         className={cn(
           { 'line-clamp-5': canShowMore },
-          'markup linkify text-md break-words'
+          'markup linkify break-words text-xs'
         )}
         mentions={targetPublication.profilesMentioned}
       >

@@ -11,3 +11,4 @@ export const Regex = {
   profileNameFilter: new RegExp('[' + RESTRICTED_SYMBOLS + ']', 'gu'),
   gm: /\bgm\b/i
 };
+

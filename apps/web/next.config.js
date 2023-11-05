@@ -1,17 +1,28 @@
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
-
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+
+const withPWA = require('next-pwa')({
+  dest: '/public',
+  register: true,
+  skipWaiting: true,
+  // disableDevLogs: true,
+  // disable: process.env.NODE_ENV === 'development'
+});
+const nextConfig = withPWA( {
   productionBrowserSourceMaps: true,
+  pwa: { dest: '../../public/sw.js', register: true },
   eslint: {
     // Warning: This allows production builds to successfully complete even if
     // your project has ESLint errors.
     ignoreDuringBuilds: true
   },
   output: 'export',
-  transpilePackages: ['data'],
+  transpilePackages: [],
   reactStrictMode: false,
-  experimental: { scrollRestoration: true },
+  experimental: {
+    scrollRestoration: true,
+    webpackBuildWorker: true
+  },
   async rewrites() {
     return [
       {
@@ -59,6 +70,8 @@ const nextConfig = {
       { source: '/thanks', headers }
     ];
   }
-};
+});
 
+// eslint-disable-next-line prettier/prettier
 module.exports = nextConfig;
+

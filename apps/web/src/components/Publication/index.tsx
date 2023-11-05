@@ -36,7 +36,8 @@ const ViewPublication: NextPage = () => {
   );
 
   const {
-    query: { id }
+    query: { id },
+    isReady
   } = useRouter();
 
   const { data, loading, error } = usePublicationQuery({
@@ -44,7 +45,7 @@ const ViewPublication: NextPage = () => {
     skip: !id
   });
 
-  if (loading) {
+  if (!isReady ||loading) {
     return <PublicationPageShimmer />;
   }
 

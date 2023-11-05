@@ -8,17 +8,19 @@ import Loading from '@components/Shared/Loading';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Suspense fallback={<Loading />}>
-      <Providers>
-        <style jsx global>{`
-          body {
-            font-family: ${heyFont.style.fontFamily};
-          }
-        `}</style>
-        <Component {...pageProps} />
+    <>
+      <Suspense fallback={<Loading />}>
+        <Providers>
+          <style jsx global>{`
+            body {
+              font-family: ${heyFont.style.fontFamily};
+            }
+          `}</style>
+          <Component {...pageProps} />
+        </Providers>
         <ServiceWorker />
-      </Providers>
-    </Suspense>
+      </Suspense>
+    </>
   );
 };
 

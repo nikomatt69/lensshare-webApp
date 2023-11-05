@@ -15,11 +15,11 @@ const getWalletDetails = (name: string): WalletDetails => {
   const walletDetails: Record<string, WalletDetails> = {
     WalletConnect: {
       name: 'WalletConnect',
-      logo: `${STATIC_ASSETS_URL}/wallets/walletconnect.svg`
+      logo: `public/walletconnect.svg`
     },
     'Coinbase Wallet': {
       name: 'Coinbase Wallet',
-      logo: `${STATIC_ASSETS_URL}/wallets/coinbase.svg`
+      logo: `public/coinbase.svg`
     }
   };
   const defaultDetails: WalletDetails = {

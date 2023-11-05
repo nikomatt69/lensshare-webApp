@@ -15,7 +15,7 @@ export const BrowserPush = {
 
     browserPushWorker.onmessage = function (event: MessageEvent) {
       const response = event.data;
-      new Notification('LensShare', {
+      new self.Notification('LensShare', {
         body: response.title,
         icon: '/logo.png'
       });

@@ -2,7 +2,6 @@ import { BASE_URL, IS_MAINNET } from '@lensshare/data/constants';
 import getProfile from '@lensshare/lib/getProfile';
 import axios from 'axios';
 import { useAppStore } from 'src/store/useAppStore';
-import { hydrateAuthTokens } from 'src/store/useAuthPersistStore';
 import { usePublicationStore } from 'src/store/usePublicationStore';
 
 type CreatePollResponse = string;
@@ -21,14 +20,11 @@ const useCreatePoll = () => {
         url: `${BASE_URL}/api/createPoll`,
         method: 'POST',
         data: {
+          mainnet: IS_MAINNET,
           title: `Poll by ${getProfile(currentProfile).slugWithPrefix}`,
           description: publicationContent,
           choices: pollConfig.choices,
           length: pollConfig.length
-        },
-        headers: {
-          'X-Access-Token': hydrateAuthTokens().accessToken,
-          'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'mainnet'
         }
       });
 

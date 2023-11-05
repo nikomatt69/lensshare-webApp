@@ -1,5 +1,6 @@
 import { apolloClient, ApolloProvider } from '@lensshare/lens/apollo';
 import authLink from '@lib/authLink';
+import { Analytics } from '@vercel/analytics/react';
 import getLivepeerTheme from '@lib/getLivepeerTheme';
 import {
   createReactClient,
@@ -20,8 +21,10 @@ import { LENSTOK_URL } from '@lensshare/data/constants';
 
 const lensApolloClient = apolloClient(authLink);
 const livepeerClient = createReactClient({
-  provider: studioProvider({ apiKey: '9e17a7ab-3370-4e31-85c3-43072da2315e'|| '',
-  baseUrl: LENSTOK_URL })
+  provider: studioProvider({
+    apiKey: '9e17a7ab-3370-4e31-85c3-43072da2315e' || '',
+    baseUrl: LENSTOK_URL
+  })
 });
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
@@ -40,6 +43,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
               <ThemeProvider defaultTheme="light" attribute="class">
                 <Layout>{children}</Layout>
               </ThemeProvider>
+              <Analytics />
             </LivepeerConfig>
           </QueryClientProvider>
         </ApolloProvider>

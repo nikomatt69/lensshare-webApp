@@ -15,7 +15,7 @@ const Footer: FC = () => {
     >
       <div className="mt-4 flex flex-wrap gap-x-[12px] px-3 lg:px-0">
         <span className="lt-text-gray-500 font-bold">
-          &copy; {new Date().getFullYear()} {APP_NAME}.xyz
+          &copy; {new Date().getFullYear()} Lenshareapp.xyz
         </span>
         <Link href="/terms">Terms</Link>
         <Link href="/privacy">Privacy</Link>
@@ -53,7 +53,7 @@ const Footer: FC = () => {
         </Link>
         <Link href="/thanks">Thanks</Link>
         <Link
-          href="https://github.com/heyxyz/hey"
+          href="https://github.com/nikomatt69/LensShare-2.0"
           target="_blank"
           rel="noreferrer noopener"
 

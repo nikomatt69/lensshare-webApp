@@ -1,4 +1,5 @@
 export enum HomeFeedType {
+  ALGO = 'ALGO',
   FOLLOWING = 'FOLLOWING',
   HIGHLIGHTS = 'HIGHLIGHTS',
   // Thirdparty Algorithms

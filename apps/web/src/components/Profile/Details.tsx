@@ -46,6 +46,7 @@ import ProfileMenu from './Menu';
 import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
 import ScamWarning from './ScamWarning';
+import MeetingIcon from '@components/Meet/MeetingIcon';
 
 interface DetailsProps {
   profile: Profile;
@@ -197,110 +198,113 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           </>
         ) : null}
         <div className="divider w-full" />
-        <div className="space-y-2">
-          <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
-            <Tooltip content={`#${profile.id}`}>
-              <Link
-                href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
-                  address: getEnvConfig().lensHubProxyAddress,
-                  id: parseInt(profile.id)
-                })}
-                target="_blank"
-                rel="noreferrer"
+        <div className="space-y-1">
+          {!currentProfile?.id === profile?.id ? <MeetingIcon /> : null}
+          <div className="space-y-2">
+            <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
+              <Tooltip content={`#${profile.id}`}>
+                <Link
+                  href={urlcat(RARIBLE_URL, '/token/polygon/:address::id', {
+                    address: getEnvConfig().lensHubProxyAddress,
+                    id: parseInt(profile.id)
+                  })}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {parseInt(profile.id)}
+                </Link>
+              </Tooltip>
+            </MetaDetails>
+            {getProfileAttribute(profile?.metadata?.attributes, 'location') ? (
+              <MetaDetails icon={<MapPinIcon className="h-4 w-4" />}>
+                {getProfileAttribute(profile?.metadata?.attributes, 'location')}
+              </MetaDetails>
+            ) : null}
+            {profile?.onchainIdentity?.ens?.name ? (
+              <MetaDetails
+                icon={
+                  <img
+                    src={`${STATIC_ASSETS_URL}/images/social/ens.svg`}
+                    className="h-4 w-4"
+                    height={16}
+                    width={16}
+                    alt="ENS Logo"
+                  />
+                }
               >
-                {parseInt(profile.id)}
-              </Link>
-            </Tooltip>
-          </MetaDetails>
-          {getProfileAttribute(profile?.metadata?.attributes, 'location') ? (
-            <MetaDetails icon={<MapPinIcon className="h-4 w-4" />}>
-              {getProfileAttribute(profile?.metadata?.attributes, 'location')}
-            </MetaDetails>
-          ) : null}
-          {profile?.onchainIdentity?.ens?.name ? (
-            <MetaDetails
-              icon={
-                <img
-                  src={`${STATIC_ASSETS_URL}/images/brands/ens.svg`}
-                  className="h-4 w-4"
-                  height={16}
-                  width={16}
-                  alt="ENS Logo"
-                />
-              }
-            >
-              {profile?.onchainIdentity?.ens?.name}
-            </MetaDetails>
-          ) : null}
-          {getProfileAttribute(profile?.metadata?.attributes, 'website') ? (
-            <MetaDetails
-              icon={
-                <img
-                  src={urlcat(
-                    'https://external-content.duckduckgo.com/ip3/:domain.ico',
-                    {
-                      domain: getProfileAttribute(
-                        profile?.metadata?.attributes,
-                        'website'
-                      )
-                        ?.replace('https://', '')
-                        .replace('http://', '')
-                    }
-                  )}
-                  className="h-4 w-4 rounded-full"
-                  height={16}
-                  width={16}
-                  alt="Website"
-                />
-              }
-            >
-              <Link
-                href={`https://${getProfileAttribute(
-                  profile?.metadata?.attributes,
-                  'website'
-                )
-                  ?.replace('https://', '')
-                  .replace('http://', '')}`}
-                target="_blank"
-                rel="noreferrer noopener me"
+                {profile?.onchainIdentity?.ens?.name}
+              </MetaDetails>
+            ) : null}
+            {getProfileAttribute(profile?.metadata?.attributes, 'website') ? (
+              <MetaDetails
+                icon={
+                  <img
+                    src={urlcat(
+                      'https://external-content.duckduckgo.com/ip3/:domain.ico',
+                      {
+                        domain: getProfileAttribute(
+                          profile?.metadata?.attributes,
+                          'website'
+                        )
+                          ?.replace('https://', '')
+                          .replace('http://', '')
+                      }
+                    )}
+                    className="h-4 w-4 rounded-full"
+                    height={16}
+                    width={16}
+                    alt="Website"
+                  />
+                }
               >
-                {getProfileAttribute(profile?.metadata?.attributes, 'website')
-                  ?.replace('https://', '')
-                  .replace('http://', '')}
-              </Link>
-            </MetaDetails>
-          ) : null}
-          {getProfileAttribute(profile?.metadata?.attributes, 'x') ? (
-            <MetaDetails
-              icon={
-                <img
-                  src={`${STATIC_ASSETS_URL}/images/brands/${
-                    resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
-                  }`}
-                  className="h-4 w-4"
-                  height={16}
-                  width={16}
-                  alt="X Logo"
-                />
-              }
-            >
-              <Link
-                href={urlcat('https://x.com/:username', {
-                  username: getProfileAttribute(
+                <Link
+                  href={`https://${getProfileAttribute(
+                    profile?.metadata?.attributes,
+                    'website'
+                  )
+                    ?.replace('https://', '')
+                    .replace('http://', '')}`}
+                  target="_blank"
+                  rel="noreferrer noopener me"
+                >
+                  {getProfileAttribute(profile?.metadata?.attributes, 'website')
+                    ?.replace('https://', '')
+                    .replace('http://', '')}
+                </Link>
+              </MetaDetails>
+            ) : null}
+            {getProfileAttribute(profile?.metadata?.attributes, 'x') ? (
+              <MetaDetails
+                icon={
+                  <img
+                    src={`${STATIC_ASSETS_URL}/images/brands/${
+                      resolvedTheme === 'dark' ? 'x-dark.png' : 'x-light.png'
+                    }`}
+                    className="h-4 w-4"
+                    height={16}
+                    width={16}
+                    alt="X Logo"
+                  />
+                }
+              >
+                <Link
+                  href={urlcat('https://x.com/:username', {
+                    username: getProfileAttribute(
+                      profile?.metadata?.attributes,
+                      'x'
+                    )?.replace('https://x.com/', '')
+                  })}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {getProfileAttribute(
                     profile?.metadata?.attributes,
                     'x'
-                  )?.replace('https://x.com/', '')
-                })}
-                target="_blank"
-                rel="noreferrer noopener"
-              >
-                {getProfileAttribute(
-                  profile?.metadata?.attributes,
-                  'x'
-                )?.replace('https://x.com/', '')}
-              </Link>
-            </MetaDetails>
-          ) : null}
+                  )?.replace('https://x.com/', '')}
+                </Link>
+              </MetaDetails>
+            ) : null}
+          </div>
         </div>
       </div>
       {profile.invitedBy ? (
@@ -309,7 +313,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           <InvitedBy profile={profile.invitedBy} />
         </>
       ) : null}
-     
+
       {isStaff && staffMode ? <ProfileStaffTool profile={profile} /> : null}
     </div>
   );

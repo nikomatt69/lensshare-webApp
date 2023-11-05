@@ -5,7 +5,7 @@ import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
 import { Tab } from '@headlessui/react';
 import { APP_NAME } from '@lensshare/data/constants';
-import { EXPLORE, PAGEVIEW } from '@lensshare/data/tracking';
+import { PAGEVIEW } from '@lensshare/data/tracking';
 import type { PublicationMetadataMainFocusType } from '@lensshare/lens';
 import { ExplorePublicationsOrderByType } from '@lensshare/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@lensshare/ui';
@@ -16,9 +16,11 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
-import { useEffectOnce } from 'usehooks-ts';
+import { LightBulbIcon, SparklesIcon } from '@heroicons/react/24/outline';
 
 import Feed from './Feed';
+import MirrorOutline from '@components/Icons/MirrorOutline';
+import ExploreOutline from '@components/Icons/ExploreOutline';
 
 const Explore: NextPage = () => {
   const router = useRouter();
@@ -26,18 +28,25 @@ const Explore: NextPage = () => {
   const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
-  useEffectOnce(() => {
-    Leafwatch.track(PAGEVIEW, { page: 'explore' });
-  });
+ 
 
   const tabs = [
-    { name: 'For you', type: ExplorePublicationsOrderByType.LensCurated },
-    { name: 'Popular', type: ExplorePublicationsOrderByType.TopCommented },
     {
-      name: 'Trending',
+      icon: <SparklesIcon />,
+      type: ExplorePublicationsOrderByType.LensCurated
+    },
+    {
+      icon: <LightBulbIcon />,
+      type: ExplorePublicationsOrderByType.TopCommented
+    },
+    {
+      icon: <ExploreOutline />,
       type: ExplorePublicationsOrderByType.TopCollectedOpenAction
     },
-    { name: 'Interesting', type: ExplorePublicationsOrderByType.TopMirrored }
+    {
+      icon: <MirrorOutline />,
+      type: ExplorePublicationsOrderByType.TopMirrored
+    }
   ];
 
   return (
@@ -62,7 +71,6 @@ const Explore: NextPage = () => {
               <Tab
                 key={tab.type}
                 defaultChecked={index === 1}
-        
                 className={({ selected }) =>
                   cn(
                     {
@@ -73,7 +81,7 @@ const Explore: NextPage = () => {
                   )
                 }
               >
-                {tab.name}
+                {tab.icon}
               </Tab>
             ))}
           </Tab.List>

@@ -1,5 +1,7 @@
+import MessageIcon from '@components/Messages/MessageIcon';
 import {
   BellIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
   HomeIcon,
   Squares2X2Icon
 } from '@heroicons/react/24/outline';
@@ -37,6 +39,14 @@ const BottomNavigation = () => {
             <BellIconSolid className="text-brand h-6 w-6" />
           ) : (
             <BellIcon className="h-6 w-6" />
+          )}
+        </Link>
+
+        <Link href="/messages" className="mx-auto my-3">
+          {isActivePath('/messages') ? (
+            <ChatBubbleOvalLeftEllipsisIcon className="text-brand h-6 w-6" />
+          ) : (
+            <ChatBubbleOvalLeftEllipsisIcon  className="h-6 w-6" />
           )}
         </Link>
       </div>

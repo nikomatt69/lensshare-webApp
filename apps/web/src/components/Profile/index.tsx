@@ -32,7 +32,8 @@ import ProfilePageShimmer from './Shimmer';
 
 const ViewProfile: NextPage = () => {
   const {
-    query: { handle, id, type, followIntent }
+    query: { handle, id, type, followIntent },
+    isReady
   } = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const lowerCaseProfileFeedType = [
@@ -94,7 +95,7 @@ const ViewProfile: NextPage = () => {
     }
   }, [following]);
 
-  if (loading) {
+  if (!isReady ||loading) {
     return <ProfilePageShimmer />;
   }
 
@@ -136,7 +137,7 @@ const ViewProfile: NextPage = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
-          {currentProfile?.id === profile?.id ? <NewPost /> : null}
+          {!currentProfile?.id === profile?.id ? <NewPost /> : null}
           {feedType === ProfileFeedType.Feed ||
           feedType === ProfileFeedType.Replies ||
           feedType === ProfileFeedType.Media ||

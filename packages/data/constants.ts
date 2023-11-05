@@ -291,7 +291,7 @@ export const LIT_PROTOCOL_ENV = IS_MAINNET ? 'polygon' : 'mumbai';
 
 export const GIPHY_TOKEN = 'mztAE0vdQdlfCYsM11E6UaPjUmjpYDHV';
 
-export const DEFAULT_OG = `${STATIC_ASSETS_URL}/images/logo.png`;
+export const DEFAULT_OG = `${STATIC_ASSETS_URL}/images/icon.png`;
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const MESSAGE_PAGE_LIMIT = 35;
 export const SCROLL_THRESHOLD = 0.1;
@@ -304,7 +304,7 @@ export const WALLETCONNECT_PROJECT_ID = '8974231b47453a6cae531515ed1787c7';
 
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
-export const PLACEHOLDER_IMAGE = `${DEFAULT_OG}/placeholder.webp`;
+export const PLACEHOLDER_IMAGE = `${STATIC_ASSETS_URL}/images/placeholder.webp`;
 // Regex
 export const URL_REGEX =
   /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[\da-z]+([.\-][\da-z]+)*\.[a-z]{2,63}(:\d{1,5})?(\/.*)?$/;
