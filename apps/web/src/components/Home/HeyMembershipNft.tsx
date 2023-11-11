@@ -1,10 +1,8 @@
 import Mint from '@components/Publication/HeyOpenActions/Nft/ZoraNft/Mint';
 import { CursorArrowRaysIcon } from '@heroicons/react/24/outline';
 import { IS_MAINNET, PREFERENCES_WORKER_URL } from '@lensshare/data/constants';
-import { MISCELLANEOUS, PUBLICATION } from '@lensshare/data/tracking';
 import type { MembershipNft } from '@lensshare/types/hey';
 import { Button, Card, Modal } from '@lensshare/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import axios from 'axios';
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -20,7 +18,7 @@ const HeyMembershipNft: FC = () => {
 
   const { data: nft, loading } = useZoraNft({
     chain: 'zora',
-    address: '0x8fcfdad5ebdd1ce815aa769bbd7499091ac056d1',
+    address: '0x76CF6F95B5494716D8515E0C17D7374346BAa625',
     token: ''
   });
 
@@ -55,7 +53,7 @@ const HeyMembershipNft: FC = () => {
         axios.post(`${PREFERENCES_WORKER_URL}/updateHeyMemberNftStatus`, {
           headers: {
             'X-Access-Token': hydrateAuthTokens().accessToken,
-            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'testnet'
+            'X-Lens-Network': IS_MAINNET ? 'mainnet' : 'mainnet'
           }
         }),
         {
@@ -77,7 +75,7 @@ const HeyMembershipNft: FC = () => {
       className="text-brand dark:bg-brand-10/50 !border-brand-500 !bg-brand-50 mb-4"
     >
       <img
-        src="https://ipfs.decentralized-content.com/ipfs/bafybeib6infyovvtawokys4ejjr4r3qk4soy7jqriejp2wbmttedupsy64"
+        src="https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafkreibgcincgi42c6k4xistrvd5e6teixq4j7yfr5qw4mdulltpopjhd4&w=1920&q=75"
         alt="Gitcoin emoji"
         className="h-48 w-full rounded-t-xl object-cover"
       />
@@ -94,7 +92,6 @@ const HeyMembershipNft: FC = () => {
             className="w-full"
             onClick={() => {
               setShowMintModal(true);
-      
             }}
             disabled={loading}
           >
@@ -108,14 +105,13 @@ const HeyMembershipNft: FC = () => {
           >
             <Mint
               nft={nft}
-              zoraLink="https://zora.co/collect/zora:0x8fcfdad5ebdd1ce815aa769bbd7499091ac056d1"
+              zoraLink="https://zora.co/collect/zora:0x76cf6f95b5494716d8515e0c17d7374346baa625/1"
               onCompleted={updateHeyMemberNftStatus}
             />
           </Modal>
           <button
             className="text-sm underline"
             onClick={() => {
-           
               updateHeyMemberNftStatus();
             }}
           >

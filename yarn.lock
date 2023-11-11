@@ -13446,7 +13446,7 @@ vfile@^6.0.0:
     unist-util-stringify-position "^4.0.0"
     vfile-message "^4.0.0"
 
-viem@^1.0.0, viem@^1.10.9, viem@^1.13.0, viem@^1.18.3:
+viem@^1.0.0, viem@^1.13.0, viem@^1.18.0, viem@^1.18.3:
   version "1.18.9"
   resolved "https://registry.yarnpkg.com/viem/-/viem-1.18.9.tgz#8be8fe3148b1c6c3bccc853001df98f91a8aeb30"
   integrity sha512-eAXtoTwAFA3YEgjTYMb5ZTQrDC0UPx5qyZ4sv90TirVKepcM9mBPksTkC1SSWya0UdxhBmhEBL/CiYMjmGCTWg==
@@ -13524,7 +13524,7 @@ vue@>=3:
     "@vue/server-renderer" "3.3.8"
     "@vue/shared" "3.3.8"
 
-wagmi@^1.4.1:
+wagmi@^1.4.5:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-1.4.6.tgz#5a3bee0b1a0862d339ba76f1c00ec4024d04b28b"
   integrity sha512-A5Kryru0QT8E+dpkw83uDbfuGgyR1GdGzay2TALI7sf2kqVair8N0DuCj7ohrCStLRY1oAibXWGolRrmce4psg==

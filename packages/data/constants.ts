@@ -1,8 +1,7 @@
-import packageJson from '../../package.json';
 import getEnvConfig from './utils/getEnvConfig';
 
 export const IS_MAINNET = process.env.NEXT_PUBLIC_LENS_NETWORK === 'mainnet';
-
+export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'lens/';
 export const LENSSHARE_API_URL = 'https://api.lenshareapp.xyz';
 
@@ -10,7 +9,7 @@ export const APP_ID = 'lensshare';
 export const APP_NAME = 'LensShare';
 export const APP_VERSION = '0.0.1';
 export const LENSTOK_URL = process.env.NEXT_PUBLIC_LENSTOK_URL;
-export const DESCRIPTION = 'Decentralized Social Video & Message Platform';
+export const DESCRIPTION = 'Decentralized Social Platform';
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
 export const LENS_MEDIA_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot';
@@ -37,8 +36,7 @@ export const SNAPSHOT_HUB_URL = IS_MAINNET
   ? 'https://hub.snapshot.org'
   : 'https://hub.snapshot.org';
 export const MAINNET_SNAPSHOT_SEQUNECER_URL = 'https://seq.snapshot.org';
-export const TESTNET_SNAPSHOT_SEQUNECER_URL =
-'https://seq.snapshot.org';
+export const TESTNET_SNAPSHOT_SEQUNECER_URL = 'https://seq.snapshot.org';
 export const SNAPSHOT_SEQUNECER_URL = IS_MAINNET
   ? MAINNET_SNAPSHOT_SEQUNECER_URL
   : TESTNET_SNAPSHOT_SEQUNECER_URL;
@@ -107,7 +105,7 @@ export const PREFERENCES_WORKER_URL = IS_MAINNET
   ? 'https://preferences.hey.xyz'
   : 'https://preferences.hey.xyz';
 export const GROUPS_WORKER_URL = IS_MAINNET
-  ? 'https://groups.lenshareapp.xyz'
+  ? 'https://groups.hey.xyz'
   : 'https://groups.hey.xyz';
 export const CHANNELS_WORKER_URL = IS_MAINNET
   ? 'https://channels.lenster.xyz'

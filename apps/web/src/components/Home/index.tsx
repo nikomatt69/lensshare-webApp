@@ -2,15 +2,12 @@ import MetaTags from '@components/Common/MetaTags';
 import NewPost from '@components/Composer/Post/New';
 import ExploreFeed from '@components/Explore/Feed';
 import Footer from '@components/Shared/Footer';
-import { IS_MAINNET, STATIC_ASSETS_URL } from '@lensshare/data/constants';
+import { STATIC_ASSETS_URL } from '@lensshare/data/constants';
 import { HomeFeedType } from '@lensshare/data/enums';
-import { PAGEVIEW } from '@lensshare/data/tracking';
-import { GridItemEight, GridItemFour, GridLayout ,Image} from '@lensshare/ui';
-import { Leafwatch } from '@lib/leafwatch';
+import { GridItemEight, GridItemFour, GridLayout, Image } from '@lensshare/ui';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import AlgorithmicFeed from './AlgorithmicFeed';
 import Tabs from './Algorithms/Tabs';
@@ -26,7 +23,6 @@ import Timeline from './Timeline';
 import Waitlist from './Waitlist';
 import { useTheme } from 'next-themes';
 import AddToHome from './AddToHome';
-import Algorithms from './Algorithms';
 import EnableMessages from './EnableMessages';
 
 const Home: NextPage = () => {
@@ -35,7 +31,6 @@ const Home: NextPage = () => {
     HomeFeedType.FOLLOWING
   );
 
- 
   const loggedIn = Boolean(currentProfile);
   const loggedOut = !loggedIn;
   const { resolvedTheme } = useTheme();
@@ -45,9 +40,9 @@ const Home: NextPage = () => {
       <MetaTags />
       {!currentProfile ? <Hero /> : null}
       <GridLayout>
-      <GridItemEight>
+        <GridItemEight>
           <>
-          <AddToHome />
+            <AddToHome />
 
             {resolvedTheme === 'dark' ? (
               <Image
@@ -62,15 +57,11 @@ const Home: NextPage = () => {
                 alt="logo"
               />
             )}
-
-           
           </>
         </GridItemEight>
         <GridItemEight className="space-y-5">
-          
           {currentProfile ? (
             <>
-            
               <NewPost />
               <div className="space-y-3">
                 <FeedType feedType={feedType} setFeedType={setFeedType} />
@@ -92,6 +83,7 @@ const Home: NextPage = () => {
         </GridItemEight>
         <GridItemFour>
           {/* <Gitcoin /> */}
+          {loggedIn && <HeyMembershipNft />}
           {loggedOut && <Waitlist />}
           {/* Onboarding steps */}
           {loggedIn && (

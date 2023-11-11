@@ -4,7 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "codegen": "supabase gen types typescript --project-id nberpnnqcqfnrzjpnisb > database.types.ts; pnpm lint:fix",
+    "codegen": "supabase gen types typescript --project-id nberpnnqcqfnrzjpnisb > database.types.ts;",
 
     "typecheck": "tsc --pretty"
   },

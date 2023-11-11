@@ -5,24 +5,17 @@ import FeedFocusType from '@components/Shared/FeedFocusType';
 import Footer from '@components/Shared/Footer';
 import NotLoggedIn from '@components/Shared/NotLoggedIn';
 import { APP_NAME } from '@lensshare/data/constants';
-import { PAGEVIEW } from '@lensshare/data/tracking';
 import type { PublicationMetadataMainFocusType } from '@lensshare/lens';
 import { GridItemEight, GridItemFour, GridLayout } from '@lensshare/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
-import { usePreferencesStore } from 'src/store/usePreferencesStore';
-import { useEffectOnce } from 'usehooks-ts';
 
 import Feed from './Feed';
 
 const Bookmarks: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
-  const isLensMember = usePreferencesStore((state) => state.isLensMember);
-
-
 
   if (!currentProfile) {
     return <NotLoggedIn />;
@@ -36,7 +29,7 @@ const Bookmarks: NextPage = () => {
         <Feed focus={focus} />
       </GridItemEight>
       <GridItemFour>
-        {isLensMember && <Trending />}
+        {currentProfile && <Trending />}
         {currentProfile ? <RecommendedProfiles /> : null}
         <Footer />
       </GridItemFour>
