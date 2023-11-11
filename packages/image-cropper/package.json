@@ -7,13 +7,13 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lensshare/ui": "workspace:*",
+    "@lensshare/ui": "*",
     "normalize-wheel": "^1.0.1",
     "rc-slider": "^10.3.1",
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@lensshare/config": "workspace:*",
+    "@lensshare/config": "*",
     "@types/normalize-wheel": "^1.0.3",
     "@types/react": "^18.2.34",
     "typescript": "^5.2.2"

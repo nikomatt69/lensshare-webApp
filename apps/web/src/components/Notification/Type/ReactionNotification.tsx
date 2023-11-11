@@ -9,11 +9,11 @@ import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
-
+// million-ignore
 interface ReactionNotificationProps {
   notification: ReactionNotification;
 }
-
+// million-ignore
 const ReactionNotification: FC<ReactionNotificationProps> = ({
   notification
 }) => {

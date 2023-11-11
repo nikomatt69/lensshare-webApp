@@ -8,11 +8,11 @@ import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
-
+// million-ignore
 interface MentionNotificationProps {
   notification: MentionNotification;
 }
-
+// million-ignore
 const MentionNotification: FC<MentionNotificationProps> = ({
   notification
 }) => {

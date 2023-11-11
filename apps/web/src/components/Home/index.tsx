@@ -27,6 +27,7 @@ import Waitlist from './Waitlist';
 import { useTheme } from 'next-themes';
 import AddToHome from './AddToHome';
 import Algorithms from './Algorithms';
+import EnableMessages from './EnableMessages';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -66,8 +67,10 @@ const Home: NextPage = () => {
           </>
         </GridItemEight>
         <GridItemEight className="space-y-5">
+          
           {currentProfile ? (
             <>
+            
               <NewPost />
               <div className="space-y-3">
                 <FeedType feedType={feedType} setFeedType={setFeedType} />
@@ -93,12 +96,13 @@ const Home: NextPage = () => {
           {/* Onboarding steps */}
           {loggedIn && (
             <>
+              <EnableMessages />
               <EnableLensManager />
               <SetProfile />
             </>
           )}
           {/* Recommendations */}
-          {IS_MAINNET && <StaffPicks />}
+          {loggedIn && <StaffPicks />}
           {loggedIn && <RecommendedProfiles />}
           <Footer />
         </GridItemFour>

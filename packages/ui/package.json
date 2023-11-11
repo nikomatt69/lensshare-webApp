@@ -10,8 +10,8 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.0.18",
-    "@lensshare/data": "workspace:*",
-    "@lensshare/lib": "workspace:*",
+    "@lensshare/data": "*",
+    "@lensshare/lib": "*",
     "@hookform/resolvers": "^3.3.2",
     "@tippyjs/react": "^4.2.6",
     "clsx": "^2.0.0",
@@ -22,7 +22,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@lensshare/config": "workspace:*",
+    "@lensshare/config": "*",
     "@types/react": "^18.2.34",
     "tailwindcss": "^3.3.5",
     "typescript": "^5.2.2"

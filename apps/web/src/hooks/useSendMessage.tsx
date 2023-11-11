@@ -13,7 +13,6 @@ const useSendMessage = (conversationKey: string) => {
   const sendMessage = async (
     content: string | RemoteAttachment,
     contentType: ContentTypeId,
-    fallback: string | undefined
   ): Promise<boolean> => {
     if (!client || !conversationKey) {
       return false;

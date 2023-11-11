@@ -1,7 +1,7 @@
 import type { Profile } from '@lensshare/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { useCallback } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import type { LensProfile, PreviewMessage } from 'src/store/message-db';
 import { db } from 'src/store/message-db';
 import { useLiveQuery } from 'dexie-react-hooks';
@@ -103,7 +103,7 @@ export const useMessageDb = () => {
       .sortBy('name');
 
     return new Map(profiles.map((p) => [p.conversationKey, p]));
-  }, [currentProfile]);
+  }, [currentProfile?.id]);
 
   return {
     persistPreviewMessage,

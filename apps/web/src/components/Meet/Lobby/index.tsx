@@ -8,7 +8,7 @@ import {
   useRoom,
   useVideo
 } from '@huddle01/react/hooks';
-import { APP_NAME } from '@lensshare/data/constants';
+import { APP_NAME, STATIC_ASSETS_URL } from '@lensshare/data/constants';
 import cn from '@lensshare/ui/cn';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -134,7 +134,7 @@ const Lobby: NextPage = () => {
               />
             ) : (
               <img
-                src="/default-avatar.svg"
+                src={`${STATIC_ASSETS_URL}/images/default-avatar.svg`}
                 alt="avatar"
                 className="mb-16 mt-16 h-24 w-24"
               />

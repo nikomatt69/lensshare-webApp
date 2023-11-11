@@ -4,11 +4,13 @@ Disallow: /_next/*
 Disallow: /settings/*
 Disallow: /messages/*
 
+
 User-agent: Yandex
 Allow: /*
 Disallow: /_next/*
 Disallow: /settings/*
 Disallow: /messages/*
+
 
 User-agent: bingbot
 Allow: /*
@@ -16,10 +18,12 @@ Disallow: /_next/*
 Disallow: /settings/*
 Disallow: /messages/*
 
+
 User-agent: *
 Allow: /*
 Disallow: /_next/*
 Disallow: /settings/*
 Disallow: /messages/*
+
 
 Sitemap: https://lenshareapp.xyz/sitemap.xml

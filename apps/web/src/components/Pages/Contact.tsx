@@ -85,7 +85,7 @@ const Contact: FC = () => {
       <MetaTags title={`Contact • ${APP_NAME}`} />
       <GridItemFour>
         <SettingsHelper
-          heading="Contact ${APP_NAME}"
+          heading={`Contact • ${APP_NAME}`} 
           description="Contact us to help you get the issue resolved."
         />
       </GridItemFour>

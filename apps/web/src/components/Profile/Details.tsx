@@ -180,6 +180,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
             )
           ) : null}
           <ProfileMenu profile={profile} />
+          <div className='text-brand-500'>{ <MeetingIcon />}</div>
         </div>
         {currentProfile?.id !== profile.id ? (
           <>

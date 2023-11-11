@@ -77,7 +77,7 @@ const PreviewList: FC<PreviewListProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProfile]);
 
-  const showAuthenticating = currentProfile && authenticating;
+  const showAuthenticating = currentProfile?.id && authenticating;
   const showLoading =
     loading && (messages.size === 0 || profilesToShow.size === 0);
 

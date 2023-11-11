@@ -1,5 +1,4 @@
 src/locales/**/*.js
 .vercel
-public/sw.js
 .env.production
 .env

@@ -10,9 +10,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lensshare/data": "workspace:*",
-    "@lensshare/lens": "workspace:*",
-    "@lensshare/lib": "workspace:*",
+    "@lensshare/data": "*",
+    "@lensshare/lens": "*",
+    "@lensshare/lib": "*",
     "next": "^14.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -20,8 +20,8 @@
     "schema-dts": "^1.1.2"
   },
   "devDependencies": {
-    "@lensshare/config": "workspace:*",
-    "@lensshare/lens": "workspace:*",
+    "@lensshare/config": "*",
+    "@lensshare/lens": "*",
     "@types/react": "^18.2.34",
     "typescript": "^5.2.2"
   }

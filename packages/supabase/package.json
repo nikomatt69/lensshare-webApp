@@ -12,7 +12,7 @@
     "@supabase/supabase-js": "^2.38.4"
   },
   "devDependencies": {
-    "@lensshare/config": "workspace:*",
+    "@lensshare/config": "*",
     "typescript": "^5.2.2"
   }
 }

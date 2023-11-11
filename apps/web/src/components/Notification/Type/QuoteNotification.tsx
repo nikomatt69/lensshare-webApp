@@ -8,11 +8,11 @@ import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
-
+// million-ignore
 interface QuoteNotificationProps {
   notification: QuoteNotification;
 }
-
+// million-ignore
 const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
   const metadata = notification?.quote.metadata;
   const filteredContent = getPublicationData(metadata)?.content || '';

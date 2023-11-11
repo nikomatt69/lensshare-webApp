@@ -8,11 +8,11 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lensshare/lens": "workspace:*",
-    "@lensshare/supabase": "workspace:*"
+    "@lensshare/lens": "*",
+    "@lensshare/supabase": "*"
   },
   "devDependencies": {
-    "@lensshare/config": "workspace:*",
+    "@lensshare/config": "*",
     "typescript": "^5.2.2"
   }
 }

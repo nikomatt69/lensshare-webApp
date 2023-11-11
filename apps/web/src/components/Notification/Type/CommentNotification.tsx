@@ -1,3 +1,4 @@
+//million-ignore
 import Markup from '@components/Shared/Markup';
 import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import { CommentNotification } from '@lensshare/lens';
@@ -8,11 +9,12 @@ import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
-
+// million-ignore
 interface CommentNotificationProps {
   notification: CommentNotification;
 }
 
+// million-ignore
 const CommentNotification: FC<CommentNotificationProps> = ({
   notification
 }) => {

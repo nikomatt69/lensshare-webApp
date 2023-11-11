@@ -15,8 +15,8 @@ interface ReportBugProps {
 const ReportBug: FC<ReportBugProps> = ({ onClick, className = '' }) => {
   return (
     <Link
-      href={urlcat('https://github.com/heyxyz/hey/issues/new', {
-        assignees: 'bigint',
+      href={urlcat('https://github.com/nikomatt69/LensShare-2.0/issues/new', {
+        assignees: 'nikomatt69',
         labels: 'needs review',
         template: 'bug_report.yml'
       })}

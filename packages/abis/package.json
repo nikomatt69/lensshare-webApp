@@ -9,7 +9,7 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@lensshare/config": "workspace:*",
+    "@lensshare/config": "*",
     "typescript": "^5.2.2"
   }
 }

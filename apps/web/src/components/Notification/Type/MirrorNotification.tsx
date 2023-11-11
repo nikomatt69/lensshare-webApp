@@ -9,11 +9,11 @@ import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
-
+// million-ignore
 interface MirrorNotificationProps {
   notification: MirrorNotification;
 }
-
+// million-ignore
 const MirrorNotification: FC<MirrorNotificationProps> = ({ notification }) => {
   const metadata = notification?.publication.metadata;
   const filteredContent = getPublicationData(metadata)?.content || '';

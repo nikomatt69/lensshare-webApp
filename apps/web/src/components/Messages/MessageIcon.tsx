@@ -7,7 +7,7 @@ import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useMessagePersistStore } from 'src/store/message';
 
 const MessageIcon: FC = () => {

@@ -34,5 +34,6 @@ export const mainnetLensTeamMembers = [
   '0x6b46', // 0xgraham
   '0x8d68', // avadi
   '0x1044', // south
-  '0xd543' // mirran
+  '0xd543', // mirran
+  '0x933b'
 ];

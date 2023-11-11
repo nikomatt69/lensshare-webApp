@@ -17,10 +17,13 @@ import AudioElem from './Audio';
 import { BasicIcons } from './BasicIcons';
 import SwitchDeviceMenu from './SwitchDeviceMenu';
 import VideoElem from './Video';
+import type { AnyPublication } from '@lensshare/lens';
+import { STATIC_ASSETS_URL } from '@lensshare/data/constants';
 
 type HTMLAudioElementWithSetSinkId = HTMLAudioElement & {
   setSinkId: (id: string) => void;
 };
+
 
 const Meet: FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -124,7 +127,7 @@ const Meet: FC = () => {
 
   return (
     <>
-      <div className="my-10 flex h-[80vh] items-center justify-center self-stretch">
+      <div className="my-10 flex h-[66vh] items-center justify-center self-stretch">
         <div className="flex h-full grid-cols-2 items-center justify-center gap-10 rounded-lg">
           <div
             className={cn(
@@ -145,7 +148,7 @@ const Meet: FC = () => {
               />
             ) : (
               <img
-                src="/default-avatar.svg"
+                src={`${STATIC_ASSETS_URL}/images/default-avatar.svg`}
                 alt="avatar"
                 className="mb-16 mt-16  h-32 w-32"
               />
@@ -175,7 +178,7 @@ const Meet: FC = () => {
               ) : (
                 <img
                   key={peerId}
-                  src="/default-avatar.svg"
+                  src={`${STATIC_ASSETS_URL}/images/default-avatar.svg`}
                   alt="avatar"
                   className="mb-16 mt-16 h-32 w-32"
                 />
@@ -195,7 +198,10 @@ const Meet: FC = () => {
           ))}
         </div>
       </div>
+      <div className='text-center pb-3'>Copy And Share Meeting Link</div>
+      <div className='text-center pb-3'>{`${location}`}</div>
       <div className="flex items-center justify-center self-stretch">
+        
         <div className="flex w-full flex-row items-center justify-center gap-8">
           {isCamOff ? (
             <button

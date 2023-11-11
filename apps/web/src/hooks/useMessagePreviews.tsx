@@ -3,7 +3,7 @@ import { DecodedMessage } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useMessageStore } from 'src/store/message';
 
 import useXmtpClient from './useXmtpClient';

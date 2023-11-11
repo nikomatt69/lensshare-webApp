@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { VideoCameraIcon } from '@heroicons/react/24/outline';
+import { STATIC_ASSETS_URL } from '@lensshare/data/constants';
 import Link from 'next/link';
 import router from 'next/router';
 
@@ -12,9 +13,9 @@ const MeetingIcon: FC = () => {
 
   return (
     <div>
-      <div className="mx-3 mt-1 flex">
+      <div className="mx-1 mt-3 flex">
         <img
-          src="/camera-video.svg"
+          src={`${STATIC_ASSETS_URL}/images/camera-video.svg`}
           onClick={async () => {
             const apiCall = await fetch('/api/create-room', {
               mode: 'no-cors',
@@ -40,13 +41,13 @@ const MeetingIcon: FC = () => {
             setMeetingUrl(meetingUrl);
             router.push(`${url}/meet/${roomId}`);
           }}
-          className="mb-2 mr-4  inline h-8 w-8 cursor-pointer"
+          className="text-brand-700 mb-2 mr-4 inline h-8 w-8 cursor-pointer"
         />
       </div>
       <div className="mx-3 mt-2 ">
         {show && (
           <Link href={meetingUrl}>
-            <VideoCameraIcon className="h-6 w-6 text-green-500" />
+            <VideoCameraIcon className="aside h-6 w-6 text-green-500" />
           </Link>
         )}
       </div>

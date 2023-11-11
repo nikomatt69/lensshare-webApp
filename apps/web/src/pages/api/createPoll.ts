@@ -15,7 +15,6 @@ type ExtensionRequest = {
   description: string;
   choices: string[];
   length: number;
-  isMainnet: boolean;
 };
 
 type SnapshotResponse = {
@@ -28,7 +27,6 @@ type SnapshotResponse = {
 };
 
 const requiredKeys: (keyof ExtensionRequest)[] = [
-  'isMainnet',
   'title',
   'description',
   'choices',
@@ -36,21 +34,15 @@ const requiredKeys: (keyof ExtensionRequest)[] = [
 ];
 
 async function createPoll(body: ExtensionRequest) {
-  const { isMainnet, title, description, choices, length } = body;
+  const { title, description, choices, length } = body;
 
-  const sequencerUrl = isMainnet
-    ? MAINNET_SNAPSHOT_SEQUNECER_URL
-    : MAINNET_SNAPSHOT_SEQUNECER_URL;
-  const snapshotUrl = isMainnet ? MAINNET_SNAPSHOT_URL : MAINNET_SNAPSHOT_URL;
-  const relayerAddress = isMainnet
-    ? MAINNET_PROPOSAL_CREATOR_ADDRESS
-    : MAINNET_PROPOSAL_CREATOR_ADDRESS;
-  const relayerPrivateKey = isMainnet
-    ? process.env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY || ''
-    : process.env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY || '';
+  const sequencerUrl = MAINNET_SNAPSHOT_SEQUNECER_URL;
+  const snapshotUrl = MAINNET_SNAPSHOT_URL;
+  const relayerAddress = MAINNET_PROPOSAL_CREATOR_ADDRESS;
+  const relayerPrivateKey = process.env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY || '';
 
-  const client = walletClient(relayerPrivateKey, isMainnet);
-  const block = await publicClient(isMainnet).getBlockNumber();
+  const client = walletClient(relayerPrivateKey);
+  const block = await publicClient().getBlockNumber();
   const blockNumber = Number(block) - 10;
 
   const typedData = {

@@ -10,11 +10,11 @@ import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
-
+// million-ignore
 interface ActedNotificationProps {
   notification: ActedNotification;
 }
-
+// million-ignore
 const ActedNotification: FC<ActedNotificationProps> = ({ notification }) => {
   const publication = notification?.publication;
   const targetPublication = isMirrorPublication(publication)

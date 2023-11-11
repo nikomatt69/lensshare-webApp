@@ -2,6 +2,33 @@ import { ServiceWorkerCache } from './cache';
 
 declare let self: ServiceWorkerGlobalScope;
 
+const impressionsEndpoint = 'https://impressions.hey.xyz/ingest';
+const publicationsVisibilityInterval = 5000;
+let viewerId: string | null = null;
+let visiblePublicationsSet = new Set();
+
+const sendVisiblePublicationsToServer = () => {
+  const publicationsToSend = Array.from(visiblePublicationsSet);
+
+  if (publicationsToSend.length > 0 && viewerId) {
+    visiblePublicationsSet.clear();
+    fetch(impressionsEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        viewer_id: viewerId,
+        ids: publicationsToSend
+      }),
+      keepalive: true
+    })
+      .then(() => {})
+      .catch(() => {});
+  }
+};
+
+setInterval(sendVisiblePublicationsToServer, publicationsVisibilityInterval);
+
+
 const preCachedAssets = (process.env.STATIC_ASSETS ?? []) as string[];
 const CACHEABLE_PATHS = ['/', '/contact', '/explore'];
 const CACHEABLE_DOMAINS = [
@@ -35,6 +62,13 @@ const handleFetch = (event: FetchEvent): void => {
   }
   return;
 };
+self.addEventListener('message', (event) => {
+  // Impression tracking
+  if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
+    visiblePublicationsSet.add(event.data.id);
+    viewerId = event.data.viewerId;
+  }
+});
 
 self.addEventListener('fetch', handleFetch);
 self.addEventListener('install', (event) => event.waitUntil(handleInstall()));

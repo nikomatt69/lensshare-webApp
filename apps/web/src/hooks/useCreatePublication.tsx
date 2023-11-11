@@ -1,4 +1,5 @@
-import { useApolloClient } from '../../../../packages/lens/node_modules/@apollo/client';
+/* eslint-disable @typescript-eslint/consistent-type-imports */
+import { useApolloClient } from '@apollo/client';
 import { LensHub } from '@lensshare/abis';
 import { LENSHUB_PROXY } from '@lensshare/data/constants';
 import type {
@@ -54,17 +55,9 @@ const useCreatePublication = ({
   const { push } = useRouter();
   const { cache } = useApolloClient();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const lensHubOnchainSigNonce = useNonceStore(
-    (state) => state.lensHubOnchainSigNonce
-  );
-  const setLensHubOnchainSigNonce = useNonceStore(
-    (state) => state.setLensHubOnchainSigNonce
-  );
-  const publicationContent = usePublicationStore(
-    (state) => state.publicationContent
-  );
-  const txnQueue = useTransactionPersistStore((state) => state.txnQueue);
-  const setTxnQueue = useTransactionPersistStore((state) => state.setTxnQueue);
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore();
+  const { publicationContent } = usePublicationStore();
+  const { txnQueue, setTxnQueue } = useTransactionPersistStore();
   const { canBroadcast } = checkDispatcherPermissions(currentProfile);
 
   const isComment = Boolean(commentOn);

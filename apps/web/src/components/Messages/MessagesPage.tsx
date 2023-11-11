@@ -3,7 +3,7 @@
 import { Toaster } from 'react-hot-toast';
 
 import type { FC } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useAccount, useDisconnect } from 'wagmi';
 import { useCurrentProfileQuery } from '@lensshare/lens';
 import type { Profile, AnyPublication } from '@lensshare/lens';
@@ -16,6 +16,7 @@ import { useEffectOnce, useIsMounted } from 'usehooks-ts';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import { useTheme } from 'next-themes';
+
 
 interface Props {
   publication: AnyPublication;
@@ -68,7 +69,7 @@ const MessagePage: FC<Props> = ({ publication }) => {
     validateAuthentication();
   });
 
-  if (loading || loadingPreferences || !isMounted()) {
+  if (loading || !isMounted()) {
     return <Loading />;
   }
   return (

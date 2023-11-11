@@ -28,23 +28,21 @@ const Explore: NextPage = () => {
   const isLensMember = usePreferencesStore((state) => state.isLensMember);
   const [focus, setFocus] = useState<PublicationMetadataMainFocusType>();
 
- 
-
   const tabs = [
     {
-      icon: <SparklesIcon />,
+      icon: <SparklesIcon className="h-6 w-6 text-blue-700" />,
       type: ExplorePublicationsOrderByType.LensCurated
     },
     {
-      icon: <LightBulbIcon />,
+      icon: <LightBulbIcon className="h-6 w-6 text-blue-700" />,
       type: ExplorePublicationsOrderByType.TopCommented
     },
     {
-      icon: <ExploreOutline />,
+      icon: <ExploreOutline className="h-6 w-6 text-blue-700" />,
       type: ExplorePublicationsOrderByType.TopCollectedOpenAction
     },
     {
-      icon: <MirrorOutline />,
+      icon: <MirrorOutline className="h-6 w-6 text-blue-700" />,
       type: ExplorePublicationsOrderByType.TopMirrored
     }
   ];

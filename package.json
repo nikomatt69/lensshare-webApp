@@ -3,6 +3,10 @@
   "version": "2.0.0-beta",
   "private": true,
   "license": "AGPL-3.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build --parallel",
     "codegen": "turbo run codegen --parallel",
@@ -28,32 +32,37 @@
     "husky": "^8.0.3",
     "prettier": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.6",
-    "start-server-and-test": "^2.0.1",
+    "start-server-and-test": "^2.0.2",
     "turbo": "^1.10.16"
   },
-  "packageManager": "pnpm@8.6.11",
+  "packageManager": "yarn@1.22.19",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=16.18.1"
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
     "@growthbook/growthbook": "^0.30.0",
     "@huddle01/react": "^0.0.17",
     "@vercel/analytics": "^1.1.1",
+    "@web3modal/wagmi": "^3.2.1",
+    "@xmtp/react-sdk": "^3.0.0",
     "@xmtp/xmtp-js": "^11.2.1",
     "dayjs": "^1.11.10",
     "dexie": "^3.2.4",
     "dexie-react-hooks": "^1.1.7",
     "dotenv": "^16.3.1",
     "esbuild": "^0.19.5",
+    "graphql": "^16.8.1",
     "hooks": "link:@huddle01/react/hooks",
     "idb-keyval": "^6.2.1",
     "itty-router": "^4.0.23",
+    "million": "^2.6.4",
     "next": "^14.0.1",
     "next-pwa": "^5.6.0",
-    "react": "link:@vercel/analytics/react",
+    "react": "^18.2.0",
     "react-hot-toast": "^2.4.1",
     "tlds": "^1.245.0",
+    "typescript": "^5.2.2",
     "uuid": "^9.0.1",
     "xmtp-content-type-remote-attachment": "^1.0.7"
   }

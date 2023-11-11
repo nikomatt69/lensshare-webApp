@@ -1,3 +1,3 @@
-import MessagePage from '@components/Messages';
+import MessagesPage from '@components/Messages/MessagesPage';
 
-export default MessagePage;
+export default MessagesPage;

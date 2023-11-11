@@ -1,18 +1,14 @@
 {
   "extends": "@lensshare/config/react.tsconfig.json",
   "compilerOptions": {
+    "target":"es2015",
     "lib": [
       "DOM",
       "DOM.Iterable",
       "ESNext",
       "webworker"
     ],
-    "skipLibCheck": true,
-    "strict": true,
-    "strictNullChecks": true,
- 
-    "resolveJsonModule": true,
-  
+    
     "baseUrl": ".",
     "plugins": [{ "name": "next" }],
     "paths": {
@@ -22,20 +18,8 @@
       "@generated*": ["src/generated*"],
       "@sw/*": ["src/sw/*"]
     },
-    "allowJs": true,
-    "composite": false,
-    "declaration": true,
-    "declarationMap": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "preserveWatchOutput": true
+    
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+
 }

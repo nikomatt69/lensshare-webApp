@@ -9,15 +9,15 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lensshare/data": "workspace:*",
-    "@lensshare/lens": "workspace:*",
-    "@lensshare/types": "workspace:*",
+    "@lensshare/data": "*",
+    "@lensshare/lens": "*",
+    "@lensshare/types": "*",
     "axios": "^1.6.0",
     "urlcat": "^3.1.0",
     "viem": "^1.18.3"
   },
   "devDependencies": {
-    "@lensshare/config": "workspace:*",
+    "@lensshare/config": "*",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5"
   }

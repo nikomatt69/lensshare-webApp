@@ -89,7 +89,10 @@ const VoteProposal: FC<VoteProposalProps> = ({
 
       refetch?.();
       setVoteConfig({ show: false, position: 0 });
-      
+      Leafwatch.track(PUBLICATION.WIDGET.SNAPSHOT.VOTE, {
+        proposal_id: id,
+        proposal_source: 'snapshot'
+      });
     } catch {
       toast.error(Errors.SomethingWentWrong);
     } finally {

@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Custom404 from 'src/pages/404';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useMessageStore } from 'src/store/message';
 
 import Composer from './Composer';
@@ -38,7 +38,7 @@ interface MessageProps {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { profile } = useGetProfile(currentProfile?.id, conversationKey);
+  const { profile } = useGetProfile(currentProfile?.id.ownedBy, conversationKey);
   const queuedMessages = useMessageStore((state) =>
     state.queuedMessages.get(conversationKey)
   );
@@ -132,7 +132,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  if (!currentProfile) {
+  if (!currentProfile?.id) {
     return <Custom404 />;
   }
 

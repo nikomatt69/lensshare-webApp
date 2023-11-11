@@ -11,7 +11,7 @@
     "viem": "^1.18.3"
   },
   "devDependencies": {
-    "@lensshare/config": "workspace:*",
+    "@lensshare/config": "*",
     "typescript": "^5.2.2"
   }
 }

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
-import { Profile } from '@lensshare/lens';
+import type { Profile } from '@lensshare/lens';
 import type { Table } from 'dexie';
 import Dexie from 'dexie';
 

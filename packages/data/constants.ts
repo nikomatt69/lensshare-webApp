@@ -1,14 +1,14 @@
 import packageJson from '../../package.json';
 import getEnvConfig from './utils/getEnvConfig';
 
-export const IS_MAINNET = process.env.NEXT_PUBLIC_NETWORK === 'mainnet';
+export const IS_MAINNET = process.env.NEXT_PUBLIC_LENS_NETWORK === 'mainnet';
 
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'lens/';
 export const LENSSHARE_API_URL = 'https://api.lenshareapp.xyz';
 
 export const APP_ID = 'lensshare';
 export const APP_NAME = 'LensShare';
-export const APP_VERSION = packageJson.version;
+export const APP_VERSION = '0.0.1';
 export const LENSTOK_URL = process.env.NEXT_PUBLIC_LENSTOK_URL;
 export const DESCRIPTION = 'Decentralized Social Video & Message Platform';
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
@@ -35,15 +35,15 @@ export const LENSSHARE_TAIL_INGEST_URL = 'https://tail.lenshareapp.xyz';
 export const HEY_POLLS_SPACE = 'nikoemme.eth';
 export const SNAPSHOT_HUB_URL = IS_MAINNET
   ? 'https://hub.snapshot.org'
-  : 'https://testnet.snapshot.org';
+  : 'https://hub.snapshot.org';
 export const MAINNET_SNAPSHOT_SEQUNECER_URL = 'https://seq.snapshot.org';
 export const TESTNET_SNAPSHOT_SEQUNECER_URL =
-  'https://testnet.seq.snapshot.org';
+'https://seq.snapshot.org';
 export const SNAPSHOT_SEQUNECER_URL = IS_MAINNET
   ? MAINNET_SNAPSHOT_SEQUNECER_URL
   : TESTNET_SNAPSHOT_SEQUNECER_URL;
 export const MAINNET_SNAPSHOT_URL = 'https://snapshot.org';
-export const TESTNET_SNAPSHOT_URL = 'https://demo.snapshot.org';
+export const TESTNET_SNAPSHOT_URL = 'https://snapshot.org';
 export const SNAPSHOT_URL = IS_MAINNET
   ? MAINNET_SNAPSHOT_URL
   : TESTNET_SNAPSHOT_URL;
@@ -80,8 +80,8 @@ export const METADATA_WORKER_URL = IS_MAINNET
   ? 'https://metadata.lenshareapp.xyz'
   : 'https://metadata.lenshareapp.xyz';
 export const FRESHDESK_WORKER_URL = IS_MAINNET
-  ? 'https://freshdesk.lenster.xyz'
-  : 'http://localhost:8084';
+  ? 'https://freshdesk.hey.xyz'
+  : 'https://freshdesk.hey.xyz';
 export const SNAPSHOR_RELAY_WORKER_URL = IS_MAINNET
   ? 'https://snapshot-relay.lenshareapp.xyz'
   : 'https://snapshot-relay.lenshareapp.xyz';
@@ -96,19 +96,19 @@ export const SPACES_WORKER_URL = IS_MAINNET
   : 'https://spaces.lenshareapp.xyz';
 export const LEAFWATCH_WORKER_URL = IS_MAINNET
   ? 'https://leafwatch.hey.xyz'
-  : 'http://localhost:8089';
+  : 'https://leafwatch.hey.xyz';
 export const ENS_WORKER_URL = IS_MAINNET
   ? 'https://ens.lenshareapp.xyz'
-  : 'http://localhost:8086';
+  : 'https://ens.lenshareapp.xyz';
 export const NFT_WORKER_URL = IS_MAINNET
   ? 'https://nft.lenshareapp.xyz'
   : 'https://nft.lenshareapp.xyz';
 export const PREFERENCES_WORKER_URL = IS_MAINNET
   ? 'https://preferences.hey.xyz'
-  : 'http://localhost:8091';
+  : 'https://preferences.hey.xyz';
 export const GROUPS_WORKER_URL = IS_MAINNET
   ? 'https://groups.lenshareapp.xyz'
-  : 'http://localhost:8092';
+  : 'https://groups.hey.xyz';
 export const CHANNELS_WORKER_URL = IS_MAINNET
   ? 'https://channels.lenster.xyz'
   : 'http://localhost:8093';
@@ -119,13 +119,13 @@ export const LIVE_WORKER_URL = IS_MAINNET
   ? 'https://live.lenshareapp.xyz'
   : 'https://live.lenshareapp.xyz';
 export const STAFF_PICKS_WORKER_URL = IS_MAINNET
-  ? 'https://staff-picks.lenshareapp.xyz'
-  : 'http://localhost:8094';
+  ? 'https://staff-picks.hey.xyz'
+  : 'https://staff-picks.hey.xyz';
 
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenshareapp.xyz';
 export const FEEDS_WORKER_URL = IS_MAINNET
-  ? 'https://feeds.lenshareapp.xyz'
-  : 'http://localhost:8090';
+  ? 'https://feeds.hey.xyz'
+  : 'https://feeds.hey.xyz';
 export const S3_BUCKET = {
   LENSSHARE: 'lensshare'
 };
@@ -154,7 +154,7 @@ export const OPENSEA_KEY = '3dc11eabc74e425abb39ee2ba16f3ae7';
 
 export const SCROLL_ROOT_MARGIN = '40% 0px';
 
-export const XMTP_ENV = IS_MAINNET ? 'production' : 'dev';
+export const XMTP_ENV = IS_MAINNET ? 'production' : 'production';
 export const XMTP_PREFIX = 'lens.dev/dm';
 
 export const CHAIN_ID = IS_MAINNET ? 137 : 137;
@@ -283,11 +283,11 @@ export const MAINNET_DEFAULT_TOKEN =
 
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
-  : 'https://mumbai.polygonscan.com';
+  : 'https://polygonscan.com';
 
 export const LIVE_API_KEY = process.env.NEXT_PUBLIC_LIVE_STUDIO_API_KEY;
 
-export const LIT_PROTOCOL_ENV = IS_MAINNET ? 'polygon' : 'mumbai';
+export const LIT_PROTOCOL_ENV = IS_MAINNET ? 'polygon' : 'polygon';
 
 export const GIPHY_TOKEN = 'mztAE0vdQdlfCYsM11E6UaPjUmjpYDHV';
 
@@ -303,7 +303,7 @@ export const LENSTER_URL = 'https://lenster.xyz';
 export const WALLETCONNECT_PROJECT_ID = '8974231b47453a6cae531515ed1787c7';
 
 export const LENSPROTOCOL_HANDLE = 'lensprotocol';
-export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test';
+export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.lens';
 export const PLACEHOLDER_IMAGE = `${STATIC_ASSETS_URL}/images/placeholder.webp`;
 // Regex
 export const URL_REGEX =

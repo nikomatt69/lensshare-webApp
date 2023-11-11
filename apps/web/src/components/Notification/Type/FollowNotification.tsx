@@ -8,11 +8,11 @@ import { useAppStore } from 'src/store/useAppStore';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
-
+// million-ignore
 interface FollowNotificationProps {
   notification: FollowNotification;
 }
-
+// million-ignore
 const FollowNotification: FC<FollowNotificationProps> = ({ notification }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const followers = notification?.followers;
