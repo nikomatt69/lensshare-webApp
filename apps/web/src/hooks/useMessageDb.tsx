@@ -17,8 +17,8 @@ const decodedMessageToPreview = (
   messageBytes: decoded.toBytes()
 });
 
-const assertProfileId = (profileId: string | undefined) => {
-  if (!profileId) {
+const assertProfileId = (profile: string | undefined) => {
+  if (!profile) {
     throw new Error('No profile id');
   }
 };
@@ -103,7 +103,7 @@ export const useMessageDb = () => {
       .sortBy('name');
 
     return new Map(profiles.map((p) => [p.conversationKey, p]));
-  }, [currentProfile?.id]);
+  }, [currentProfile]);
 
   return {
     persistPreviewMessage,

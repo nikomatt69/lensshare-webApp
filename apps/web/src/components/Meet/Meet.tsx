@@ -17,16 +17,18 @@ import AudioElem from './Audio';
 import { BasicIcons } from './BasicIcons';
 import SwitchDeviceMenu from './SwitchDeviceMenu';
 import VideoElem from './Video';
-import type { AnyPublication } from '@lensshare/lens';
 import { STATIC_ASSETS_URL } from '@lensshare/data/constants';
+import NewPost from '@components/Composer/Post/New';
+import { useAppStore } from 'src/store/useAppStore';
+import Share from './Share';
 
 type HTMLAudioElementWithSetSinkId = HTMLAudioElement & {
   setSinkId: (id: string) => void;
 };
 
-
 const Meet: FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const currentProfile = useAppStore((state) => state.currentProfile);
   const { leaveRoom } = useRoom();
   const {
     produceAudio,
@@ -170,7 +172,7 @@ const Meet: FC = () => {
               key={peerId}
               className={cn(
                 resolvedTheme == 'dark' ? 'bg-gray-900' : 'bg-brand-100',
-                'relative flex h-[50vh] w-[40vw] flex-shrink-0 items-center justify-center rounded-lg'
+                'relative flex h-[42vh] w-[40vw] flex-shrink-0 items-center justify-center rounded-lg'
               )}
             >
               {cam ? (
@@ -198,10 +200,11 @@ const Meet: FC = () => {
           ))}
         </div>
       </div>
-      <div className='text-center pb-3'>Copy And Share Meeting Link</div>
-      <div className='text-center pb-3'>{`${location}`}</div>
+      <div className="pb-3 text-center">{currentProfile && <NewPost />}</div>
+      <div className="pb-3 justify-center text-center">
+        <Share />
+      </div>
       <div className="flex items-center justify-center self-stretch">
-        
         <div className="flex w-full flex-row items-center justify-center gap-8">
           {isCamOff ? (
             <button

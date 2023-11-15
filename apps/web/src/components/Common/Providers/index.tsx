@@ -10,7 +10,7 @@ import {
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from 'next-themes';
 import type { ReactNode } from 'react';
-import { Client } from "@xmtp/xmtp-js";
+import { Client } from '@xmtp/xmtp-js';
 import ErrorBoundary from '../ErrorBoundary';
 import Layout from '../Layout';
 import FeaturedGroupsProvider from './FeaturedGroupsProvider';
@@ -41,20 +41,21 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
       <Web3Provider>
-      
-        <ApolloProvider client={lensApolloClient}>
-          <LensSubscriptionsProvider />
-          <QueryClientProvider client={queryClient}>
-            <PreferencesProvider />
-            <FeaturedGroupsProvider />
-            <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
-              <ThemeProvider defaultTheme="light" attribute="class">
-                <Layout>{children}</Layout>
-              </ThemeProvider>
-              <Analytics />
-            </LivepeerConfig>
-          </QueryClientProvider>
-        </ApolloProvider>
+        <XMTPProvider>
+          <ApolloProvider client={lensApolloClient}>
+            <LensSubscriptionsProvider />
+            <QueryClientProvider client={queryClient}>
+              <PreferencesProvider />
+              <FeaturedGroupsProvider />
+              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
+                <ThemeProvider defaultTheme="light" attribute="class">
+                  <Layout>{children}</Layout>
+                </ThemeProvider>
+                <Analytics />
+              </LivepeerConfig>
+            </QueryClientProvider>
+          </ApolloProvider>
+        </XMTPProvider>
       </Web3Provider>
     </ErrorBoundary>
   );

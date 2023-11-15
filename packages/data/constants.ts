@@ -154,7 +154,6 @@ export const SCROLL_ROOT_MARGIN = '40% 0px';
 
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'production';
 export const XMTP_PREFIX = 'lens.dev/dm';
-
 export const CHAIN_ID = IS_MAINNET ? 137 : 137;
 
 export const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_ID;

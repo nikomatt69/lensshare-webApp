@@ -1,7 +1,7 @@
 import {
   AtSymbolIcon,
   BellIcon,
-  ChatBubbleLeftRightIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
   HeartIcon,
   RectangleStackIcon
 } from '@heroicons/react/24/outline';
@@ -41,7 +41,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         />
         <TabButton
           name="Comments"
-          icon={<ChatBubbleLeftRightIcon className="h-4 w-4" />}
+          icon={<ChatBubbleOvalLeftEllipsisIcon className="h-4 w-4" />}
           active={feedType === NotificationTabType.Comments}
           type={NotificationTabType.Comments.toLowerCase()}
           onClick={() => switchTab(NotificationTabType.Comments)}

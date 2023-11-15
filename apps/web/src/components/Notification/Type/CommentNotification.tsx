@@ -1,6 +1,6 @@
 //million-ignore
 import Markup from '@components/Shared/Markup';
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/outline';
 import { CommentNotification } from '@lensshare/lens';
 import getPublicationData from '@lensshare/lib/getPublicationData';
 import Link from 'next/link';
@@ -29,7 +29,7 @@ const CommentNotification: FC<CommentNotificationProps> = ({
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        <ChatBubbleLeftRightIcon className="text-brand-500/70 h-6 w-6" />
+        <ChatBubbleOvalLeftEllipsisIcon className="text-brand-500/70 h-6 w-6" />
         <div className="flex items-center space-x-1">
           <NotificationProfileAvatar profile={firstProfile} />
         </div>

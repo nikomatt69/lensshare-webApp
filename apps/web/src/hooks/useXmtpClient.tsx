@@ -7,6 +7,9 @@ import { useMessageStore } from 'src/store/message';
 import useEthersWalletClient from './useEthersWalletClient';
 import { APP_NAME, APP_VERSION, XMTP_ENV } from '@lensshare/data/constants';
 
+import { privateKeyToAccount } from 'viem/accounts';
+import { useWalletClient } from 'wagmi';
+
 const ENCODING = 'binary';
 
 const buildLocalStorageKey = (walletAddress: string) =>
@@ -41,32 +44,32 @@ const useXmtpClient = (cacheOnly = false) => {
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
   const [awaitingXmtpAuth, setAwaitingXmtpAuth] = useState<boolean>();
-  const { data: signer, isLoading } = useEthersWalletClient();
+  
+  const { data: walletClient } = useWalletClient();
 
   useEffect(() => {
     const initXmtpClient = async () => {
-      if (signer && !client && currentProfile) {
-        let keys = loadKeys(await signer.getAddress());
+      if (walletClient && !client && currentProfile) {
+        let keys = loadKeys(await walletClient.account.address);
         if (!keys) {
           if (cacheOnly) {
             return;
           }
           setAwaitingXmtpAuth(true);
-          keys = await Client.getKeys(signer, {
+          keys = await Client.getKeys(walletClient, {
             env: XMTP_ENV,
             appVersion: APP_NAME + '/' + APP_VERSION,
             persistConversations: false,
             skipContactPublishing: true
           });
-          storeKeys(await signer.getAddress(), keys);
+          storeKeys(await walletClient.account.address, keys);
         }
 
         const xmtp = await Client.create(null, {
           env: XMTP_ENV,
           appVersion: APP_NAME + '/' + APP_VERSION,
           privateKeyOverride: keys,
-          persistConversations: true,
-          codecs: []
+          persistConversations: true
         });
 
         setClient(xmtp);
@@ -76,7 +79,7 @@ const useXmtpClient = (cacheOnly = false) => {
       }
     };
     initXmtpClient();
-    if (!signer || !currentProfile) {
+    if (!walletClient || !currentProfile) {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setClient(undefined);
     }
@@ -85,27 +88,26 @@ const useXmtpClient = (cacheOnly = false) => {
 
   return {
     client: client,
-    loading: isLoading || awaitingXmtpAuth
+    loading: awaitingXmtpAuth
   };
 };
 
 export const useDisconnectXmtp = () => {
-  const { data: signer } = useEthersWalletClient();
+  const { data: walletClient } = useWalletClient();
   const client = useMessageStore((state) => state.client);
   const setClient = useMessageStore((state) => state.setClient);
+
   const disconnect = useCallback(async () => {
-    if (signer) {
-      wipeKeys(await signer.getAddress());
+    if (walletClient) {
+      wipeKeys(await walletClient.account.address);
     }
     if (client) {
       // eslint-disable-next-line unicorn/no-useless-undefined
       setClient(undefined);
     }
     localStorage.removeItem(Localstorage.MessageStore);
-    localStorage.removeItem(Localstorage.AttachmentCache);
-    localStorage.removeItem(Localstorage.AttachmentStore);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signer, client]);
+  }, [walletClient, client]);
 
   return disconnect;
 };

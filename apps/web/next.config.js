@@ -1,6 +1,7 @@
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }];
 
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   eslint: {
     // Warning: This allows production builds to successfully complete even if
@@ -47,7 +48,7 @@ const nextConfig = {
         headers: [
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },
-          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Referrer-Policy', value: 'strict-origin' },
           {
             key: 'Cross-Origin-Opener-Policy',
             value: 'same-origin-allow-popups'

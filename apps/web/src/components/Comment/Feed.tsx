@@ -1,7 +1,7 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/outline';
 import type {
   AnyPublication,
   Comment,

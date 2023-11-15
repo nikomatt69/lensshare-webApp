@@ -5,7 +5,7 @@ import EmojiPicker from '@components/Shared/EmojiPicker';
 import withLexicalContext from '@components/Shared/Lexical/withLexicalContext';
 import NewAttachments from '@components/Shared/NewAttachments';
 import {
-  ChatBubbleLeftRightIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
   PencilSquareIcon
 } from '@heroicons/react/24/outline';
 import { Errors } from '@lensshare/data/errors';
@@ -577,7 +577,7 @@ const NewPublication: FC<NewPublicationProps> = ({ publication }) => {
               isLoading ? (
                 <Spinner size="xs" />
               ) : isComment ? (
-                <ChatBubbleLeftRightIcon className="h-4 w-4" />
+                <ChatBubbleOvalLeftEllipsisIcon className="h-4 w-4" />
               ) : (
                 <PencilSquareIcon className="h-4 w-4" />
               )

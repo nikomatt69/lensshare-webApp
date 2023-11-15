@@ -1,6 +1,6 @@
 import {
   ArrowsRightLeftIcon,
-  ChatBubbleLeftRightIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
   CheckCircleIcon,
   HeartIcon,
   PencilSquareIcon,
@@ -48,7 +48,7 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
       case PUBLICATION.NEW_POST:
         return <PencilSquareIcon className="text-brand h-5 w-5" />;
       case PUBLICATION.NEW_COMMENT:
-        return <ChatBubbleLeftRightIcon className="text-brand h-5 w-5" />;
+        return <ChatBubbleOvalLeftEllipsisIcon className="text-brand h-5 w-5" />;
       case PUBLICATION.MIRROR:
         return <ArrowsRightLeftIcon className="h-5 w-5 text-green-500" />;
       case PUBLICATION.COLLECT_MODULE.COLLECT:

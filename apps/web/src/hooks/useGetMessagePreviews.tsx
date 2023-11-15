@@ -93,14 +93,14 @@ const useGetMessagePreviews = () => {
 
     getMessagePreviews();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [client, conversations, currentProfile?.id]);
+  }, [client, conversations, currentProfile]);
 
   useEffect(
     () => {
       setHasSyncedMessages(false);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-    currentProfile?.id.ownedBy
+   currentProfile?.id
   );
 
   return {

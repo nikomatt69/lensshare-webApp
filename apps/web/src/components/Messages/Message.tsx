@@ -28,7 +28,6 @@ import { useGetProfile } from 'src/hooks/useMessageDb';
 import useGetMessages from 'src/hooks/useGetMessages';
 import { APP_NAME } from '@lensshare/data/constants';
 import MetaTags from '@components/Common/MetaTags';
-import Navbar from '@components/Shared/Navbar';
 import Loader from '@components/Shared/Loader';
 import { parseConversationKey } from 'src/hooks/conversationKey';
 
@@ -38,7 +37,7 @@ interface MessageProps {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { profile } = useGetProfile(currentProfile?.id.ownedBy, conversationKey);
+  const { profile } = useGetProfile(currentProfile?.id, conversationKey);
   const queuedMessages = useMessageStore((state) =>
     state.queuedMessages.get(conversationKey)
   );
@@ -132,14 +131,14 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     }
   }, [conversationKey, hasMore, messages, endTime]);
 
-  if (!currentProfile?.id) {
+  if (!currentProfile) {
     return <Custom404 />;
   }
 
-  const showLoading = !missingXmtpAuth && !currentProfile;
+  const showLoading = !missingXmtpAuth && !currentProfile.id;
 
   const userNameForTitle =
-    sanitizeDisplayName(profile?.id.name) ?? profile?.id.handle;
+    sanitizeDisplayName(profile?.handle?.localName) ?? profile?.handle;
 
   const title = userNameForTitle
     ? `${userNameForTitle} • ${APP_NAME}`
@@ -153,7 +152,6 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
         selectedConversationKey={conversationKey}
       />
       <GridItemEight className="xs:mx-2  mb-5 sm:mx-2 md:col-span-8">
-        <Navbar />
         <Card className="flex h-[87vh] flex-col justify-between">
           {showLoading ? (
             <div className="flex   items-center justify-center">
@@ -162,13 +160,13 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
           ) : (
             <>
               <MessageHeader
-                profile={profile}
+                profile={profile?.id.ownedBy}
                 conversationKey={conversationKey}
               />
               <MessagesList
                 conversationKey={conversationKey}
-                currentProfile={currentProfile}
-                profile={profile}
+                currentProfile={currentProfile?.id.ownedBy}
+                profile={profile?.id.ownedBy}
                 fetchNextMessages={fetchNextMessages}
                 messages={allMessages}
                 hasMore={hasMore}

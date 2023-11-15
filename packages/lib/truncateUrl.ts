@@ -6,7 +6,7 @@
  * @returns truncated url
  */
 const truncateUrl = (url: string, maxLength: number): string => {
-  let strippedUrl = url.replace(/^(http|https):\/\//, '').replace(/^www\./, '');
+  let strippedUrl = url.replace(/^(http):\/\//, '').replace(/^www\./, '');
   if (new URL(url).hostname.endsWith('lenshareapp.xyz')) {
     return strippedUrl;
   }

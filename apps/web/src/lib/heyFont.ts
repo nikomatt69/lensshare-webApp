@@ -8,12 +8,12 @@ const heyFont = localFont({
       style: 'normal'
     },
     {
-      path: '../../public/fonts/SofiaProSoftMed-webfont.woff2',
+      path: '../../public/fonts/helvetica-rounded-bold-5871d05ead8de.ttf',
       weight: '500',
       style: 'medium'
     },
     {
-      path: '../../public/fonts/Helvetica-Bold.ttf',
+      path: '../../public/fonts/helvetica-rounded-bold-5871d05ead8de.ttf',
       weight: '700',
       style: 'bold'
     }

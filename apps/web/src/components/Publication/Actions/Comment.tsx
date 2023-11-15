@@ -1,4 +1,4 @@
-import { ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/outline';
 import type { AnyPublication } from '@lensshare/lens';
 import humanize from '@lensshare/lib/humanize';
 import nFormatter from '@lensshare/lib/nFormatter';
@@ -32,7 +32,7 @@ const Comment: FC<CommentProps> = ({ publication, showCount }) => {
               content={count > 0 ? `${humanize(count)} Comments` : 'Comment'}
               withDelay
             >
-              <ChatBubbleLeftRightIcon className={iconClassName} />
+              <ChatBubbleOvalLeftEllipsisIcon className={iconClassName} />
             </Tooltip>
           </div>
         </Link>

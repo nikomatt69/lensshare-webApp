@@ -94,8 +94,6 @@ const Home: NextPage = () => {
             </>
           )}
           {/* Recommendations */}
-          {loggedIn && <StaffPicks />}
-          {loggedIn && <RecommendedProfiles />}
           <Footer />
         </GridItemFour>
       </GridLayout>

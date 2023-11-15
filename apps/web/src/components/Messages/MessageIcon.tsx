@@ -78,10 +78,10 @@ const MessageIcon: FC = () => {
       // No messages have been sent or received by the user, ever
       const sentAt = fromNanoString(mostRecentTimestamp ?? undefined);
       const showBadge = shouldShowBadge(
-        viewedMessagesAtNs.get(currentProfile.id),
+        viewedMessagesAtNs.get(currentProfile.id.handle),
         sentAt
       );
-      showMessagesBadge.set(currentProfile.id, showBadge);
+      showMessagesBadge.set(currentProfile.id.handle, showBadge);
       setShowMessagesBadge(new Map(showMessagesBadge));
     };
 
@@ -97,7 +97,7 @@ const MessageIcon: FC = () => {
     const newMessageValidator = (profileId: string): boolean => {
       return (
         !window.location.pathname.startsWith('/messages') &&
-        currentProfile.id === profileId
+        currentProfile.id.handle === profileId
       );
     };
 
@@ -107,14 +107,14 @@ const MessageIcon: FC = () => {
       messageStream = await cachedClient.conversations.streamAllMessages();
 
       for await (const message of messageStream) {
-        if (messageValidator(currentProfile.id)) {
-          const isFromPeer = currentProfile.id !== message.senderAddress;
+        if (messageValidator(currentProfile.id.handle)) {
+          const isFromPeer = currentProfile.id.handle !== message.senderAddress;
           if (isFromPeer) {
             const showBadge = shouldShowBadge(
-              viewedMessagesAtNs.get(currentProfile.id),
+              viewedMessagesAtNs.get(currentProfile.id.handle),
               message.sent
             );
-            showMessagesBadge.set(currentProfile.id, showBadge);
+            showMessagesBadge.set(currentProfile.id.handle, showBadge);
             setShowMessagesBadge(new Map(showMessagesBadge));
           }
         }
@@ -129,18 +129,18 @@ const MessageIcon: FC = () => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cachedClient, currentProfile?.id]);
+  }, [cachedClient, currentProfile?.id.handle]);
 
   return (
     <Link
       href="/messages"
       className=" min-w-[40px] items-start justify-center rounded-md md:flex"
       onClick={() => {
-        currentProfile && clearMessagesBadge(currentProfile.id);
+        currentProfile && clearMessagesBadge(currentProfile.id.handle);
       }}
     >
       <ChatBubbleOvalLeftIcon className="h-6 w-6 pb-1 text-blue-500  " />
-      {showMessagesBadge.get(currentProfile?.id) ? (
+      {showMessagesBadge.get(currentProfile?.id.handle) ? (
         <span className="z-[6] h-2 w-2 rounded-full bg-red-500 text-red-500" />
       ) : null}
     </Link>

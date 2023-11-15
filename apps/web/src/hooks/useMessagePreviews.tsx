@@ -78,7 +78,7 @@ const useMessagePreviews = () => {
 
       return parsed.members.find((member) => member !== userProfileId) ?? null;
     },
-    [currentProfile?.id]
+    [currentProfile]
   );
 
   useEffect(() => {
@@ -227,7 +227,7 @@ const useMessagePreviews = () => {
     listConversations();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [client, currentProfile?.id, selectedProfileId]);
+  }, [client, currentProfile, selectedProfileId]);
 
   const onMessage = useCallback(
     (message: DecodedMessage) => {

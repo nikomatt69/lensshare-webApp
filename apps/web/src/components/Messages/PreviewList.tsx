@@ -28,6 +28,7 @@ import buildConversationId from 'src/hooks/buildConversationId';
 import { Errors } from '@lensshare/data/errors';
 import Search from '@components/Shared/Navbar/Search';
 import Loader from '@components/Shared/Loader';
+import XMTPConnectButton from '@components/Shared/XmtpButton';
 
 interface PreviewListProps {
   className?: string;
@@ -70,7 +71,7 @@ const PreviewList: FC<PreviewListProps> = ({
   });
 
   useEffect(() => {
-    if (!currentProfile) {
+    if (!currentProfile?.id) {
       return;
     }
     clearMessagesBadge(currentProfile.id);
@@ -88,8 +89,8 @@ const PreviewList: FC<PreviewListProps> = ({
   const onProfileSelected = async (profile: Profile) => {
     const conversationId = buildConversationId(currentProfile?.id, profile.id);
     const conversationKey = buildConversationKey(profile.id, conversationId);
-    await persistProfile(conversationKey, profile);
-    const selectedTab: TabValues = profile.id.followNftaddress
+    await persistProfile(conversationKey, profile.id);
+    const selectedTab: TabValues = currentProfile?.handle?.ownedBy.followNftAddress
       ? MessageTabs.Lens
       : MessageTabs.Requests;
     setSelectedTab(selectedTab);
@@ -107,9 +108,9 @@ const PreviewList: FC<PreviewListProps> = ({
       <Card className="flex h-full flex-col justify-between rounded-xl">
         <div className="divider relative flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
-          {currentProfile && !showAuthenticating && !showLoading && (
+          {!currentProfile?.handle && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
-              <PlusCircleIcon className="h-6 w-6" />
+              <PlusCircleIcon className="h-6 w-6 text-brand-700" />
             </button>
           )}
           {previewsLoading && (
@@ -169,11 +170,11 @@ const PreviewList: FC<PreviewListProps> = ({
         <div className="mb-10 h-full">
           {showAuthenticating ? (
             <div className=" items-center justify-center">
-              <Loader message="Awaiting signature to enable DMs" />
+              <XMTPConnectButton />
             </div>
           ) : showLoading ? (
             <div className="flex   items-center justify-center">
-              <Loader message={`Loading conversations`} />
+               <Loader message={`Loading conversations`} />
             </div>
           ) : profilesError ? (
             <ErrorMessage
@@ -201,7 +202,7 @@ const PreviewList: FC<PreviewListProps> = ({
                     ensName={ensNames.get(key)}
                     isSelected={key === selectedConversationKey}
                     key={key}
-                    profile={profile}
+                    profile={profile.id}
                     conversationKey={key}
                     message={message}
                   />

@@ -45,8 +45,8 @@ interface MessageState {
   selectedTab: TabValues;
   setSelectedTab: (selectedTab: TabValues) => void;
   syncedProfiles: Set<string>;
-  addSyncedProfiles: (profileIds: string[]) => void;
-  unsyncProfile: (profileId: string) => void;
+  addSyncedProfiles: (profiles: string[]) => void;
+  unsyncProfile: (profile: string) => void;
   reset: () => void;
 }
 
@@ -142,14 +142,14 @@ export const useMessageStore = create<MessageState>((set) => ({
   selectedTab: 'All',
   setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   syncedProfiles: new Set(),
-  addSyncedProfiles: (profileIds) =>
+  addSyncedProfiles: (profiles) =>
     set(({ syncedProfiles }) => ({
-      syncedProfiles: new Set([...syncedProfiles, ...profileIds])
+      syncedProfiles: new Set([...syncedProfiles, ...profiles])
     })),
-  unsyncProfile: (profileId: string) =>
+  unsyncProfile: (profile: string) =>
     set(({ syncedProfiles }) => ({
       syncedProfiles: new Set(
-        [...syncedProfiles].filter((id) => id !== profileId)
+        [...syncedProfiles].filter((id) => id !== profile)
       )
     })),
   reset: () =>

@@ -8,7 +8,7 @@ export const algorithms: {
   image: string;
   by: string;
   isPersonalized?: boolean;
-}[] = [
+ }[] = [
   {
     name: 'Most viewed',
     feedType: HomeFeedType.HEY_MOSTVIEWED,

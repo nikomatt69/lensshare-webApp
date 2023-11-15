@@ -39,7 +39,8 @@ async function createPoll(body: ExtensionRequest) {
   const sequencerUrl = MAINNET_SNAPSHOT_SEQUNECER_URL;
   const snapshotUrl = MAINNET_SNAPSHOT_URL;
   const relayerAddress = MAINNET_PROPOSAL_CREATOR_ADDRESS;
-  const relayerPrivateKey = process.env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY || '';
+  const relayerPrivateKey =
+    process.env.MAINNET_PROPOSAL_CREATOR_PRIVATE_KEY || '';
 
   const client = walletClient(relayerPrivateKey);
   const block = await publicClient().getBlockNumber();
@@ -89,7 +90,10 @@ async function createPoll(body: ExtensionRequest) {
   const sequencerResponse = await fetch(sequencerUrl, {
     method: 'POST',
 
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
     body: JSON.stringify({
       address: relayerAddress,
       sig: signature,

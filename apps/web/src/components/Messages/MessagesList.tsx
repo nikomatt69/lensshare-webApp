@@ -118,7 +118,7 @@ const MessageTile: FC<MessageTileProps> = ({
           >
             <MessageContent
               message={message}
-              profile={profile}
+              profile={profile?.id}
               sentByMe={address == message.senderAddress}
               preview
             />
@@ -252,8 +252,8 @@ const MessagesList: FC<MessageListProps> = ({
                 >
                   <MessageTile
                     url={url}
-                    currentProfile={currentProfile}
-                    profile={profile}
+                    currentProfile={currentProfile?.id.handle}
+                    profile={profile?.id}
                     message={msg}
                   />
                   {dateHasChanged ? (

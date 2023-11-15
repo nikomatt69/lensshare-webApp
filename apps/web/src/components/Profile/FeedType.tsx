@@ -1,6 +1,6 @@
 import {
   ChartBarIcon,
-  ChatBubbleLeftRightIcon,
+  ChatBubbleOvalLeftEllipsisIcon,
   FilmIcon,
   PencilSquareIcon,
   RectangleGroupIcon,
@@ -42,7 +42,7 @@ const FeedType: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
         />
         <TabButton
           name="Replies"
-          icon={<ChatBubbleLeftRightIcon className="h-4 w-4" />}
+          icon={<ChatBubbleOvalLeftEllipsisIcon className="h-4 w-4" />}
           active={feedType === ProfileFeedType.Replies}
           type={ProfileFeedType.Replies.toLowerCase()}
           onClick={() => switchTab(ProfileFeedType.Replies)}

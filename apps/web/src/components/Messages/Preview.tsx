@@ -50,10 +50,10 @@ const Preview: FC<PreviewProps> = ({
 }) => {
   const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const address = currentProfile?.id;
+  const address = currentProfile?.id.handle.ownedBy;
 
-  const onConversationSelected = (profileId: string) => {
-    router.push(profileId ? `/messages/${conversationKey}` : '/messages');
+  const onConversationSelected = (profile: string) => {
+    router.push(profile ? `/messages/${conversationKey}` : '/messages');
   };
 
   const url = (ensName && getStampFyiURL(conversationKey?.split('/')[0])) ?? '';
@@ -66,7 +66,7 @@ const Preview: FC<PreviewProps> = ({
           isSelected && 'bg-gray-50 dark:bg-gray-800'
         )}
         onClick={() =>
-          onConversationSelected(profile?.id ? profile.id : conversationKey)
+          onConversationSelected(profile ? profile.id : conversationKey)
         }
         aria-hidden="true"
       >
@@ -83,7 +83,7 @@ const Preview: FC<PreviewProps> = ({
               <div className="flex items-center gap-1 overflow-hidden">
                 <div className="text-md truncate">
                   {profile?.id.name
-                    ? sanitizeDisplayName(profile?.id.name) ?? profile.id.handle
+                    ? sanitizeDisplayName(profile?.id.handle?.localName) ?? profile?.id.handle?.localName
                     : ensName ?? formatAddress(conversationKey?.split('/')[0])}
                 </div>
               </div>

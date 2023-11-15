@@ -1,38 +1,38 @@
-import { EnvelopeIcon, EnvelopeOpenIcon } from '@heroicons/react/24/solid';
-import { XMTP_ENV } from '@lensshare/data/constants';
-import { Button, Card } from '@lensshare/ui';
-import cn from '@lensshare/ui/cn';
+import XMTPConnectButton from '@components/Shared/XmtpButton';
+import { EnvelopeOpenIcon } from '@heroicons/react/24/solid';
+import { Card } from '@lensshare/ui';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 
 import { Client } from '@xmtp/xmtp-js';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
-import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useUpdateEffect } from 'usehooks-ts';
 
 const EnableMessages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
   const { push } = useRouter();
   const [canMessage, setCanMessage] = useState(false);
   const [loaded, setLoaded] = useState(false);
-
+  const currentSessionProfileId = getCurrentSessionProfileId();
   const onConversationSelected = () => {
     push('/messages');
   };
 
   useUpdateEffect(() => {
     const fetchCanMessage = async () => {
-      const isMessagesEnabled = await Client.canMessage(currentProfile?.id ,{
-        env: XMTP_ENV
-      });
+      const isMessagesEnabled = await Client.canMessage(
+        currentSessionProfileId,
+        {
+          env: 'production'
+        }
+      );
       setCanMessage(isMessagesEnabled);
       setLoaded(true);
     };
     fetchCanMessage();
-  }, [currentProfile?.id.ownedBy]);
-
-
+  }, [currentSessionProfileId]);
 
   return (
     <Card
@@ -44,16 +44,10 @@ const EnableMessages: FC = () => {
         <p>Direct messages are here!</p>
       </div>
       <p className="mr-10 text-sm leading-[22px]">
-        Activate XMTP to start using LensShare to send end-to-end encrypted DMs to
-        frens.
+        Activate XMTP to start using LensShare to send end-to-end encrypted DMs
+        to frens.
       </p>
-      <Button
-        className={cn({ 'text-sm': true }, 'mr-auto')}
-        icon={<EnvelopeIcon className="h-4 w-4" />}
-        onClick={onConversationSelected}
-      >
-        Enable DMs
-      </Button>
+      <XMTPConnectButton />
     </Card>
   );
 };

@@ -1,6 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-class HeyDocument extends Document {
+class LensShareDocument extends Document {
   render() {
     return (
       <Html lang="en">
@@ -16,7 +16,6 @@ class HeyDocument extends Document {
           />
           <link rel="preconnect" href="https://asset.lenshareapp.xyz" />
           <link rel="dns-prefetch" href="https://asset.lenshareapp.xyz" />
-   
 
           {/* Misc */}
           <meta name="application-name" content="LensShare" />
@@ -68,4 +67,4 @@ class HeyDocument extends Document {
   }
 }
 
-export default HeyDocument;
+export default LensShareDocument;
