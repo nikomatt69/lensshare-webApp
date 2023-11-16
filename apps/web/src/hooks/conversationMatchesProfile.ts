@@ -3,10 +3,10 @@ import { XMTP_PREFIX } from '@lensshare/data/constants';
 /**
  * Returns a regex that matches a conversation ID for the given profile ID.
  *
- * @param profileId The profile ID to match.
+ * @param handle The profile ID to match.
  * @returns A regular expression object that matches the conversation ID.
  */
-const conversationMatchesProfile = (profileId: string) =>
-  new RegExp(`${XMTP_PREFIX}/.*${profileId}`);
+const conversationMatchesProfile = (handle: string) =>
+  new RegExp(`${XMTP_PREFIX}/.*@lens/${handle}`);
 
 export default conversationMatchesProfile;

@@ -18,10 +18,7 @@ import LensSubscriptionsProvider from './LensSubscriptionsProvider';
 import PreferencesProvider from './PreferencesProvider';
 import Web3Provider from './Web3Provider';
 import { LENSTOK_URL } from '@lensshare/data/constants';
-import { XMTPProvider } from '@xmtp/react-sdk';
-import useXmtpClient from 'src/hooks/useXmtpClient';
 import { useMessageStore } from 'src/store/message';
-
 
 const lensApolloClient = apolloClient(authLink);
 const livepeerClient = createReactClient({
@@ -39,21 +36,19 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
       <Web3Provider>
-        <XMTPProvider client={xmtpClient}>
-          <ApolloProvider client={lensApolloClient}>
-            <LensSubscriptionsProvider />
-            <QueryClientProvider client={queryClient}>
-              <PreferencesProvider />
-              <FeaturedGroupsProvider />
-              <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
-                <ThemeProvider defaultTheme="light" attribute="class">
-                  <Layout>{children}</Layout>
-                </ThemeProvider>
-                <Analytics />
-              </LivepeerConfig>
-            </QueryClientProvider>
-          </ApolloProvider>
-        </XMTPProvider>
+        <ApolloProvider client={lensApolloClient}>
+          <LensSubscriptionsProvider />
+          <QueryClientProvider client={queryClient}>
+            <PreferencesProvider />
+            <FeaturedGroupsProvider />
+            <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
+              <ThemeProvider defaultTheme="light" attribute="class">
+                <Layout>{children}</Layout>
+              </ThemeProvider>
+              <Analytics />
+            </LivepeerConfig>
+          </QueryClientProvider>
+        </ApolloProvider>
       </Web3Provider>
     </ErrorBoundary>
   );

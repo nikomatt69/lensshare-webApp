@@ -1,5 +1,8 @@
+import type { Profile } from '@lensshare/lens';
+import { Spinner } from '@lensshare/ui';
 import type { FC, ReactNode } from 'react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import useXmtpClient from 'src/hooks/useXmtpClient';
 import {
   useAttachmentCachePersistStore,
   useAttachmentStore
@@ -11,14 +14,12 @@ import type {
 import { RemoteAttachmentCodec } from 'xmtp-content-type-remote-attachment';
 
 import Attachment from './AttachmentView';
-import type { Profile } from '@lensshare/lens';
-import { Spinner } from '@lensshare/ui/src/Spinner';
-import useXmtpClient from 'src/hooks/useXmtpClient';
+
 interface RemoteAttachmentPreviewProps {
   remoteAttachment: RemoteAttachment;
   profile: Profile | undefined;
   sentByMe: boolean;
-  preview: ReactNode;
+  preview?: ReactNode;
 }
 
 enum Status {
@@ -30,11 +31,12 @@ enum Status {
 const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
   remoteAttachment,
   profile,
-  sentByMe
+  sentByMe,
+  preview
 }) => {
   const [status, setStatus] = useState<Status>(Status.UNLOADED);
   const [attachment, setAttachment] = useState<TAttachment | null>(null);
-  const { client } = useXmtpClient();
+  const { client } = useXmtpClient(true);
   const loadedAttachmentURLs = useAttachmentStore(
     (state) => state.loadedAttachmentURLs
   );
@@ -49,19 +51,19 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
   );
 
   const redactionReason = useMemo<string | null>(() => {
-    const cached = cachedAttachments.get(remoteAttachment?.url);
+    const cached = cachedAttachments.get(remoteAttachment.url);
 
     // We've already got it, no need to show loading
     if (cached) {
       return null;
     }
 
-    if (profile && !profile?.followNftAddress && !sentByMe) {
+    if (profile && !profile.operations.isFollowedByMe.value && !sentByMe) {
       return `Attachments are not loaded automatically from people you don’t follow.`;
     }
 
     // if it's bigger than 100 megabytes
-    if (remoteAttachment?.contentLength > 104857600 && !sentByMe) {
+    if (remoteAttachment.contentLength > 104857600 && !sentByMe) {
       return `Large attachments are not loaded automatically.`;
     }
 
@@ -70,7 +72,7 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
 
   const load = useCallback(
     async function () {
-      const cachedAttachment = cachedAttachments.get(remoteAttachment?.url);
+      const cachedAttachment = cachedAttachments.get(remoteAttachment.url);
 
       if (cachedAttachment) {
         setAttachment(cachedAttachment);
@@ -122,13 +124,20 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
     redactionReason
   ]);
 
+  // if preview exists, always use it. this should prevent any rendering
+  // quirks that may result when switching from the local preview to the
+  // remote preview
+  if (preview) {
+    return preview;
+  }
+
   return (
     <div className="mt-1 space-y-1">
       {attachment ? <Attachment attachment={attachment} /> : null}
-      {status === Status.LOADING && (
-        <Spinner className="mx-28 my-4 h-48 w-48" size="sm" />
-      )}
-      {status === Status.UNLOADED && (
+      {status === Status.LOADING ? (
+        <Spinner className="mx-28 my-5" size="sm" />
+      ) : null}
+      {status === Status.UNLOADED ? (
         <div className="space-y-2 text-sm">
           <p className="text-gray-500">{redactionReason}</p>
           <button
@@ -138,7 +147,7 @@ const RemoteAttachmentPreview: FC<RemoteAttachmentPreviewProps> = ({
             View
           </button>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

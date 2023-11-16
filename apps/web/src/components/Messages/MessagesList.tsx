@@ -1,35 +1,28 @@
-import { Image } from '@lensshare/ui/src/Image';
+import { ClockIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@lensshare/lens';
 
 import getAvatar from '@lensshare/lib/getAvatar';
 import getStampFyiURL from '@lensshare/lib/getStampFyiURL';
+import { Card, Image } from '@lensshare/ui';
+import cn from '@lensshare/ui/cn';
 
 import type { DecodedMessage } from '@xmtp/xmtp-js';
-
-import dayjs from 'dayjs';
 import type { FC, ReactNode } from 'react';
-import { memo, useEffect, useRef } from 'react';
+import React, { memo, useEffect } from 'react';
 import { useInView } from 'react-cool-inview';
+import {
+  type FailedMessage,
+  isQueuedMessage,
+  type PendingMessage
+} from 'src/hooks/useSendOptimisticMessage';
 import { useMessageStore } from 'src/store/message';
 
 import MessageContent from './MessageContent';
-import { Card } from '@lensshare/ui/src/Card';
-import { CheckIcon, ClockIcon } from '@heroicons/react/24/outline';
-import { BellAlertIcon } from '@heroicons/react/24/solid';
-
-import type {
-  FailedMessage,
-  PendingMessage
-} from 'src/hooks/useSendOptimisticMessage';
-import { isQueuedMessage } from 'src/hooks/useSendOptimisticMessage';
-import cn from '@lensshare/ui/cn';
+import { getTimeFromNow } from 'src/hooks/formatTime4';
 import formatTime from 'src/hooks/formatTime';
-
-const isOnSameDay = (d1?: Date, d2?: Date): boolean => {
-  return dayjs(d1).format('YYYYMMDD') === dayjs(d2).format('YYYYMMDD');
-};
-
-const formatDate = (d?: Date) => dayjs(d).format('MMMM D, YYYY');
+import { formatDate } from '@lib/formatTime';
+import { isOnSameDay } from 'src/hooks/formatTime5';
 
 interface MessageTileProps {
   url?: string;
@@ -39,18 +32,19 @@ interface MessageTileProps {
 }
 
 const MessageTile: FC<MessageTileProps> = ({
+  url,
   message,
   profile,
   currentProfile
 }) => {
-  const address = currentProfile?.followNftAddress?.address;
+  const address = currentProfile?.ownedBy.address;
 
   // icon to display to indicate status of message
   let statusIcon: JSX.Element | null = null;
   if (isQueuedMessage(message)) {
     switch (message.status) {
       case 'failed':
-        statusIcon = <BellAlertIcon width={14} height={14} />;
+        statusIcon = <ExclamationTriangleIcon width={14} height={14} />;
         break;
       case 'pending':
         statusIcon = <ClockIcon width={14} height={14} />;
@@ -80,47 +74,47 @@ const MessageTile: FC<MessageTileProps> = ({
         );
         break;
       case 'pending':
-        statusContent = dayjs(message.sent).fromNow();
+        statusContent = getTimeFromNow(message.sent);
         break;
     }
   } else {
     // message has been successfully sent
-    statusContent = dayjs(message.sent).fromNow();
+    statusContent = getTimeFromNow(message.sent);
   }
 
   return (
     <div
       className={cn(
-        address === message.senderAddress ? 'mr-4 items-end' : 'items-start',
-        'mx-auto mb-4 flex flex-col'
+        address === message.senderAddress ? 'mx-4 items-end' : 'items-start',
+        'mb-4 flex flex-col'
       )}
     >
       <div className="flex max-w-[60%]">
-        {address !== message.senderAddress && (
+        {address !== message.senderAddress ? (
           <Image
-            src={getAvatar(profile)}
+            src={profile ? getAvatar(profile) : url ? url : getAvatar('')}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
+            alt={profile?.handle?.fullHandle}
           />
-        )}
+        ) : null}
         <div
           className={cn(
             address === message.senderAddress
               ? 'bg-brand-500'
-              : 'bg-gray-100 dark:bg-blue-500',
-            'w-full rounded-lg px-4 py-2 text-xs font-bold'
+              : 'bg-gray-100 dark:bg-gray-700',
+            'w-full rounded-lg px-4 py-2'
           )}
         >
           <span
             className={cn(
-              address === message.senderAddress && 'text-black',
-              'linkify-message block break-words text-xs font-bold'
+              address === message.senderAddress && 'text-white',
+              'text-md linkify-message block break-words'
             )}
           >
             <MessageContent
               message={message}
               profile={profile}
               sentByMe={address == message.senderAddress}
-              preview
             />
           </span>
         </div>
@@ -169,10 +163,11 @@ const MissingXmtpAuth: FC = () => (
     className="mb-2 mr-4 space-y-2.5 border-gray-400 !bg-gray-300/20 p-5"
   >
     <div className="flex items-center space-x-2 font-bold">
-      <p>This fren hasn enabled DMs yet</p>
+      <FaceFrownIcon className="h-5 w-5" />
+      <p>This fren hasn't enabled DMs yet</p>
     </div>
     <p className="text-sm leading-[22px]">
-      You can send them a message until they enable DMs.
+      You can't send them a message until they enable DMs.
     </p>
   </Card>
 );
@@ -199,6 +194,7 @@ interface MessageListProps {
   currentProfile?: Profile | null;
   hasMore: boolean;
   missingXmtpAuth: boolean;
+  listRef: React.RefObject<HTMLDivElement>;
 }
 
 const MessagesList: FC<MessageListProps> = ({
@@ -208,10 +204,11 @@ const MessagesList: FC<MessageListProps> = ({
   profile,
   currentProfile,
   hasMore,
-  missingXmtpAuth
+  missingXmtpAuth,
+  listRef
 }) => {
-  const listRef = useRef<HTMLSpanElement | null>(null);
   let lastMessageDate: Date | undefined;
+
   const { observe } = useInView({
     onChange: ({ inView }) => {
       if (!inView) {
@@ -225,6 +222,7 @@ const MessagesList: FC<MessageListProps> = ({
   // scroll to the bottom of the message list when a conversation is selected
   useEffect(() => {
     listRef.current?.scrollTo(0, listRef.current.scrollHeight);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationKey]);
 
   const ensNames = useMessageStore((state) => state.ensNames);
@@ -236,8 +234,8 @@ const MessagesList: FC<MessageListProps> = ({
     <div className="flex grow overflow-y-hidden">
       <div className="relative flex h-full w-full pl-4">
         <div className="flex h-full w-full flex-col-reverse overflow-y-hidden">
-          {missingXmtpAuth && <MissingXmtpAuth />}
-          <span
+          {missingXmtpAuth ? <MissingXmtpAuth /> : null}
+          <div
             ref={listRef}
             className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
           >
@@ -252,8 +250,8 @@ const MessagesList: FC<MessageListProps> = ({
                 >
                   <MessageTile
                     url={url}
-                    currentProfile={currentProfile?.id.handle}
-                    profile={profile?.id}
+                    currentProfile={currentProfile}
+                    profile={profile}
                     message={msg}
                   />
                   {dateHasChanged ? (
@@ -265,7 +263,7 @@ const MessagesList: FC<MessageListProps> = ({
               return messageDiv;
             })}
             {hasMore ? <LoadingMore /> : <ConversationBeginningNotice />}
-          </span>
+          </div>
         </div>
       </div>
     </div>

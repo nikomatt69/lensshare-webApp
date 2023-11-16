@@ -1,5 +1,9 @@
 import NotificationIcon from '@components/Notification/NotificationIcon';
-import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import {
+  ChatBubbleOvalLeftEllipsisIcon,
+  MagnifyingGlassIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
 import type { Profile } from '@lensshare/lens';
 import getProfile from '@lensshare/lib/getProfile';
 import cn from '@lensshare/ui/cn';
@@ -16,12 +20,12 @@ import Search from './Search';
 import StaffBar from './StaffBar';
 
 const Navbar: FC = () => {
-  const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
   const staffMode = usePreferencesStore((state) => state.staffMode);
   const isPride = usePreferencesStore((state) => state.isPride);
   const [showSearch, setShowSearch] = useState(false);
-
+  const router = useRouter();
+  const isActivePath = (path: string) => router.pathname === path;
   const onProfileSelected = (profile: Profile) => {
     router.push(getProfile(profile).link);
   };
@@ -115,6 +119,16 @@ const Navbar: FC = () => {
           </Link>
           <div className="flex items-center gap-4">
             {currentProfile ? <NotificationIcon /> : null}
+            {currentProfile ? (
+              <Link href="/messages" className="mx-auto my-3">
+                {isActivePath('/messages') ? (
+                  <ChatBubbleOvalLeftEllipsisIcon className="text-brand h-6 w-6" />
+                ) : (
+                  <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6" />
+                )}
+              </Link>
+            ) : null}
+
             <MenuItems />
           </div>
         </div>

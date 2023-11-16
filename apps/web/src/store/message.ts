@@ -1,6 +1,8 @@
+
 import { Localstorage } from '@lensshare/data/storage';
 import type { Client, Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { toNanoString } from '@xmtp/xmtp-js';
+import { MessageTabs } from 'src/enums';
 import getUniqueMessages from 'src/hooks/getUniqueMessages';
 import type {
   FailedMessage,
@@ -9,7 +11,7 @@ import type {
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type TabValues = 'All' | 'Lens' | 'Other' | 'Requests';
+export type TabValues = 'Inbox' | 'Following';
 
 interface MessageState {
   client: Client | undefined;
@@ -42,11 +44,13 @@ interface MessageState {
   ) => void;
   selectedProfileId: string;
   setSelectedProfileId: (selectedProfileId: string) => void;
+  conversationKey: string;
+  setConversationKey: (conversationKey: string) => void;
   selectedTab: TabValues;
   setSelectedTab: (selectedTab: TabValues) => void;
   syncedProfiles: Set<string>;
-  addSyncedProfiles: (profiles: string[]) => void;
-  unsyncProfile: (profile: string) => void;
+  addSyncedProfiles: (profileIds: string[]) => void;
+  unsyncProfile: (profileId: string) => void;
   reset: () => void;
 }
 
@@ -139,17 +143,19 @@ export const useMessageStore = create<MessageState>((set) => ({
   selectedProfileId: '',
   setSelectedProfileId: (selectedProfileId) =>
     set(() => ({ selectedProfileId })),
-  selectedTab: 'All',
+  conversationKey: '',
+  setConversationKey: (conversationKey) => set(() => ({ conversationKey })),
+  selectedTab: MessageTabs.Following,
   setSelectedTab: (selectedTab) => set(() => ({ selectedTab })),
   syncedProfiles: new Set(),
-  addSyncedProfiles: (profiles) =>
+  addSyncedProfiles: (profileIds) =>
     set(({ syncedProfiles }) => ({
-      syncedProfiles: new Set([...syncedProfiles, ...profiles])
+      syncedProfiles: new Set([...syncedProfiles, ...profileIds])
     })),
-  unsyncProfile: (profile: string) =>
+  unsyncProfile: (profileId: string) =>
     set(({ syncedProfiles }) => ({
       syncedProfiles: new Set(
-        [...syncedProfiles].filter((id) => id !== profile)
+        [...syncedProfiles].filter((id) => id !== profileId)
       )
     })),
   reset: () =>
@@ -160,7 +166,7 @@ export const useMessageStore = create<MessageState>((set) => ({
         messages: new Map(),
         messageProfiles: new Map(),
         previewMessages: new Map(),
-        selectedTab: 'All',
+        selectedTab: MessageTabs.Inbox,
         previewMessagesNonLens: new Map(),
         ensNames: new Map()
       };

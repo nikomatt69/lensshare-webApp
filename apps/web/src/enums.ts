@@ -7,12 +7,10 @@ export enum NotificationTabType {
 }
 
 export enum MessageTabs {
-  All = 'All',
-  Lens = 'Lens',
-  Other = 'Other',
-  Requests = 'Requests'
+  Requests = 'Requests',
+  Following = 'Following',
+  Inbox = 'Inbox'
 }
-
 
 export enum ProfileFeedType {
   Feed = 'FEED',

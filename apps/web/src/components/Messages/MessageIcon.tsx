@@ -1,12 +1,10 @@
-/* eslint-disable unicorn/no-useless-undefined */
-import useXmtpClient from 'src/hooks/useXmtpClient';
-import { ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
-
+import { EnvelopeIcon } from '@heroicons/react/24/outline';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
 import { fromNanoString, SortDirection } from '@xmtp/xmtp-js';
 import Link from 'next/link';
 import type { FC } from 'react';
 import { useEffect } from 'react';
+import useXmtpClient from 'src/hooks/useXmtpClient';
 import { useAppStore } from 'src/store/useAppStore';
 import { useMessagePersistStore } from 'src/store/message';
 
@@ -78,17 +76,17 @@ const MessageIcon: FC = () => {
       // No messages have been sent or received by the user, ever
       const sentAt = fromNanoString(mostRecentTimestamp ?? undefined);
       const showBadge = shouldShowBadge(
-        viewedMessagesAtNs.get(currentProfile.id.handle),
+        viewedMessagesAtNs.get(currentProfile.id),
         sentAt
       );
-      showMessagesBadge.set(currentProfile.id.handle, showBadge);
+      showMessagesBadge.set(currentProfile.id, showBadge);
       setShowMessagesBadge(new Map(showMessagesBadge));
     };
 
     let messageStream: AsyncGenerator<DecodedMessage>;
     const closeMessageStream = async () => {
       if (messageStream) {
-        await messageStream.return(undefined);
+        await messageStream.return(undefined); // eslint-disable-line unicorn/no-useless-undefined
       }
     };
 
@@ -97,7 +95,7 @@ const MessageIcon: FC = () => {
     const newMessageValidator = (profileId: string): boolean => {
       return (
         !window.location.pathname.startsWith('/messages') &&
-        currentProfile.id.handle === profileId
+        currentProfile.id === profileId
       );
     };
 
@@ -107,14 +105,15 @@ const MessageIcon: FC = () => {
       messageStream = await cachedClient.conversations.streamAllMessages();
 
       for await (const message of messageStream) {
-        if (messageValidator(currentProfile.id.handle)) {
-          const isFromPeer = currentProfile.id.handle !== message.senderAddress;
+        if (messageValidator(currentProfile.id)) {
+          const isFromPeer =
+            currentProfile.ownedBy.address !== message.senderAddress;
           if (isFromPeer) {
             const showBadge = shouldShowBadge(
-              viewedMessagesAtNs.get(currentProfile.id.handle),
+              viewedMessagesAtNs.get(currentProfile.id),
               message.sent
             );
-            showMessagesBadge.set(currentProfile.id.handle, showBadge);
+            showMessagesBadge.set(currentProfile.id, showBadge);
             setShowMessagesBadge(new Map(showMessagesBadge));
           }
         }
@@ -129,19 +128,19 @@ const MessageIcon: FC = () => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cachedClient, currentProfile?.id.handle]);
+  }, [cachedClient, currentProfile?.id]);
 
   return (
     <Link
       href="/messages"
-      className=" min-w-[40px] items-start justify-center rounded-md md:flex"
+      className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300/20 md:flex"
       onClick={() => {
-        currentProfile && clearMessagesBadge(currentProfile.id.handle);
+        currentProfile && clearMessagesBadge(currentProfile.id);
       }}
     >
-      <ChatBubbleOvalLeftIcon className="h-6 w-6 pb-1 text-blue-500  " />
-      {showMessagesBadge.get(currentProfile?.id.handle) ? (
-        <span className="z-[6] h-2 w-2 rounded-full bg-red-500 text-red-500" />
+      <EnvelopeIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+      {showMessagesBadge.get(currentProfile?.id) ? (
+        <span className="h-2 w-2 rounded-full bg-red-500" />
       ) : null}
     </Link>
   );

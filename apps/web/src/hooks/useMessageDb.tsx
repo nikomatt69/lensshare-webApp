@@ -1,10 +1,10 @@
 import type { Profile } from '@lensshare/lens';
 import type { DecodedMessage } from '@xmtp/xmtp-js';
+import { useLiveQuery } from 'dexie-react-hooks';
 import { useCallback } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 import type { LensProfile, PreviewMessage } from 'src/store/message-db';
 import { db } from 'src/store/message-db';
-import { useLiveQuery } from 'dexie-react-hooks';
 
 const decodedMessageToPreview = (
   conversationKey: string,
@@ -17,8 +17,8 @@ const decodedMessageToPreview = (
   messageBytes: decoded.toBytes()
 });
 
-const assertProfileId = (profile: string | undefined) => {
-  if (!profile) {
+const assertProfileId = (profileId: string | undefined) => {
+  if (!profileId) {
     throw new Error('No profile id');
   }
 };
@@ -120,7 +120,7 @@ export const useGetProfile = (
   conversationKey: string
 ) => {
   const profile = useLiveQuery(() => {
-    if (!myProfileId) {
+    if (!myProfileId || !conversationKey) {
       return;
     }
     return db.lensProfiles.get([myProfileId, conversationKey]);

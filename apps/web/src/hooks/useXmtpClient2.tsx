@@ -47,7 +47,7 @@ const useXmtpClient = (cacheOnly = false) => {
 
   useEffect(() => {
     const initXmtpClient = async () => {
-      if (walletClient && !client && currentProfile) {
+      if (walletClient && !client && currentProfile?.handle) {
         let keys = loadKeys(await walletClient.account.address);
         if (!keys) {
           if (cacheOnly) {

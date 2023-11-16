@@ -3,7 +3,7 @@
 import type { Conversation, DecodedMessage } from '@xmtp/xmtp-js';
 import { SortDirection } from '@xmtp/xmtp-js';
 import { useEffect, useRef, useState } from 'react';
-import { useAppStore } from 'src/store/app';
+import { useAppStore } from 'src/store/useAppStore';
 import { useMessageStore } from 'src/store/message';
 
 import { useMessageDb } from './useMessageDb';

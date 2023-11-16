@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/consistent-type-imports */
 import type { Profile } from '@lensshare/lens';
 import type { Table } from 'dexie';
 import Dexie from 'dexie';
-
 
 export interface PreviewMessage {
   conversationKey: string;

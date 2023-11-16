@@ -1,4 +1,3 @@
-
 import type {
   ContentTypeId,
   Conversation,
@@ -9,7 +8,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useMessageStore } from 'src/store/message';
 import { v4 as uuid } from 'uuid';
 import type { RemoteAttachment } from 'xmtp-content-type-remote-attachment';
-import { parseConversationKey } from './conversationKey';
 
 type ResolveReject<T = void> = (value: T | PromiseLike<T>) => void;
 
@@ -31,9 +29,7 @@ function makePromise<T = void>() {
   };
 }
 
-export type PreparedMessage = Awaited<
-  ReturnType<Conversation['prepareMessage']>
->;
+type PreparedMessage = Awaited<ReturnType<Conversation['prepareMessage']>>;
 
 export type SendMessageOptions = {
   fallback?: string;
@@ -60,8 +56,7 @@ export type FailedMessage = Omit<PendingMessage, 'status'> & {
   cancel: () => void;
 };
 
-export type MessageQueue = (PendingMessage | FailedMessage)[];
-export type PendingQueueItem = {
+type PendingQueueItem = {
   message: PendingMessage;
   resolve: (value: boolean) => void;
 };
@@ -77,7 +72,7 @@ export const isQueuedMessage = (
   return 'status' in message;
 };
 
-export type UseSendOptimisticMessageOptions = {
+type UseSendOptimisticMessageOptions = {
   onCancel?: (id: string) => void;
   onQueue?: (message: PendingMessage | FailedMessage) => void;
   onUpdate?: (id: string, message: PendingMessage | FailedMessage) => void;
@@ -105,23 +100,18 @@ const useSendOptimisticMessage = (
 
     let conversation;
 
-    if (!missingXmtpAuth && !conversations.has(conversationKey)) {
+    const existingConversation =
+      conversations.get(conversationKey) ||
+      conversations.get(conversationKey?.split('/')[0]);
+
+    if (!missingXmtpAuth && !existingConversation) {
       const conversationId = conversationKey?.split('/')[0];
 
-      const conversationXmtpId =
-        parseConversationKey(conversationKey)?.conversationId ?? '';
+      conversation = await client.conversations.newConversation(conversationId);
 
-      conversation =
-        conversationXmtpId !== ''
-          ? await client.conversations.newConversation(conversationId, {
-              conversationId: conversationXmtpId,
-              metadata: {}
-            })
-          : await client.conversations.newConversation(conversationId);
-
-      addConversation(conversationKey, conversation);
+      addConversation(conversationId, conversation);
     } else {
-      conversation = conversations.get(conversationKey);
+      conversation = existingConversation;
     }
 
     if (!conversation) {
@@ -169,7 +159,7 @@ const useSendOptimisticMessage = (
       // prepare message to be sent
       prepared = await conversation.prepareMessage(preparedContent, {
         contentType,
-   
+       
       });
     } else {
       // message is already prepared, use existing
@@ -209,9 +199,7 @@ const useSendOptimisticMessage = (
     try {
       // send prepared message
       await prepared.send();
-    } catch (error) {
-      console.error('Failed to send message', error);
-
+    } catch {
       // update message externally
       options?.onUpdate?.(id, {
         status: 'failed',
@@ -268,7 +256,7 @@ const useSendOptimisticMessage = (
         }
       }
     };
-    checkUserIsOnXmtp();
+    conversationKey && checkUserIsOnXmtp();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationKey, client]);
 

@@ -1,68 +1,113 @@
 import Preview from '@components/Messages/Preview';
+import Following from '@components/Profile/Following';
+import Loader from '@components/Shared/Loader';
+import Search from '@components/Shared/Navbar/Search';
+import { EnvelopeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
+import { Errors } from '@lensshare/data/errors';
 
 import type { Profile } from '@lensshare/lens';
+import {
+  Card,
+  ErrorMessage,
+  GridItemFour,
+  Modal,
+  TabButton
+} from '@lensshare/ui';
+import cn from '@lensshare/ui/cn';
+import { Leafwatch } from '@lib/leafwatch';
 
-import { useRouter } from 'next/router';
+import type { DecodedMessage } from '@xmtp/xmtp-js';
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
-
-import { useAppStore } from 'src/store/app';
+import { MessageTabs } from 'src/enums';
+import { useMessageDb } from 'src/hooks/useMessageDb';
+import { useAppStore } from 'src/store/useAppStore';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
-import { GridItemFour } from '@lensshare/ui/src/GridLayout';
-import { Card } from '@lensshare/ui/src/Card';
-import { PlusCircleIcon } from '@heroicons/react/24/outline';
-import TabButton from '@lensshare/ui/src/TabButton';
-
-import { Modal } from '@lensshare/ui/src/Modal';
-
-import { ErrorMessage } from './ErrorMessage';
-import { useMessageDb } from 'src/hooks/useMessageDb';
-import useGetMessagePreviews from 'src/hooks/useGetMessagePreviews';
-import useMessagePreviews from 'src/hooks/useMessagePreviews';
-import cn from '@lensshare/ui/cn';
-import { MessageTabs } from 'src/enums';
-import { buildConversationKey } from 'src/hooks/conversationKey';
-import buildConversationId from 'src/hooks/buildConversationId';
-import { Errors } from '@lensshare/data/errors';
-import Search from '@components/Shared/Navbar/Search';
-import Loader from '@components/Shared/Loader';
-import XMTPConnectButton from '@components/Shared/XmtpButton';
+import { usePreferencesStore } from 'src/store/usePreferencesStore';
 
 interface PreviewListProps {
-  className?: string;
   selectedConversationKey?: string;
+  messages: Map<string, DecodedMessage>;
+  profilesToShow: Map<string, Profile>;
+  authenticating?: boolean;
+  profilesError: Error | undefined;
+  loading: boolean;
+  previewsLoading: boolean;
+  previewsProgress: number;
 }
 
 const PreviewList: FC<PreviewListProps> = ({
-  className,
-  selectedConversationKey
+  selectedConversationKey,
+  messages,
+  profilesToShow,
+  authenticating,
+  profilesError,
+  loading,
+  previewsLoading,
+  previewsProgress
 }) => {
-  const router = useRouter();
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { persistProfile } = useMessageDb();
+  const staffMode = usePreferencesStore((state) => state.staffMode);
   const selectedTab = useMessageStore((state) => state.selectedTab);
   const ensNames = useMessageStore((state) => state.ensNames);
   const setSelectedTab = useMessageStore((state) => state.setSelectedTab);
-  const [showSearchModal, setShowSearchModal] = useState(false);
-
-  const {
-    authenticating,
-    loading,
-    messages,
-    profilesToShow,
-    requestedCount,
-    profilesError
-  } = useMessagePreviews();
-
-  const { loading: previewsLoading, progress: previewsProgress } =
-    useGetMessagePreviews();
+  const setConversationKey = useMessageStore(
+    (state) => state.setConversationKey
+  );
   const clearMessagesBadge = useMessagePersistStore(
     (state) => state.clearMessagesBadge
   );
+  const [showSearchModal, setShowSearchModal] = useState(false);
+  const { persistProfile } = useMessageDb();
 
-  const sortedProfiles = Array.from(profilesToShow).sort(([keyA], [keyB]) => {
+  useEffect(() => {
+    if (!currentProfile) {
+      return;
+    }
+    clearMessagesBadge(currentProfile.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentProfile]);
+
+  const showAuthenticating = currentProfile && authenticating;
+
+  const showLoading =
+    loading && (messages.size === 0 || profilesToShow.size === 0);
+
+  const newMessageClick = () => {
+    setShowSearchModal(true);
+   
+  };
+
+  const onProfileSelected = async (profile: Profile) => {
+    const conversationKey = profile.ownedBy.address.toLowerCase();
+    await persistProfile(conversationKey, profile);
+    const selectedTab: TabValues = profile?.followNftAddress?.address
+      ? MessageTabs.Following
+      : MessageTabs.Inbox;
+    setSelectedTab(selectedTab);
+    setConversationKey(conversationKey);
+    setShowSearchModal(false);
+  };
+
+  const partitionedProfiles = Array.from(profilesToShow || []).reduce(
+    (result, [key, profile]) => {
+      if (profile?.followNftAddress?.address) {
+        result[0].set(key, profile);
+      } else {
+        result[1].set(key, profile);
+      }
+      return result;
+    },
+    [new Map<string, Profile>(), new Map<string, Profile>()]
+  );
+
+  const sortedProfiles = Array.from(
+    selectedTab === MessageTabs.Following
+      ? partitionedProfiles[0]
+      : profilesToShow
+  ).sort(([keyA], [keyB]) => {
     const messageA = messages.get(keyA);
     const messageB = messages.get(keyB);
     return (messageA?.sent?.getTime() || 0) >= (messageB?.sent?.getTime() || 0)
@@ -70,111 +115,61 @@ const PreviewList: FC<PreviewListProps> = ({
       : 1;
   });
 
-  useEffect(() => {
-    if (!currentProfile?.id) {
-      return;
-    }
-    clearMessagesBadge(currentProfile.id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentProfile]);
-
-  const showAuthenticating = currentProfile?.id && authenticating;
-  const showLoading =
-    loading && (messages.size === 0 || profilesToShow.size === 0);
-
-  const newMessageClick = () => {
-    setShowSearchModal(true);
-  };
-
-  const onProfileSelected = async (profile: Profile) => {
-    const conversationId = buildConversationId(currentProfile?.id, profile.id);
-    const conversationKey = buildConversationKey(profile.id, conversationId);
-    await persistProfile(conversationKey, profile.id);
-    const selectedTab: TabValues = currentProfile?.id?.ownedBy
-      .followNftAddress
-      ? MessageTabs.Lens
-      : MessageTabs.Requests;
-    setSelectedTab(selectedTab);
-    router.push(`/messages/${conversationKey}`);
-    setShowSearchModal(false);
-  };
-
   return (
     <GridItemFour
       className={cn(
-        'xs:h-[100vh] xs:mx-2 xs:col-span-4 w-full justify-between rounded-xl sm:mx-2 sm:h-[76vh] md:h-[80vh] xl:h-[84vh]',
-        className
+        staffMode ? 'h-[calc(100vh-9.78rem)]' : 'h-[calc(100vh-8rem)]',
+        'xs:mx-2 mb-0 sm:mx-2 md:col-span-4  xs:h-[100vh] xs:mx-2 xs:col-span-4 w-full justify-between rounded-xl sm:mx-2 sm:h-[76vh] md:h-[80vh] xl:h-[84vh]',
+      
       )}
     >
-      <Card className="flex h-full flex-col justify-between rounded-xl">
+      <Card className="flex h-full flex-col justify-between">
         <div className="divider relative flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
-          {currentProfile && !showAuthenticating && !showLoading && (
+          {currentProfile && !showAuthenticating && !showLoading ? (
             <button onClick={newMessageClick} type="button">
-              <PlusCircleIcon className="text-brand-700 h-6 w-6" />
+              <PlusCircleIcon className="h-6 w-6" />
             </button>
-          )}
-          {previewsLoading && (
+          ) : null}
+          {previewsLoading ? (
             <progress
               className="absolute -bottom-1 left-0 h-1 w-full appearance-none border-none bg-transparent"
               value={previewsProgress}
               max={100}
             />
-          )}
+          ) : null}
         </div>
         <div className="flex justify-between px-4 py-3">
           <div className="flex space-x-2">
             <TabButton
-              className="p-2 px-4 text-blue-500"
-              name={'All'}
-              active={selectedTab === 'All'}
-              onClick={() => setSelectedTab('All')}
+              className="p-2 px-4"
+              name={MessageTabs.Following}
+              active={selectedTab === MessageTabs.Following}
+              onClick={() => {
+                setSelectedTab(MessageTabs.Following);
+              
+              }}
               showOnSm
-              icon={undefined}
             />
             <TabButton
-              className="p-2 px-4 text-blue-500"
-              name={'Lens'}
-              active={selectedTab === 'Lens'}
-              onClick={() => setSelectedTab('Lens')}
+              className="p-2 px-4"
+              name={MessageTabs.Inbox}
+              active={selectedTab === MessageTabs.Inbox}
+              onClick={() => {
+                setSelectedTab(MessageTabs.Inbox);
+         
+              }}
               showOnSm
-              icon={undefined}
-            />
-            <TabButton
-              className="p-2 px-4 text-blue-500"
-              name={'Other'}
-              active={selectedTab === 'Other'}
-              onClick={() => setSelectedTab('Other')}
-              showOnSm
-              icon={undefined}
             />
           </div>
-          <TabButton
-            className="p-2 px-4 text-blue-500"
-            name={
-              requestedCount > 99
-                ? '99+'
-                : `${requestedCount.toString()} Requests`
-            }
-            active={selectedTab === MessageTabs.Requests}
-            onClick={() => setSelectedTab(MessageTabs.Requests)}
-            showOnSm
-            icon={undefined}
-          />
         </div>
-        {selectedTab === MessageTabs.Requests ? (
-          <div className=" p-2 px-5 text-sm text-blue-700">
-            These conversations are from Lens profiles that you dot currently
-            follow.
-          </div>
-        ) : null}
-        <div className="mb-10 h-full">
+        <div className="h-full overflow-y-auto overflow-x-hidden">
           {showAuthenticating ? (
-            <div className=" items-center justify-center">
-              <XMTPConnectButton />
+            <div className="flex h-full grow items-center justify-center">
+              <Loader message="Awaiting signature to enable DMs" />
             </div>
           ) : showLoading ? (
-            <div className="flex   items-center justify-center">
+            <div className="flex h-full grow items-center justify-center">
               <Loader message={`Loading conversations`} />
             </div>
           ) : profilesError ? (
@@ -188,13 +183,20 @@ const PreviewList: FC<PreviewListProps> = ({
             />
           ) : sortedProfiles.length === 0 ? (
             <button
-              className=" w-full justify-items-center"
+              className="h-full w-full justify-items-center"
               onClick={newMessageClick}
               type="button"
-            />
+            >
+              <div className="grid justify-items-center space-y-2 p-5">
+                <div>
+                  <EnvelopeIcon className="text-brand h-8 w-8" />
+                </div>
+                <div>{`Start messaging your Lens frens`}</div>
+              </div>
+            </button>
           ) : (
             <Virtuoso
-              className="mx-2 mb-[70vh] justify-around"
+              className="h-full"
               data={sortedProfiles}
               itemContent={(_, [key, profile]) => {
                 const message = messages.get(key);
@@ -203,7 +205,7 @@ const PreviewList: FC<PreviewListProps> = ({
                     ensName={ensNames.get(key)}
                     isSelected={key === selectedConversationKey}
                     key={key}
-                    profile={profile.id}
+                    profile={profile}
                     conversationKey={key}
                     message={message}
                   />
@@ -215,15 +217,24 @@ const PreviewList: FC<PreviewListProps> = ({
       </Card>
       <Modal
         title={`New message`}
-        // eslint-disable-next-line react/jsx-no-undef
-        icon={<PlusCircleIcon className="text-brand h-5 w-5" />}
+        icon={<EnvelopeIcon className="text-brand h-5 w-5" />}
         size="sm"
         show={showSearchModal}
         onClose={() => setShowSearchModal(false)}
       >
-        <div className="pb w-full px-4 pt-4">
-          <Search placeholder="" onProfileSelected={onProfileSelected} />
+        <div className="w-full px-4 pt-4">
+          <Search
+        
+            placeholder={`Search for someone to message...`}
+            onProfileSelected={onProfileSelected}
+          />
         </div>
+        {currentProfile ? (
+          <Following
+            profile={currentProfile}
+            onProfileSelected={onProfileSelected}
+          />
+        ) : null}
       </Modal>
     </GridItemFour>
   );

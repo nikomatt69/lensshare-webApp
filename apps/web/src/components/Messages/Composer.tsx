@@ -1,29 +1,38 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { ArrowRightIcon, PhotoIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+import { MIN_WIDTH_DESKTOP } from '@lensshare/data/constants';
+
+import sanitizeDStorageUrl from '@lensshare/lib/sanitizeDStorageUrl';
+import { Button, Input } from '@lensshare/ui';
+import { Leafwatch } from '@lib/leafwatch';
+import { uploadFileToIPFS } from '@lib/uploadToIPFS';
 import type { ContentTypeId } from '@xmtp/xmtp-js';
 import { ContentTypeText } from '@xmtp/xmtp-js';
 import type { ChangeEvent, FC } from 'react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-
-import { useMessagePersistStore } from 'src/store/message';
-import { useUpdateEffect, useWindowSize } from 'usehooks-ts';
-import type { Attachment as TAttachment } from 'xmtp-content-type-remote-attachment';
-
-import Attachment from './AttachmentView';
-import {
-  ArrowRightIcon,
-  PhotoIcon,
-  XCircleIcon
-} from '@heroicons/react/24/outline';
-import { Input } from '@lensshare/ui/src/Input';
-import { Button } from '@lensshare/ui/src/Button';
-
 import type {
   AllowedContent,
   SendMessageContent,
   SendMessageOptions
 } from 'src/hooks/useSendOptimisticMessage';
-import { MIN_WIDTH_DESKTOP } from '@lensshare/data/constants';
+import {
+  useAttachmentCachePersistStore,
+  useAttachmentStore
+} from 'src/store/attachment';
+import { useMessagePersistStore } from 'src/store/message';
+import { useWindowSize } from 'usehooks-ts';
+import type {
+  Attachment as TAttachment,
+  RemoteAttachment
+} from 'xmtp-content-type-remote-attachment';
+import {
+  AttachmentCodec,
+  ContentTypeRemoteAttachment,
+  RemoteAttachmentCodec
+} from 'xmtp-content-type-remote-attachment';
+
+import Attachment from './AttachmentView';
 
 interface ComposerProps {
   sendMessage: <T extends AllowedContent = string>(
@@ -33,6 +42,7 @@ interface ComposerProps {
   ) => Promise<boolean>;
   conversationKey: string;
   disabledInput: boolean;
+  listRef: React.RefObject<HTMLDivElement>;
 }
 
 interface AttachmentPreviewProps {
@@ -54,7 +64,7 @@ const AttachmentPreview: FC<AttachmentPreviewProps> = ({
         className="absolute top-2 rounded-full bg-gray-900 p-1.5 opacity-75"
         onClick={onDismiss}
       >
-        <XCircleIcon className="h-4 w-4 text-white" />
+        <XMarkIcon className="h-4 w-4 text-white" />
       </button>
       <Attachment attachment={attachment} />
     </div>
@@ -79,7 +89,8 @@ const AttachmentPreviewInline: FC<
 const Composer: FC<ComposerProps> = ({
   sendMessage,
   conversationKey,
-  disabledInput
+  disabledInput,
+  listRef
 }) => {
   const [message, setMessage] = useState<string>('');
   const [sending, setSending] = useState<boolean>(false);
@@ -92,6 +103,12 @@ const Composer: FC<ComposerProps> = ({
     (state) => state.setUnsentMessage
   );
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const addLoadedAttachmentURL = useAttachmentStore(
+    (state) => state.addLoadedAttachmentURL
+  );
+  const cacheAttachment = useAttachmentCachePersistStore(
+    (state) => state.cacheAttachment
+  );
 
   const canSendMessage = !disabledInput && (attachment || message.length > 0);
 
@@ -114,6 +131,53 @@ const Composer: FC<ComposerProps> = ({
     let sendAttachment: Promise<boolean | null> = Promise.resolve(null);
     let sendText: Promise<boolean | null> = Promise.resolve(null);
 
+    if (attachment) {
+      sendAttachment = sendMessage<RemoteAttachment>(
+        async () => {
+          const encryptedEncodedContent =
+            await RemoteAttachmentCodec.encodeEncrypted(
+              attachment,
+              new AttachmentCodec()
+            );
+
+          const file = new File(
+            [encryptedEncodedContent.payload],
+            'XMTPEncryptedContent',
+            {
+              type: attachment.mimeType
+            }
+          );
+
+          const uploadedAttachment = await uploadFileToIPFS(file);
+          const url = sanitizeDStorageUrl(uploadedAttachment.uri);
+
+          const remoteAttachment: RemoteAttachment = {
+            url,
+            contentDigest: encryptedEncodedContent.digest,
+            salt: encryptedEncodedContent.salt,
+            nonce: encryptedEncodedContent.nonce,
+            secret: encryptedEncodedContent.secret,
+            scheme: 'https://',
+            filename: attachment.filename,
+            contentLength: attachment.data.byteLength
+          };
+
+          // Since we're sending this, we should always load it
+          addLoadedAttachmentURL(url);
+          cacheAttachment(url, attachment);
+
+          // return content for message
+          return remoteAttachment;
+        },
+        ContentTypeRemoteAttachment,
+        {
+          fallback: `[Attachment] Cannot display "${attachment.filename}". This app does not support attachments yet.`,
+          renderPreview: <AttachmentPreviewInline attachment={attachment} />
+        }
+      );
+      setAttachment(null);
+    }
+
     if (message.length > 0) {
       sendText = sendMessage(message, ContentTypeText);
       setMessage('');
@@ -124,6 +188,7 @@ const Composer: FC<ComposerProps> = ({
 
     if (sentAttachment !== null) {
       if (sentAttachment) {
+ 
       } else {
         toast.error(`Error sending attachment`);
       }
@@ -133,15 +198,21 @@ const Composer: FC<ComposerProps> = ({
 
     if (sentText !== null) {
       if (sentText) {
+       
       } else {
         toast.error(`Error sending message`);
       }
     }
 
+    listRef.current?.scrollTo({
+      left: 0,
+      top: listRef.current.scrollHeight,
+      behavior: 'smooth'
+    });
     setSending(false);
   };
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     setMessage(unsentMessage ?? '');
     // only run this effect when the conversation changes
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -186,7 +257,7 @@ const Composer: FC<ComposerProps> = ({
   };
 
   return (
-    <div className="bg-brand-100/75 mb-16 rounded-xl border">
+    <div className="border-t dark:border-gray-700">
       {attachment && !sending ? (
         <AttachmentPreview
           onDismiss={onDismiss}
@@ -196,7 +267,7 @@ const Composer: FC<ComposerProps> = ({
       ) : null}
       <div className="flex space-x-4 p-4">
         <label className="flex cursor-pointer items-center">
-          <PhotoIcon className="text-brand-900 h-6 w-5" />
+          <PhotoIcon className="text-brand-500 h-6 w-5" />
           <input
             ref={fileInputRef}
             type="file"
@@ -205,7 +276,6 @@ const Composer: FC<ComposerProps> = ({
             onChange={onAttachmentChange}
           />
         </label>
-
         <Input
           type="text"
           placeholder={`Type Something`}
@@ -221,7 +291,11 @@ const Composer: FC<ComposerProps> = ({
           aria-label="Send message"
         >
           <div className="flex items-center space-x-2">
-            {Number(width) > MIN_WIDTH_DESKTOP ? <span>Send</span> : null}
+            {Number(width) > MIN_WIDTH_DESKTOP ? (
+              <span>
+                Send
+              </span>
+            ) : null}
             <ArrowRightIcon className="h-5 w-5" />
           </div>
         </Button>
