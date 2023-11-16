@@ -49,7 +49,7 @@ const Explore: NextPage = () => {
         title={`Explore • ${APP_NAME}`}
         description={`Explore top commented, collected and latest publications in the ${APP_NAME}.`}
       />
-      <GridItemEight className="space-y-5">
+      <GridItemEight className="space-y-5 ">
         <Tab.Group
           defaultIndex={Number(router.query.tab)}
           onChange={(index) => {
@@ -60,7 +60,7 @@ const Explore: NextPage = () => {
             );
           }}
         >
-          <Tab.List className="divider space-x-8">
+          <Tab.List className="divider  space-x-3">
             {tabs.map((tab, index) => (
               <Tab
                 key={tab.type}

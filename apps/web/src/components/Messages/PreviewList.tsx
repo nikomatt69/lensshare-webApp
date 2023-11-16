@@ -90,7 +90,8 @@ const PreviewList: FC<PreviewListProps> = ({
     const conversationId = buildConversationId(currentProfile?.id, profile.id);
     const conversationKey = buildConversationKey(profile.id, conversationId);
     await persistProfile(conversationKey, profile.id);
-    const selectedTab: TabValues = currentProfile?.handle?.ownedBy.followNftAddress
+    const selectedTab: TabValues = currentProfile?.id?.ownedBy
+      .followNftAddress
       ? MessageTabs.Lens
       : MessageTabs.Requests;
     setSelectedTab(selectedTab);
@@ -108,9 +109,9 @@ const PreviewList: FC<PreviewListProps> = ({
       <Card className="flex h-full flex-col justify-between rounded-xl">
         <div className="divider relative flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
-          {!currentProfile?.handle && !showAuthenticating && !showLoading && (
+          {currentProfile && !showAuthenticating && !showLoading && (
             <button onClick={newMessageClick} type="button">
-              <PlusCircleIcon className="h-6 w-6 text-brand-700" />
+              <PlusCircleIcon className="text-brand-700 h-6 w-6" />
             </button>
           )}
           {previewsLoading && (
@@ -174,7 +175,7 @@ const PreviewList: FC<PreviewListProps> = ({
             </div>
           ) : showLoading ? (
             <div className="flex   items-center justify-center">
-               <Loader message={`Loading conversations`} />
+              <Loader message={`Loading conversations`} />
             </div>
           ) : profilesError ? (
             <ErrorMessage

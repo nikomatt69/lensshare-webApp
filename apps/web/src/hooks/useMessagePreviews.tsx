@@ -155,9 +155,7 @@ const useMessagePreviews = () => {
       try {
         for (const chunk of chunks) {
           const newMessageProfiles = new Map<string, Profile>();
-          const result = await loadProfiles({
-           
-          });
+          const result = await loadProfiles({});
 
           if (!result.data?.profiles.items.length) {
             continue;
@@ -276,7 +274,10 @@ const useMessagePreviews = () => {
   useStreamConversations(onConversation);
 
   useEffect(() => {
-    if (selectedProfileId && currentProfile?.id !== selectedProfileId) {
+    if (
+      selectedProfileId &&
+      currentProfile?.id.followNftAddress !== selectedProfileId
+    ) {
       reset();
       setSelectedProfileId(currentProfile?.id);
       router.push('/messages');
@@ -290,7 +291,7 @@ const useMessagePreviews = () => {
     const partitionedProfiles = Array.from(messageProfiles || []).reduce(
       (result, [key, profile]) => {
         if (previewMessages.has(key)) {
-          if (profile.id.followNftAddress) {
+          if (currentProfile?.followNftAddress) {
             result[0].set(key, profile);
           } else {
             result[1].set(key, profile);

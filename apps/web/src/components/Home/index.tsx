@@ -16,14 +16,13 @@ import FeedType from './FeedType';
 import Hero from './Hero';
 import HeyMembershipNft from './HeyMembershipNft';
 import Highlights from './Highlights';
-import RecommendedProfiles from './RecommendedProfiles';
 import SetProfile from './SetProfile';
-import StaffPicks from './StaffPicks';
 import Timeline from './Timeline';
 import Waitlist from './Waitlist';
 import { useTheme } from 'next-themes';
 import AddToHome from './AddToHome';
 import EnableMessages from './EnableMessages';
+import RefreshButton from './Refresh';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -65,6 +64,7 @@ const Home: NextPage = () => {
               <NewPost />
               <div className="space-y-3">
                 <FeedType feedType={feedType} setFeedType={setFeedType} />
+                <RefreshButton />
                 <Tabs feedType={feedType} setFeedType={setFeedType} />
               </div>
               {feedType === HomeFeedType.FOLLOWING ? (

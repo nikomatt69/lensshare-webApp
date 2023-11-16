@@ -9,6 +9,7 @@ import type { Dispatch, FC, SetStateAction } from 'react';
 import Algorithms from './Algorithms';
 import FeedEventFilters from './FeedEventFilters';
 import SeeThroughLens from './SeeThroughLens';
+import RefreshButton from './Refresh';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<SetStateAction<HomeFeedType>>;

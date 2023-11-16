@@ -37,7 +37,7 @@ interface MessageProps {
 
 const Message: FC<MessageProps> = ({ conversationKey }) => {
   const currentProfile = useAppStore((state) => state.currentProfile);
-  const { profile } = useGetProfile(currentProfile?.id, conversationKey);
+  const { profile } = useGetProfile(currentProfile?.followNftAddress?.address, conversationKey);
   const queuedMessages = useMessageStore((state) =>
     state.queuedMessages.get(conversationKey)
   );
@@ -135,7 +135,7 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
     return <Custom404 />;
   }
 
-  const showLoading = !missingXmtpAuth && !currentProfile.id;
+  const showLoading = !missingXmtpAuth && !currentProfile;
 
   const userNameForTitle =
     sanitizeDisplayName(profile?.handle?.localName) ?? profile?.handle;
@@ -160,13 +160,13 @@ const Message: FC<MessageProps> = ({ conversationKey }) => {
           ) : (
             <>
               <MessageHeader
-                profile={profile?.id.ownedBy}
+                profile={profile}
                 conversationKey={conversationKey}
               />
               <MessagesList
                 conversationKey={conversationKey}
-                currentProfile={currentProfile?.id.ownedBy}
-                profile={profile?.id.ownedBy}
+                currentProfile={currentProfile}
+                profile={profile}
                 fetchNextMessages={fetchNextMessages}
                 messages={allMessages}
                 hasMore={hasMore}

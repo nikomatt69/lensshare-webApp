@@ -6,12 +6,10 @@ import {
   IS_MAINNET,
   STATIC_ASSETS_URL
 } from '@lensshare/data/constants';
-import { PAGEVIEW } from '@lensshare/data/tracking';
 import type { Profile } from '@lensshare/lens';
 import { FollowModuleType, useProfileQuery } from '@lensshare/lens';
 import getProfile from '@lensshare/lib/getProfile';
 import { GridItemEight, GridItemFour, GridLayout, Modal } from '@lensshare/ui';
-import { Leafwatch } from '@lib/leafwatch';
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -19,7 +17,7 @@ import { ProfileFeedType } from 'src/enums';
 import Custom404 from 'src/pages/404';
 import Custom500 from 'src/pages/500';
 import { useAppStore } from 'src/store/useAppStore';
-import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useUpdateEffect } from 'usehooks-ts';
 
 import Achievements from './Achievements';
 import Cover from './Cover';
@@ -49,8 +47,6 @@ const ViewProfile: NextPage = () => {
       ? type.toString().toUpperCase()
       : ProfileFeedType.Feed
   );
-
-
 
   const { data, loading, error } = useProfileQuery({
     variables: {
@@ -95,7 +91,7 @@ const ViewProfile: NextPage = () => {
     }
   }, [following]);
 
-  if (!isReady ||loading) {
+  if (!isReady || loading) {
     return <ProfilePageShimmer />;
   }
 
@@ -137,7 +133,9 @@ const ViewProfile: NextPage = () => {
         </GridItemFour>
         <GridItemEight className="space-y-5">
           <FeedType setFeedType={setFeedType} feedType={feedType} />
-          {!currentProfile?.id === profile?.id ? <NewPost /> : null}
+          <div className="pb-3 text-center">
+            {currentProfile && <NewPost />}
+          </div>
           {feedType === ProfileFeedType.Feed ||
           feedType === ProfileFeedType.Replies ||
           feedType === ProfileFeedType.Media ||

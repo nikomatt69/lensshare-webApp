@@ -43,7 +43,7 @@ const MessageTile: FC<MessageTileProps> = ({
   profile,
   currentProfile
 }) => {
-  const address = currentProfile?.id.ownedBy;
+  const address = currentProfile?.followNftAddress?.address;
 
   // icon to display to indicate status of message
   let statusIcon: JSX.Element | null = null;
@@ -118,7 +118,7 @@ const MessageTile: FC<MessageTileProps> = ({
           >
             <MessageContent
               message={message}
-              profile={profile?.id}
+              profile={profile}
               sentByMe={address == message.senderAddress}
               preview
             />

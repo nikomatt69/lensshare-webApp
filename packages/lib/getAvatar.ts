@@ -22,7 +22,7 @@ const getAvatar = (profile: any, namedTransform = AVATAR): string => {
     profile?.metadata?.picture?.optimized?.uri ??
     profile?.metadata?.picture?.raw?.uri ??
     // Stamp.fyi Avatar fallbacks
-    getStampFyiURL(profile?.ownedBy.account ?? ZERO_ADDRESS);
+    getStampFyiURL(profile?.ownedBy.address ?? ZERO_ADDRESS);
 
   return imageKit(sanitizeDStorageUrl(avatarUrl), namedTransform);
 };

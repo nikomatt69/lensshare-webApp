@@ -100,7 +100,7 @@ const useGetMessagePreviews = () => {
       setHasSyncedMessages(false);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-   currentProfile?.id
+   currentProfile?.id.followNftAddress
   );
 
   return {

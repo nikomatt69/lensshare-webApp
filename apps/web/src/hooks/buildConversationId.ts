@@ -8,8 +8,8 @@ import { XMTP_PREFIX } from '@lensshare/data/constants';
  * @returns The conversation ID.
  */
 const buildConversationId = (profileA: string, profileB: string) => {
-  const numberA = parseInt(profileA);
-  const numberB = parseInt(profileB);
+  const numberA = parseInt(profileA.substring(2), 16);
+  const numberB = parseInt(profileB.substring(2), 16);
   return numberA < numberB
     ? `${XMTP_PREFIX}/${profileA}-${profileB}`
     : `${XMTP_PREFIX}/${profileB}-${profileA}`;
