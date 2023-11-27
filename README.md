@@ -8,7 +8,7 @@
     <a href="https://lenshareapp.xyz/u/nikoemme">
         <img src="https://lens-badge.vercel.app/api/badge/nikoemme.lens" alt="Lens">
     </a>
-    <a href="https://vercel.com/heyxyz?utm_source=LensShare&utm_campaign=oss">
+    <a href="https://vercel.com/sea-light-swap?utm_source=lensshare-web-app-web&utm_campaign=oss">
         <img src="https://therealsujitk-vercel-badge.vercel.app/?app=heyxyz" alt="Vercel">
     </a>
     <a href="https://deepsource.io/gh/heyxyz/hey">
@@ -24,7 +24,7 @@
         <img src="https://api.checklyhq.com/v1/badges/checks/0f10fc23-4359-4cf9-a062-dbaa5a4cf0ea?style=flat&theme=default&responseTime=true" alt="Checkly">
     </a>
     <a href="https://github.com/nikomatt69/lensshare-webApp/stargazers">
-        <img src="https://img.shields.io/github/stars/heyxyz/hey?label=Stars&logo=github" alt="Stargazers">
+        <img src="https://img.shields.io/github/stars/nikomatt69/lensshare-webApp/?label=Stars&logo=github" alt="Stargazers">
     </a>
     <a href="https://github.com/nikomatt69/lensshare-webApp/blob/main/LICENSE">
         <img src="https://img.shields.io/github/license/heyxyz/hey?label=Licence&logo=gnu" alt="License">
