@@ -37,7 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const range = 'A1:B50000';
-    const apiKey = 'AIzaSyBXn3-kw4EoGTq9gvmp-yRsfueOjXbVXZo';
+    const apiKey = process.env.GOOGLE_API_KEY;
 
     const sheetsResponse = await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${id}/values/${range}?key=${apiKey}`
