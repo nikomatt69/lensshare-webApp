@@ -1,7 +1,6 @@
 import QueuedPublication from '@components/Publication/QueuedPublication';
 import SinglePublication from '@components/Publication/SinglePublication';
 import PublicationsShimmer from '@components/Shared/Shimmer/PublicationsShimmer';
-import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/outline';
 import type {
   AnyPublication,
   Comment,
@@ -15,7 +14,7 @@ import {
 } from '@lensshare/lens';
 import { isMirrorPublication } from '@lensshare/lib/publicationHelpers';
 import { OptmisticPublicationType } from '@lensshare/types/enums';
-import { Card, EmptyState, ErrorMessage } from '@lensshare/ui';
+import { Card, ErrorMessage } from '@lensshare/ui';
 import type { FC } from 'react';
 import { useInView } from 'react-cool-inview';
 import { useTransactionPersistStore } from 'src/store/useTransactionPersistStore';
@@ -61,6 +60,7 @@ const Feed: FC<FeedProps> = ({ publication }) => {
     (o) => o?.__typename === 'Comment' && o.isHidden
   ).length;
   const hiddenRemovedComments = comments?.length - hiddenCount;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const totalComments = hiddenRemovedComments + queuedCount;
 
   const { observe } = useInView({

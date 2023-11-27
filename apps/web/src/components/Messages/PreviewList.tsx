@@ -14,7 +14,7 @@ import {
 import cn from '@lensshare/ui/cn';
 
 import type { DecodedMessage } from '@xmtp/xmtp-js';
-import type { ChangeEvent, FC } from 'react';
+import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { MessageTabs } from 'src/enums';
@@ -25,7 +25,6 @@ import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
 import RefreshMessages from './Refresh';
 import Search from '@components/Shared/Navbar/Search';
-
 
 interface PreviewListProps {
   selectedConversationKey?: string;
@@ -224,7 +223,8 @@ const PreviewList: FC<PreviewListProps> = ({
         <div className="w-full px-4 pb-4 pt-4">
           <Search
             placeholder={`Search for someone to message...`}
-            onProfileSelected={onProfileSelected} />
+            onProfileSelected={onProfileSelected}
+          />
         </div>
       </Modal>
     </GridItemFour>

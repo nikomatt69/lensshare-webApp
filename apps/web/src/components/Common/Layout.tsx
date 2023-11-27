@@ -20,9 +20,7 @@ import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
 import { isAddress } from 'viem';
-import getCurrentSession from '@lib/getCurrentSession';
 import { useProStore } from 'src/store/useProStore';
-import useProfileStore from 'src/store/useProfileStore';
 import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 
 interface LayoutProps {
@@ -88,7 +86,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   if (profileLoading || !isMounted()) {
     return <Loading />;
   }
-
 
   return (
     <>

@@ -1,5 +1,4 @@
-import { BASE_URL, HEY_API_URL } from '@lensshare/data/constants';
-import getCurrentSession from '@lib/getCurrentSession';
+import { BASE_URL } from '@lensshare/data/constants';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 
 import { useQuery } from '@tanstack/react-query';
@@ -22,10 +21,13 @@ const PreferencesProvider: FC = () => {
 
   const fetchPreferences = async () => {
     try {
-      if (Boolean(currentSessionProfileId) && !isAddress(currentSessionProfileId)) {
+      if (
+        Boolean(currentSessionProfileId) &&
+        !isAddress(currentSessionProfileId)
+      ) {
         const response = await axios.get(
           `${BASE_URL}/api/preference/getPreferences`,
-          { params: { id: currentSessionProfileId} }
+          { params: { id: currentSessionProfileId } }
         );
         const { data } = response;
 

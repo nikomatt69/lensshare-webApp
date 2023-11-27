@@ -17,7 +17,6 @@ import {
   zoraTestnet
 } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
-import { walletConnectProvider } from '@web3modal/wagmi';
 const { chains, publicClient } = configureChains(
   [
     polygon,
@@ -35,20 +34,18 @@ const { chains, publicClient } = configureChains(
 );
 
 const connectors: any = [
-  new InjectedConnector({chains,options: { shimDisconnect: true } }),
+  new InjectedConnector({ chains, options: { shimDisconnect: true } }),
   new CoinbaseWalletConnector({ options: { appName: APP_NAME } }),
   new WalletConnectConnector({
     options: { projectId: WALLETCONNECT_PROJECT_ID },
     chains
-   
   })
 ];
 
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
-  publicClient,
-
+  publicClient
 });
 
 interface Web3ProviderProps {

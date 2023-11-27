@@ -1,26 +1,19 @@
-import { API_URL } from '@lensshare/data/constants';
 import {
-
   type Notification,
-  type UserSigNonces,
-  UserSigNoncesDocument,
   useNewNotificationSubscriptionSubscription,
   useUserSigNoncesSubscriptionSubscription,
   useAuthorizationRecordRevokedSubscriptionSubscription,
   useUserSigNoncesQuery
 } from '@lensshare/lens/generated2';
 import { BrowserPush } from '@lib/browserPush';
-import getCurrentSession from '@lib/getCurrentSession';
-import getCurrentSessionId from '@lib/getCurrentSessionId';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import getPushNotificationData from '@lib/getPushNotificationData';
 import type { FC } from 'react';
-import useWebSocket from 'react-use-websocket';
 import { isSupported, share } from 'shared-zustand';
 import { signOut } from 'src/store/useAuthPersistStore';
 import { useNonceStore } from 'src/store/useNonceStore';
 import { useNotificationPersistStore } from 'src/store/useNotificationPersistStore';
-import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
+import { useUpdateEffect } from 'usehooks-ts';
 import { isAddress } from 'viem';
 import { useAccount } from 'wagmi';
 
@@ -101,7 +94,9 @@ const LensSubscriptionsProvider: FC = () => {
         data.userSigNonces.lensPublicActProxyOnchainSigNonce
       );
     },
-    skip: Boolean(currentSessionProfileId) ? !isAddress(currentSessionProfileId) : true
+    skip: Boolean(currentSessionProfileId)
+      ? !isAddress(currentSessionProfileId)
+      : true
   });
 
   // Sync zustand stores between tabs
