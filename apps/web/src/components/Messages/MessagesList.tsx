@@ -2,7 +2,7 @@ import { ClockIcon, FaceFrownIcon } from '@heroicons/react/24/outline';
 import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/solid';
 import type { Profile } from '@lensshare/lens';
 
-import getAvatar from '@lensshare/lib/getAvatar';
+import getAvatar2 from '@lensshare/lib/getAvatar2';
 import getStampFyiURL from '@lensshare/lib/getStampFyiURL';
 import { Card, Image } from '@lensshare/ui';
 import cn from '@lensshare/ui/cn';
@@ -37,7 +37,7 @@ const MessageTile: FC<MessageTileProps> = ({
   profile,
   currentProfile
 }) => {
-  const address = currentProfile?.ownedBy.address;
+  const address = currentProfile?.ownedBy.address
 
   // icon to display to indicate status of message
   let statusIcon: JSX.Element | null = null;
@@ -92,7 +92,7 @@ const MessageTile: FC<MessageTileProps> = ({
       <div className="flex max-w-[60%]">
         {address !== message.senderAddress ? (
           <Image
-            src={profile ? getAvatar(profile) : url ? url : getAvatar('')}
+            src={profile ? getAvatar2(profile) : url ? url : getAvatar2('')}
             className="mr-2 h-10 w-10 rounded-full border bg-gray-200 dark:border-gray-700"
             alt={profile?.handle?.fullHandle}
           />
@@ -227,17 +227,16 @@ const MessagesList: FC<MessageListProps> = ({
 
   const ensNames = useMessageStore((state) => state.ensNames);
   const ensName = ensNames.get(conversationKey?.split('/')[0] ?? '');
-  const url =
-    (ensName && getStampFyiURL(conversationKey?.split('/')[0] ?? '')) ?? '';
+  const url = (ensName && getStampFyiURL(conversationKey?.split('/')[0] ?? '')) ?? '';
 
   return (
-    <div className="flex grow overflow-y-hidden">
+    <div className="flex grow  overflow-y-hidden">
       <div className="relative flex h-full w-full pl-4">
         <div className="flex h-full w-full flex-col-reverse overflow-y-hidden">
           {missingXmtpAuth ? <MissingXmtpAuth /> : null}
           <div
             ref={listRef}
-            className="flex flex-col-reverse overflow-y-auto overflow-x-hidden"
+            className="flex  flex-col-reverse overflow-y-auto overflow-x-hidden"
           >
             {messages?.map((msg, index) => {
               const dateHasChanged = lastMessageDate

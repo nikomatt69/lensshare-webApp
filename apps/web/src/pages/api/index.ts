@@ -1,10 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import allowCors from 'src/utils/allowCors';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  return res
-    .setHeader('Content-Type', 'text/html')
-    .setHeader('Cache-Control', 's-maxage=86400')
-    .send('gm');
+const handler = (_req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    res.status(200).json({
+      message: 'LensShare API ✨'
+    });
+  } catch {
+    res.status(500).json({ success: false });
+  }
 };
 
-export default handler;
+export default allowCors(handler);

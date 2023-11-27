@@ -5,7 +5,7 @@ import {
 import type { Profile } from '@lensshare/lens';
 import formatAddress from '@lensshare/lib/formatAddress';
 
-import getAvatar from '@lensshare/lib/getAvatar';
+import getAvatar2 from '@lensshare/lib/getAvatar2';
 import getStampFyiURL from '@lensshare/lib/getStampFyiURL';
 import hasMisused from '@lensshare/lib/hasMisused';
 import sanitizeDisplayName from '@lensshare/lib/sanitizeDisplayName';
@@ -79,10 +79,10 @@ const Preview: FC<PreviewProps> = ({
           <Image
             src={
               profile?.handle
-                ? getAvatar(profile)
+                ? getAvatar2(profile)
                 : ensName
                 ? url
-                : getAvatar('')
+                : getAvatar2('')
             }
             loading="lazy"
             className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border bg-gray-200 dark:border-gray-700"

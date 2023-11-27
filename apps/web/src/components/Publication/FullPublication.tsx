@@ -11,6 +11,8 @@ import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 import PublicationStats from './PublicationStats';
 import PublicationType from './Type';
+import { useEffectOnce } from 'usehooks-ts';
+import pushToImpressions from '@lib/pushToImpressions';
 
 interface FullPublicationProps {
   publication: AnyPublication;
@@ -22,6 +24,9 @@ const FullPublication: FC<FullPublicationProps> = ({ publication }) => {
     : publication;
 
   const { metadata, createdAt } = targetPublication;
+  useEffectOnce(() => {
+    pushToImpressions(targetPublication.id);
+  });
 
   return (
     <article className="p-5">

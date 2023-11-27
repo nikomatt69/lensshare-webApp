@@ -9,13 +9,14 @@ import {
 } from '@heroicons/react/24/outline';
 import { PUBLICATION } from '@lensshare/data/tracking';
 import type { AnyPublication } from '@lensshare/lens';
+import getPublicationsViews from '@lensshare/lib/getPublicationsViews';
 import nFormatter from '@lensshare/lib/nFormatter';
 import { isMirrorPublication } from '@lensshare/lib/publicationHelpers';
 import { Modal } from '@lensshare/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import plur from 'plur';
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { useBookmarkOptimisticStore } from 'src/store/OptimisticActions/useBookmarkOptimisticStore';
 import { useMirrorOrQuoteOptimisticStore } from 'src/store/OptimisticActions/useMirrorOrQuoteOptimisticStore';
 import { useOpenActionOptimisticStore } from 'src/store/OptimisticActions/useOpenActionOptimisticStore';
@@ -39,6 +40,7 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const [showQuotesModal, setShowQuotesModal] = useState(false);
   const [showLikesModal, setShowLikesModal] = useState(false);
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
+  const [views, setViews] = useState<number>(0);
 
   const targetPublication = isMirrorPublication(publication)
     ? publication?.mirrorOn
@@ -79,6 +81,13 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
   const quotesCount = targetPublication.stats.quotes;
   const commentsCount = targetPublication.stats.comments;
   const publicationId = targetPublication.id;
+  useEffect(() => {
+    // Get Views
+    getPublicationsViews([targetPublication.id]).then((viewsResponse) => {
+      setViews(viewsResponse?.[0]?.views);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [targetPublication]);
 
   const showStats =
     mirrorOrQuoteCount > 0 ||
@@ -86,7 +95,8 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
     commentsCount > 0 ||
     reactionsCount > 0 ||
     openActionsCount > 0 ||
-    bookmarksCount > 0;
+    bookmarksCount > 0 ||
+    views > 0;
 
   if (!showStats) {
     return null;
@@ -208,9 +218,15 @@ const PublicationStats: FC<PublicationStatsProps> = ({ publication }) => {
             {plur('Bookmark', bookmarksCount)}
           </span>
         ) : null}
+         {views > 0 ? (
+          <span>
+            <b className="text-black dark:text-white">{nFormatter(views)}</b>{' '}
+            {plur('View', views)}
+          </span>
+        ) : null}
       </div>
     </>
   );
 };
 
-export default PublicationStats;
+export default memo(PublicationStats);

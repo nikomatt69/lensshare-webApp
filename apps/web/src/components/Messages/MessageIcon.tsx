@@ -128,19 +128,19 @@ const MessageIcon: FC = () => {
     };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cachedClient, currentProfile?.id]);
+  }, [cachedClient, currentProfile?.handle?.id]);
 
   return (
     <Link
       href="/messages"
-      className="hidden min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300/20 md:flex"
+      className="  rounded-md  hover:bg-gray-300/20 "
       onClick={() => {
-        currentProfile && clearMessagesBadge(currentProfile.id);
+        currentProfile && clearMessagesBadge(currentProfile?.handle?.id);
       }}
     >
-      <EnvelopeIcon className="h-5 w-5 sm:h-6 sm:w-6" />
-      {showMessagesBadge.get(currentProfile?.id) ? (
-        <span className="h-2 w-2 rounded-full bg-red-500" />
+      <EnvelopeIcon className="h-6 w-6 sm:h-6 sm:w-6" />
+      {showMessagesBadge.get(currentProfile?.handle?.id) ? (
+        <span className="z-[6] h-2 w-2 rounded-full bg-red-500 text-red-500" />
       ) : null}
     </Link>
   );

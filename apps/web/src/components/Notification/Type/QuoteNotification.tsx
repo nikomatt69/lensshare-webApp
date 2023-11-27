@@ -8,6 +8,8 @@ import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
+import { useEffectOnce } from 'usehooks-ts';
+import pushToImpressions from '@lib/pushToImpressions';
 // million-ignore
 interface QuoteNotificationProps {
   notification: QuoteNotification;
@@ -20,6 +22,10 @@ const QuoteNotification: FC<QuoteNotificationProps> = ({ notification }) => {
 
   const text = 'quoted your';
   const type = notification.quote.quoteOn.__typename;
+
+  useEffectOnce(() => {
+    pushToImpressions(notification.quote.id);
+  });
 
   return (
     <div className="space-y-2">

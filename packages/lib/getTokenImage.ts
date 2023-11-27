@@ -8,7 +8,7 @@ import { STATIC_ASSETS_URL } from '@lensshare/data/constants';
  */
 const getTokenImage = (symbol: string): string => {
   const symbolLowerCase = symbol?.toLowerCase() ?? '';
-  return `${STATIC_ASSETS_URL}/tokens/${symbolLowerCase}.svg`;
+  return `${STATIC_ASSETS_URL}/images/tokens/${symbolLowerCase}.svg`;
 };
 
 export default getTokenImage;

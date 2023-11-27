@@ -17,7 +17,7 @@ const nextConfig = {
     return [
       {
         source: '/sitemaps/:match*',
-        destination: 'https://sitemap.lenshareapp.xyz/:match*'
+        destination: 'https://lenshareapp.xyz/api/sitemap/:match*'
       }
     ];
   },
@@ -31,6 +31,11 @@ const nextConfig = {
       {
         source: '/donate',
         destination: 'https://giveth.io/project/hey?utm_source=hey',
+        permanent: true
+      },
+      {
+        source: '/u/lens/:username*',
+        destination: '/u/:username*',
         permanent: true
       },
       {

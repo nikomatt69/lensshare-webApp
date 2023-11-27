@@ -1,4 +1,4 @@
-import { NFT_WORKER_URL } from '@lensshare/data/constants';
+import { BASE_URL, HEY_API_URL, NFT_WORKER_URL } from '@lensshare/data/constants';
 import type { ZoraNft } from '@lensshare/types/nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -21,12 +21,13 @@ const useZoraNft = ({
   error: unknown;
 } => {
   const getZoraNftDetails = async () => {
-    const response = await axios.get(`${NFT_WORKER_URL}/zora`, {
+    const response = await axios.get(`${BASE_URL}/api/nft/getZoraNft`, {
       params: { chain, address, token }
     });
 
     return response.data?.nft;
   };
+
 
   const { data, isLoading, error } = useQuery({
     queryKey: ['getZoraNftDetails', chain, address, token],

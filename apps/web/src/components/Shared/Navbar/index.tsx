@@ -1,9 +1,5 @@
 import NotificationIcon from '@components/Notification/NotificationIcon';
-import {
-  ChatBubbleOvalLeftEllipsisIcon,
-  MagnifyingGlassIcon,
-  XMarkIcon
-} from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@lensshare/lens';
 import getProfile from '@lensshare/lib/getProfile';
 import cn from '@lensshare/ui/cn';
@@ -18,6 +14,7 @@ import MenuItems from './MenuItems';
 import MoreNavItems from './MoreNavItems';
 import Search from './Search';
 import StaffBar from './StaffBar';
+import MessageIcon from '@components/Messages/MessageIcon';
 
 const Navbar: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -117,17 +114,9 @@ const Navbar: FC = () => {
               alt="Logo"
             />
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {currentProfile ? <NotificationIcon /> : null}
-            {currentProfile ? (
-              <Link href="/messages" className="mx-auto my-3">
-                {isActivePath('/messages') ? (
-                  <ChatBubbleOvalLeftEllipsisIcon className="text-brand h-6 w-6" />
-                ) : (
-                  <ChatBubbleOvalLeftEllipsisIcon className="h-6 w-6" />
-                )}
-              </Link>
-            ) : null}
+            {currentProfile ? <MessageIcon /> : null}
 
             <MenuItems />
           </div>

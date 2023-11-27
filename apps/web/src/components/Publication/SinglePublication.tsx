@@ -3,7 +3,7 @@ import PublicationWrapper from '@components/Shared/PublicationWrapper';
 import type { AnyPublication, FeedItem } from '@lensshare/lens';
 import { isMirrorPublication } from '@lensshare/lib/publicationHelpers';
 import cn from '@lensshare/ui/cn';
-import type { FC } from 'react';
+import { memo, type FC } from 'react';
 
 import PublicationActions from './Actions';
 import ModAction from './Actions/ModAction';
@@ -12,6 +12,8 @@ import HiddenPublication from './HiddenPublication';
 import PublicationBody from './PublicationBody';
 import PublicationHeader from './PublicationHeader';
 import PublicationType from './Type';
+import { useInView } from 'react-cool-inview';
+import pushToImpressions from '@lib/pushToImpressions';
 
 interface SinglePublicationProps {
   publication: AnyPublication;
@@ -45,7 +47,15 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   const { metadata } = isMirrorPublication(publication)
     ? publication.mirrorOn
     : publication;
+  const { observe } = useInView({
+    onChange: async ({ inView }) => {
+      if (!inView) {
+        return;
+      }
 
+      pushToImpressions(rootPublication.id);
+    }
+  });
   return (
     <PublicationWrapper
       className={cn(
@@ -55,6 +65,7 @@ const SinglePublication: FC<SinglePublicationProps> = ({
       )}
       publication={rootPublication}
     >
+      <span ref={observe} />
       {feedItem ? (
         <ActionType feedItem={feedItem} />
       ) : (
@@ -93,4 +104,4 @@ const SinglePublication: FC<SinglePublicationProps> = ({
   );
 };
 
-export default SinglePublication;
+export default memo(SinglePublication);

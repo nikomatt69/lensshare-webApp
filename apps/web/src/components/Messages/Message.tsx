@@ -180,9 +180,9 @@ const Message: FC<MessageProps> = ({}) => {
               <Card
                 className={cn(
                   staffMode
-                    ? 'h-[calc(100vh-9.78rem)]'
-                    : 'h-[calc(100vh-8rem)]',
-                  'flex flex-col justify-between xs:mx-2 mb-0 sm:mx-2 md:col-span-4  xs:h-[100vh] xs:mx-2 xs:col-span-4 w-full justify-between rounded-xl sm:mx-2 sm:h-[70vh] md:h-[80vh] xl:h-[84vh]'
+                    ? 'mb-2 h-[calc(100vh-9.78rem)]'
+                    : 'mb-2 h-[calc(100vh-12.5rem)]',
+                  'xs:mx-2 xs:h-[78vh] xs:mx-2 xs:col-span-4 mb-0 flex w-full  flex-col justify-between justify-between rounded-xl sm:mx-2 sm:mx-2 sm:h-[70vh] md:col-span-4 md:h-[80vh] xl:h-[84vh]'
                 )}
               >
                 {showLoading ? (

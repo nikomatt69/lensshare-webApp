@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import type { FC } from 'react';
 import { useState } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
-import { useUpdateEffect } from 'usehooks-ts';
+import { useEffectOnce, useUpdateEffect } from 'usehooks-ts';
 
 const EnableMessages: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -20,7 +20,7 @@ const EnableMessages: FC = () => {
     push('/messages');
   };
 
-  useUpdateEffect(() => {
+  useEffectOnce(() => {
     const fetchCanMessage = async () => {
       const isMessagesEnabled = await Client.canMessage(
         currentSessionProfileId,
@@ -32,7 +32,7 @@ const EnableMessages: FC = () => {
       setLoaded(true);
     };
     fetchCanMessage();
-  }, [currentSessionProfileId]);
+  });
 
   return (
     <Card

@@ -3,7 +3,7 @@ import UserProfile from '@components/Shared/UserProfile';
 import { ChevronLeftIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import type { Profile } from '@lensshare/lens';
 import formatAddress from '@lensshare/lib/formatAddress';
-import getAvatar from '@lensshare/lib/getAvatar';
+import getAvatar2 from '@lensshare/lib/getAvatar2';
 import getStampFyiURL from '@lensshare/lib/getStampFyiURL';
 import { Image } from '@lensshare/ui';
 import type { FC } from 'react';
@@ -71,7 +71,7 @@ const MessageHeader: FC<MessageHeaderProps> = ({
         ) : (
           <div className="flex min-h-[48px] items-center space-x-3">
             <Image
-              src={ensName ? url : getAvatar(profile)}
+              src={ensName ? url : getAvatar2(profile)}
               loading="lazy"
               className="h-10 min-h-[40px] w-10 min-w-[40px] rounded-full border bg-gray-200 dark:border-gray-700"
               height={40}
@@ -128,17 +128,9 @@ const MessageHeader: FC<MessageHeaderProps> = ({
       {profile ? (
         <div>
           {!following ? (
-            <Follow
-              
-              profile={profile}
-              setFollowing={setFollowingWrapped}
-            />
+            <Follow profile={profile} setFollowing={setFollowingWrapped} />
           ) : (
-            <Unfollow
-              
-              profile={profile}
-              setFollowing={setFollowingWrapped}
-            />
+            <Unfollow profile={profile} setFollowing={setFollowingWrapped} />
           )}
         </div>
       ) : null}

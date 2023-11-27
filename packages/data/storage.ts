@@ -5,7 +5,6 @@ export const Localstorage = {
   NotificationStore: 'notification.store',
   TransactionStore: 'transaction.store',
   TimelineStore: 'timeline.store',
-  AlgorithmStore: 'algorithm.store',
   AttachmentStore: 'attachment.store',
   AttachmentCache: 'attachment-cache.store',
   LensshareStore: 'lensshare.store',
@@ -14,5 +13,14 @@ export const Localstorage = {
   MessageStore: 'message.store',
   LocaleStore: 'locale.store',
   FingerprintStore: 'fingerprint.store',
-  FeaturesCache: 'gbFeaturesCache'
+  FeaturesCache: 'gbFeaturesCache',
+  LeafwatchStore: 'leafwatch.store'
+};
+
+export const IndexDB = {
+  ProfileStore: 'profile.store',
+  AlgorithmStore: 'algorithm.store',
+  FeatureFlagsStore: 'featureflags.store',
+  VerifiedMembersStore: 'verifiedmembers.store',
+  FeaturedGroupsStore: 'featuredgroups.store'
 };

@@ -11,6 +11,9 @@ import Comment from './Comment';
 import Like from './Like';
 import Mod from './Mod';
 import ShareMenu from './Share';
+import Views from './Views';
+import getPublicationViewCountById from '@lib/getPublicationViewCountById';
+import { useImpressionsStore } from 'src/store/useImpressionsStore';
 
 interface PublicationActionsProps {
   publication: AnyPublication;
@@ -27,12 +30,18 @@ const PublicationActions: FC<PublicationActionsProps> = ({
   const currentProfile = useAppStore((state) => state.currentProfile);
   const gardenerMode = usePreferencesStore((state) => state.gardenerMode);
   const hasOpenAction = (targetPublication.openActionModules?.length || 0) > 0;
-
+  const publicationViews = useImpressionsStore(
+    (state) => state.publicationViews
+  );
   const canMirror = currentProfile
     ? targetPublication.operations.canMirror
     : true;
   const canAct =
     hasOpenAction && isOpenActionAllowed(targetPublication.openActionModules);
+    const views = getPublicationViewCountById(
+      publicationViews,
+      targetPublication
+    );
 
   return (
     <span
@@ -48,6 +57,7 @@ const PublicationActions: FC<PublicationActionsProps> = ({
       {canAct ? (
         <OpenAction publication={publication} showCount={showCount} />
       ) : null}
+      {views > 0 ? <Views views={views} showCount={showCount} /> : null}
       {gardenerMode ? (
         <Mod publication={publication} isFullPublication={showCount} />
       ) : null}

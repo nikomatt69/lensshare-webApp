@@ -1,4 +1,4 @@
-import { NFT_WORKER_URL } from '@lensshare/data/constants';
+import { BASE_URL, HEY_API_URL, NFT_WORKER_URL } from '@lensshare/data/constants';
 import type { BasePaintCanvas } from '@lensshare/types/nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -17,7 +17,7 @@ const useBasePaintCanvas = ({
   error: unknown;
 } => {
   const getBasePaintCanvasMetadata = async () => {
-    const response = await axios.get(`${NFT_WORKER_URL}/basepaint`, {
+    const response = await axios.get(`${BASE_URL}/api/nft/getBasePaintCanvas`, {
       params: { id }
     });
 

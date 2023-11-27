@@ -1,16 +1,17 @@
 import type { HomeFeedType } from '@lensshare/data/enums';
-import { Localstorage } from '@lensshare/data/storage';
+import { IndexDB, Localstorage } from '@lensshare/data/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import createIdbStorage from './lib/createIdbStorage';
 
-interface EnabledAlgorithmsPerisistState {
+interface EnabledAlgorithmsState {
   enabledAlgorithms: HomeFeedType[];
   enableAlgorithm: (algorithm: HomeFeedType) => void;
   disableAlgorithm: (algorithm: HomeFeedType) => void;
 }
 
-export const useEnabledAlgorithmsPersistStore = create(
-  persist<EnabledAlgorithmsPerisistState>(
+export const useEnabledAlgorithmsStore = create(
+  persist<EnabledAlgorithmsState>(
     (set) => ({
       enabledAlgorithms: [],
       enableAlgorithm: (algorithm) => {
@@ -26,6 +27,9 @@ export const useEnabledAlgorithmsPersistStore = create(
         }));
       }
     }),
-    { name: Localstorage.AlgorithmStore }
+    {
+      name: IndexDB.AlgorithmStore,
+      storage: createIdbStorage()
+    }
   )
 );

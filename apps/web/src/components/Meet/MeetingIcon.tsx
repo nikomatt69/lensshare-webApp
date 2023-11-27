@@ -41,10 +41,10 @@ const MeetingIcon: FC = () => {
             setMeetingUrl(meetingUrl);
             router.push(`${url}/meet/${roomId}`);
           }}
-          className="text-brand-700 mb-2 mr-4 inline h-8 w-8 cursor-pointer"
+          className="text-brand-700 mb-1 mr-1 inline h-7 w-7 cursor-pointer"
         />
       </div>
-      <div className="mx-3 mt-2 ">
+      <div className="mx-1 mt-2 ">
         {show && (
           <Link href={meetingUrl}>
             <VideoCameraIcon className="aside h-6 w-6 text-green-500" />

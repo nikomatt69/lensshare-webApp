@@ -4,7 +4,7 @@ import { HOME } from '@lensshare/data/tracking';
 import { TabButton } from '@lensshare/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { useEnabledAlgorithmsPersistStore } from 'src/store/useEnabledAlgorithmsPersistStore';
+import { useEnabledAlgorithmsStore } from 'src/store/useEnabledAlgorithmsPersistStore';
 
 interface FeedTypeProps {
   setFeedType: Dispatch<SetStateAction<HomeFeedType>>;
@@ -12,7 +12,7 @@ interface FeedTypeProps {
 }
 
 const Tabs: FC<FeedTypeProps> = ({ setFeedType, feedType }) => {
-  const enabledAlgorithms = useEnabledAlgorithmsPersistStore(
+  const enabledAlgorithms = useEnabledAlgorithmsStore(
     (state) => state.enabledAlgorithms
   );
   const sanitizedEnabledAlgorithms = algorithms.filter((a) => {

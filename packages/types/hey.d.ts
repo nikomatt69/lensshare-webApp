@@ -3,7 +3,7 @@ import type {
   CollectOpenActionModuleType,
   RecipientDataInput
 } from '@lensshare/lens';
-import type { Database } from '@lensshare/supabase/database.types';
+import type { Database } from './database.types';
 
 export type Group = Database['public']['Tables']['groups']['Row'];
 
@@ -24,4 +24,10 @@ export type CollectModuleType = {
   recipients?: RecipientDataInput[];
   followerOnly?: boolean;
   endsAt?: string | null;
+};
+
+
+export type PublicationViewCount = {
+  id: string;
+  views: number;
 };

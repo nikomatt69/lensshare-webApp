@@ -1,7 +1,5 @@
 import Preview from '@components/Messages/Preview';
-import Following from '@components/Profile/Following';
 import Loader from '@components/Shared/Loader';
-import Search from '@components/Shared/Navbar/Search';
 import { EnvelopeIcon, PlusCircleIcon } from '@heroicons/react/24/outline';
 import { Errors } from '@lensshare/data/errors';
 
@@ -14,10 +12,9 @@ import {
   TabButton
 } from '@lensshare/ui';
 import cn from '@lensshare/ui/cn';
-import { Leafwatch } from '@lib/leafwatch';
 
 import type { DecodedMessage } from '@xmtp/xmtp-js';
-import type { FC } from 'react';
+import type { ChangeEvent, FC } from 'react';
 import { useEffect, useState } from 'react';
 import { Virtuoso } from 'react-virtuoso';
 import { MessageTabs } from 'src/enums';
@@ -26,6 +23,9 @@ import { useAppStore } from 'src/store/useAppStore';
 import type { TabValues } from 'src/store/message';
 import { useMessagePersistStore, useMessageStore } from 'src/store/message';
 import { usePreferencesStore } from 'src/store/usePreferencesStore';
+import RefreshMessages from './Refresh';
+import Search from '@components/Shared/Navbar/Search';
+
 
 interface PreviewListProps {
   selectedConversationKey?: string;
@@ -77,13 +77,12 @@ const PreviewList: FC<PreviewListProps> = ({
 
   const newMessageClick = () => {
     setShowSearchModal(true);
-   
   };
 
   const onProfileSelected = async (profile: Profile) => {
     const conversationKey = profile.ownedBy.address.toLowerCase();
     await persistProfile(conversationKey, profile);
-    const selectedTab: TabValues = profile?.followNftAddress?.address
+    const selectedTab: TabValues = profile?.operations?.isFollowedByMe?.value
       ? MessageTabs.Following
       : MessageTabs.Inbox;
     setSelectedTab(selectedTab);
@@ -93,7 +92,7 @@ const PreviewList: FC<PreviewListProps> = ({
 
   const partitionedProfiles = Array.from(profilesToShow || []).reduce(
     (result, [key, profile]) => {
-      if (profile?.followNftAddress?.address) {
+      if (profile?.operations?.isFollowedByMe?.value) {
         result[0].set(key, profile);
       } else {
         result[1].set(key, profile);
@@ -119,13 +118,15 @@ const PreviewList: FC<PreviewListProps> = ({
     <GridItemFour
       className={cn(
         staffMode ? 'h-[calc(100vh-9.78rem)]' : 'h-[calc(100vh-8rem)]',
-        'xs:mx-2 mb-0 sm:mx-2 md:col-span-4  xs:h-[100vh] xs:mx-2 xs:col-span-4 w-full justify-between rounded-xl sm:mx-2 sm:h-[76vh] md:h-[80vh] xl:h-[84vh]',
-      
+        'xs:mx-2 xs:h-[100vh] xs:mx-2 xs:col-span-4  mb-0 w-full justify-between rounded-xl sm:mx-2 sm:mx-2 sm:h-[76vh] md:col-span-4 md:h-[80vh] xl:h-[84vh]'
       )}
     >
       <Card className="flex h-full flex-col justify-between">
         <div className="divider relative flex items-center justify-between p-5">
           <div className="font-bold">Messages</div>
+          <div className="ml-auto mr-2">
+            <RefreshMessages />
+          </div>
           {currentProfile && !showAuthenticating && !showLoading ? (
             <button onClick={newMessageClick} type="button">
               <PlusCircleIcon className="h-6 w-6" />
@@ -133,7 +134,7 @@ const PreviewList: FC<PreviewListProps> = ({
           ) : null}
           {previewsLoading ? (
             <progress
-              className="absolute -bottom-1 left-0 h-1 w-full appearance-none border-none bg-transparent"
+              className="absolute -bottom-1 left-0 h-1 w-full appearance-none border-none "
               value={previewsProgress}
               max={100}
             />
@@ -147,7 +148,6 @@ const PreviewList: FC<PreviewListProps> = ({
               active={selectedTab === MessageTabs.Following}
               onClick={() => {
                 setSelectedTab(MessageTabs.Following);
-              
               }}
               showOnSm
             />
@@ -157,7 +157,6 @@ const PreviewList: FC<PreviewListProps> = ({
               active={selectedTab === MessageTabs.Inbox}
               onClick={() => {
                 setSelectedTab(MessageTabs.Inbox);
-         
               }}
               showOnSm
             />
@@ -222,19 +221,11 @@ const PreviewList: FC<PreviewListProps> = ({
         show={showSearchModal}
         onClose={() => setShowSearchModal(false)}
       >
-        <div className="w-full px-4 pt-4">
+        <div className="w-full px-4 pb-4 pt-4">
           <Search
-        
             placeholder={`Search for someone to message...`}
-            onProfileSelected={onProfileSelected}
-          />
+            onProfileSelected={onProfileSelected} />
         </div>
-        {currentProfile ? (
-          <Following
-            profile={currentProfile}
-            onProfileSelected={onProfileSelected}
-          />
-        ) : null}
       </Modal>
     </GridItemFour>
   );

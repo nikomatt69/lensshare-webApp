@@ -13,14 +13,14 @@ const NotificationIcon: FC = () => {
   return (
     <Link
       href="/notifications"
-      className="min-w-[40px] items-start justify-center rounded-md p-1 hover:bg-gray-300/20 md:flex"
+      className=" rounded-md  hover:bg-gray-300/20 "
       onClick={() => {
         if (latestNotificationId) {
           setLastOpenedNotificationId(latestNotificationId);
         }
       }}
     >
-      <BellIcon className="h-5 w-5 sm:h-6 sm:w-6" />
+      <BellIcon className="h-6 w-6 sm:h-6 sm:w-6" />
       {lastOpenedNotificationId !== latestNotificationId ? (
         <span className="h-2 w-2 rounded-full bg-red-500" />
       ) : null}

@@ -4,16 +4,16 @@ import { HOME } from '@lensshare/data/tracking';
 import { Toggle, Tooltip } from '@lensshare/ui';
 import { Leafwatch } from '@lib/leafwatch';
 import type { FC } from 'react';
-import { useEnabledAlgorithmsPersistStore } from 'src/store/useEnabledAlgorithmsPersistStore';
+import { useEnabledAlgorithmsStore } from 'src/store/useEnabledAlgorithmsPersistStore';
 
 const List: FC = () => {
-  const enabledAlgorithms = useEnabledAlgorithmsPersistStore(
+  const enabledAlgorithms = useEnabledAlgorithmsStore(
     (state) => state.enabledAlgorithms
   );
-  const enableAlgorithm = useEnabledAlgorithmsPersistStore(
+  const enableAlgorithm = useEnabledAlgorithmsStore(
     (state) => state.enableAlgorithm
   );
-  const disableAlgorithm = useEnabledAlgorithmsPersistStore(
+  const disableAlgorithm = useEnabledAlgorithmsStore(
     (state) => state.disableAlgorithm
   );
 

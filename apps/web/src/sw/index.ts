@@ -1,8 +1,9 @@
+import { LEAFWATCH_WORKER_URL } from '@lensshare/data/constants';
 import { ServiceWorkerCache } from './cache';
 
 declare let self: ServiceWorkerGlobalScope;
 
-const impressionsEndpoint = 'https://impressions.hey.xyz/ingest';
+const impressionsEndpoint = `https://impressions.lenshareapp.xyz/ingest`;
 const publicationsVisibilityInterval = 5000;
 let viewerId: string | null = null;
 let visiblePublicationsSet = new Set();
@@ -25,9 +26,6 @@ const sendVisiblePublicationsToServer = () => {
       .catch(() => {});
   }
 };
-
-setInterval(sendVisiblePublicationsToServer, publicationsVisibilityInterval);
-
 
 const preCachedAssets = (process.env.STATIC_ASSETS ?? []) as string[];
 const CACHEABLE_PATHS = ['/', '/contact', '/explore'];
@@ -69,6 +67,7 @@ self.addEventListener('message', (event) => {
     viewerId = event.data.viewerId;
   }
 });
+setInterval(sendVisiblePublicationsToServer, publicationsVisibilityInterval);
 
 self.addEventListener('fetch', handleFetch);
 self.addEventListener('install', (event) => event.waitUntil(handleInstall()));

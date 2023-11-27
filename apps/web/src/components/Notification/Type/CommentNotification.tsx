@@ -9,6 +9,8 @@ import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
+import { useEffectOnce } from 'usehooks-ts';
+import pushToImpressions from '@lib/pushToImpressions';
 // million-ignore
 interface CommentNotificationProps {
   notification: CommentNotification;
@@ -25,6 +27,8 @@ const CommentNotification: FC<CommentNotificationProps> = ({
   const text = 'commented on your';
   // TODO: remove ? when we have commentOn field in the comment
   const type = notification.comment.commentOn?.__typename;
+
+
 
   return (
     <div className="space-y-2">

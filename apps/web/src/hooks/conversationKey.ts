@@ -1,6 +1,6 @@
 import { XMTP_PREFIX } from '@lensshare/data/constants';
 
-const CONVERSATION_KEY_RE = /^(.*)\/lens\.dev\/dm\/(.*)-(.*)$/;
+const CONVERSATION_KEY_RE = /^(.*)\/lensshare\.dev\/dm\/(.*)-(.*)$/;
 
 /**
  * Builds a conversation key for a given peer address and conversation id

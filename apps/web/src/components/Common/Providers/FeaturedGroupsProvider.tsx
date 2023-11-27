@@ -1,7 +1,7 @@
-import { GROUPS_WORKER_URL } from '@lensshare/data/constants';
+import { BASE_URL, HEY_API_URL } from '@lensshare/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import type { FC } from 'react';
+import { type FC } from 'react';
 import { useAppStore } from 'src/store/useAppStore';
 
 const FeaturedGroupsProvider: FC = () => {
@@ -9,7 +9,7 @@ const FeaturedGroupsProvider: FC = () => {
 
   const fetchFeaturedGroups = async () => {
     try {
-      const response = await axios.get(`${GROUPS_WORKER_URL}/featured`);
+      const response = await axios.get(`${BASE_URL}/api/group/featuredGroups`);
       const { data } = response;
       setFeaturedGroups(data.result || []);
     } catch {}

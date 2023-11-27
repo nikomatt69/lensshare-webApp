@@ -4,6 +4,7 @@ export const IS_MAINNET = process.env.NEXT_PUBLIC_LENS_NETWORK === 'mainnet';
 export const IS_PRODUCTION = process.env.NEXT_PUBLIC_IS_PRODUCTION === 'true';
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'lens/';
 export const LENSSHARE_API_URL = 'https://api.lenshareapp.xyz';
+export const HEY_API_URL = 'https://api.lenshareapp.xyz';
 
 export const APP_ID = 'lensshare';
 export const APP_NAME = 'LensShare';
@@ -78,8 +79,8 @@ export const METADATA_WORKER_URL = IS_MAINNET
   ? 'https://metadata.lenshareapp.xyz'
   : 'https://metadata.lenshareapp.xyz';
 export const FRESHDESK_WORKER_URL = IS_MAINNET
-  ? 'https://freshdesk.hey.xyz'
-  : 'https://freshdesk.hey.xyz';
+  ? 'https://freshdesk.lenshareapp.xyz'
+  : 'https://freshdesk.lensshare.xyz';
 export const SNAPSHOR_RELAY_WORKER_URL = IS_MAINNET
   ? 'https://snapshot-relay.lenshareapp.xyz'
   : 'https://snapshot-relay.lenshareapp.xyz';
@@ -93,17 +94,14 @@ export const SPACES_WORKER_URL = IS_MAINNET
   ? 'https://spaces.lenshareapp.xyz'
   : 'https://spaces.lenshareapp.xyz';
 export const LEAFWATCH_WORKER_URL = IS_MAINNET
-  ? 'https://leafwatch.hey.xyz'
-  : 'https://leafwatch.hey.xyz';
+  ? 'https://leafwatch.lenshareapp.xyz'
+  : 'https://leafwatch.lenshareapp.xyz';
 export const ENS_WORKER_URL = IS_MAINNET
   ? 'https://ens.lenshareapp.xyz'
   : 'https://ens.lenshareapp.xyz';
 export const NFT_WORKER_URL = IS_MAINNET
   ? 'https://nft.lenshareapp.xyz'
   : 'https://nft.lenshareapp.xyz';
-export const PREFERENCES_WORKER_URL = IS_MAINNET
-  ? 'https://preferences.hey.xyz'
-  : 'https://preferences.hey.xyz';
 export const GROUPS_WORKER_URL = IS_MAINNET
   ? 'https://groups.hey.xyz'
   : 'https://groups.hey.xyz';
@@ -119,7 +117,9 @@ export const LIVE_WORKER_URL = IS_MAINNET
 export const STAFF_PICKS_WORKER_URL = IS_MAINNET
   ? 'https://staff-picks.hey.xyz'
   : 'https://staff-picks.hey.xyz';
-
+  export const PREFERENCES_WORKER_URL = IS_MAINNET
+  ? 'https://preferences.lenshareapp.xyz'
+  : 'https://preferences.hey.xyz';
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenshareapp.xyz';
 export const FEEDS_WORKER_URL = IS_MAINNET
   ? 'https://feeds.hey.xyz'
@@ -153,7 +153,7 @@ export const OPENSEA_KEY = '3dc11eabc74e425abb39ee2ba16f3ae7';
 export const SCROLL_ROOT_MARGIN = '40% 0px';
 
 export const XMTP_ENV = IS_MAINNET ? 'production' : 'production';
-export const XMTP_PREFIX = 'lens.dev/dm';
+export const XMTP_PREFIX = 'lensshare.dev/dm';
 export const CHAIN_ID = IS_MAINNET ? 137 : 137;
 
 export const INFURA_ID = process.env.NEXT_PUBLIC_INFURA_ID;

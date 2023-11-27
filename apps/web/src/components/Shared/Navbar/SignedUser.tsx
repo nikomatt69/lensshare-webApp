@@ -23,6 +23,7 @@ import StaffMode from './NavItems/StaffMode';
 import SwitchProfile from './NavItems/SwitchProfile';
 import ThemeSwitch from './NavItems/ThemeSwitch';
 import YourProfile from './NavItems/YourProfile';
+import Pro from '@components/Pro';
 
 const SignedUser: FC = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -129,7 +130,7 @@ const SignedUser: FC = () => {
               }
             >
               <Invites />
-            </Menu.Item>
+            </Menu.Item>       
             <Menu.Item
               as="div"
               className={({ active }) =>

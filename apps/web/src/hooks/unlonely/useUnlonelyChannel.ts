@@ -1,4 +1,4 @@
-import { NFT_WORKER_URL } from '@lensshare/data/constants';
+import { BASE_URL, HEY_API_URL, NFT_WORKER_URL } from '@lensshare/data/constants';
 import type { UnlonelyChannel } from '@lensshare/types/nft';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -17,9 +17,10 @@ const useUnlonelyChannel = ({
   error: unknown;
 } => {
   const getUnlonelyChannelDetails = async () => {
-    const response = await axios.get(`${NFT_WORKER_URL}/unlonely/channel`, {
-      params: { slug }
-    });
+    const response = await axios.get(
+      `${BASE_URL}/api/nft/unlonely/getUnlonelyChannel`,
+      { params: { slug } }
+    );
 
     return response.data?.channel;
   };

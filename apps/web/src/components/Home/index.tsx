@@ -23,6 +23,10 @@ import { useTheme } from 'next-themes';
 import AddToHome from './AddToHome';
 import EnableMessages from './EnableMessages';
 import RefreshButton from './Refresh';
+import Trending from './Trending';
+import RecommendedProfiles from './RecommendedProfiles';
+import Wrapper from '@components/Echos/Wrapper';
+import { asset } from '@lens-protocol/metadata/*';
 
 const Home: NextPage = () => {
   const currentProfile = useAppStore((state) => state.currentProfile);
@@ -38,6 +42,7 @@ const Home: NextPage = () => {
     <>
       <MetaTags />
       {!currentProfile ? <Hero /> : null}
+      <Wrapper  />
       <GridLayout>
         <GridItemEight>
           <>
@@ -88,6 +93,8 @@ const Home: NextPage = () => {
           {/* Onboarding steps */}
           {loggedIn && (
             <>
+              <Trending />
+              <RecommendedProfiles />
               <EnableMessages />
               <EnableLensManager />
               <SetProfile />

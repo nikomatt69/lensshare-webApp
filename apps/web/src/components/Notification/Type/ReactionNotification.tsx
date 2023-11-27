@@ -9,6 +9,8 @@ import { memo } from 'react';
 
 import AggregatedNotificationTitle from '../AggregatedNotificationTitle';
 import { NotificationProfileAvatar } from '../Profile';
+import { useEffectOnce } from 'usehooks-ts';
+import pushToImpressions from '@lib/pushToImpressions';
 // million-ignore
 interface ReactionNotificationProps {
   notification: ReactionNotification;
@@ -28,6 +30,10 @@ const ReactionNotification: FC<ReactionNotificationProps> = ({
     ? `and ${length} ${plur('other', length)} liked your`
     : 'liked your';
   const type = notification?.publication.__typename;
+
+  useEffectOnce(() => {
+    pushToImpressions(notification.publication.id);
+  });
 
   return (
     <div className="space-y-2">

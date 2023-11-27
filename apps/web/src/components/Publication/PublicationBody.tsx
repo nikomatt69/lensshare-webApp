@@ -14,13 +14,15 @@ import type { OG } from '@lensshare/types/misc';
 import cn from '@lensshare/ui/cn';
 import Link from 'next/link';
 import type { FC } from 'react';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { isIOS, isMobile } from 'react-device-detect';
 
 import EncryptedPublication from './EncryptedPublication';
 import Embed from './HeyOpenActions/Embed';
 import Nft from './HeyOpenActions/Nft';
 import NotSupportedPublication from './NotSupportedPublication';
+import getSnapshotProposalId from '@lib/getSnapshotProposalId';
+import Snapshot from './HeyOpenActions/Snapshot';
 
 interface PublicationBodyProps {
   publication: AnyPublication;
@@ -41,11 +43,10 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   const filteredContent = getPublicationData(metadata)?.content || '';
   const filteredAttachments = getPublicationData(metadata)?.attachments || [];
   const filteredAsset = getPublicationData(metadata)?.asset;
-
   const canShowMore = filteredContent?.length > 450 && showMore;
   const urls = getURLs(filteredContent);
   const hasURLs = urls.length > 0;
-
+  const snapshotProposalId = getSnapshotProposalId(urls);
   let rawContent = filteredContent;
 
   if (isIOS && isMobile && canShowMore) {
@@ -67,6 +68,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
 
   // Show NFT if it's there
   const showNft = metadata.__typename === 'MintMetadataV3';
+  const showSnapshot = snapshotProposalId;
   // Show live if it's there
   const showLive = metadata.__typename === 'LiveStreamMetadataV3';
   // Show embed if it's there
@@ -78,6 +80,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
     hasURLs &&
     !showNft &&
     !showLive &&
+    !showSnapshot &&
     !showEmbed &&
     !showAttachments &&
     !quoted;
@@ -115,6 +118,7 @@ const PublicationBody: FC<PublicationBodyProps> = ({
       ) : null}
       {/* Open actions */}
       {showEmbed ? <Embed embed={metadata.embed} /> : null}
+      {showSnapshot ? <Snapshot proposalId={snapshotProposalId} /> : null}
       {showNft ? (
         <Nft mintLink={metadata.mintLink} publication={publication} />
       ) : null}
@@ -137,4 +141,5 @@ const PublicationBody: FC<PublicationBodyProps> = ({
   );
 };
 
-export default PublicationBody;
+export default memo(PublicationBody);
+

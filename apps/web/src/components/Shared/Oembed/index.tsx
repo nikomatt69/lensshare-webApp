@@ -1,4 +1,4 @@
-import { OEMBED_WORKER_URL } from '@lensshare/data/constants';
+import { BASE_URL, HEY_API_URL, OEMBED_WORKER_URL } from '@lensshare/data/constants';
 import type { OG } from '@lensshare/types/misc';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -18,7 +18,7 @@ const Oembed: FC<OembedProps> = ({ url, publicationId, onData }) => {
   const { isLoading, error, data } = useQuery({
     queryKey: ['oembed', url],
     queryFn: async () => {
-      const response = await axios.get(`${OEMBED_WORKER_URL}/oembed`, {
+      const response = await axios.get(`${BASE_URL}/api/oembed`, {
         params: { url }
       });
       return response.data.oembed;

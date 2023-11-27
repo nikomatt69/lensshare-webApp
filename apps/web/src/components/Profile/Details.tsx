@@ -47,6 +47,7 @@ import MutualFollowers from './MutualFollowers';
 import MutualFollowersList from './MutualFollowers/List';
 import ScamWarning from './ScamWarning';
 import MeetingIcon from '@components/Meet/MeetingIcon';
+import MessageIcon from '@components/Messages/MessageIcon';
 
 interface DetailsProps {
   profile: Profile;
@@ -181,6 +182,7 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
           ) : null}
           <ProfileMenu profile={profile} />
           <div className='text-brand-500'>{ <MeetingIcon />}</div>
+          <div className='text-brand-500'>{ <MessageIcon />}</div>
         </div>
         {currentProfile?.id !== profile.id ? (
           <>
@@ -200,7 +202,9 @@ const Details: FC<DetailsProps> = ({ profile, following, setFollowing }) => {
         ) : null}
         <div className="divider w-full" />
         <div className="space-y-1">
-          {!currentProfile?.id === profile?.id ? <MeetingIcon /> : null}
+          
+         
+
           <div className="space-y-2">
             <MetaDetails icon={<HashtagIcon className="h-4 w-4" />}>
               <Tooltip content={`#${profile.id}`}>

@@ -19,6 +19,11 @@ import { useAccount, useDisconnect } from 'wagmi';
 import GlobalModals from '../Shared/GlobalModals';
 import Loading from '../Shared/Loading';
 import Navbar from '../Shared/Navbar';
+import { isAddress } from 'viem';
+import getCurrentSession from '@lib/getCurrentSession';
+import { useProStore } from 'src/store/useProStore';
+import useProfileStore from 'src/store/useProfileStore';
+import { useFeatureFlagsStore } from 'src/store/useFeatureFlagsStore';
 
 interface LayoutProps {
   children: ReactNode;
@@ -26,9 +31,18 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const { setCurrentProfile } = useAppStore();
-  const { loadingPreferences, resetPreferences } = usePreferencesStore();
-  const { setLensHubOnchainSigNonce } = useNonceStore();
+  const currentProfile = useAppStore((state) => state.currentProfile);
+  const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const resetPreferences = usePreferencesStore(
+    (state) => state.resetPreferences
+  );
+  const resetFeatureFlags = useFeatureFlagsStore(
+    (state) => state.resetFeatureFlags
+  );
+  const setLensHubOnchainSigNonce = useNonceStore(
+    (state) => state.setLensHubOnchainSigNonce
+  );
+  const resetPro = useProStore((state) => state.resetPro);
 
   const isMounted = useIsMounted();
   const { connector } = useAccount();
@@ -38,18 +52,16 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   const logout = () => {
     resetPreferences();
+    resetFeatureFlags();
+    resetPro();
     signOut();
     disconnect?.();
   };
 
   const { loading } = useCurrentProfileQuery({
     variables: { request: { forProfileId: currentSessionProfileId } },
-    skip: !currentSessionProfileId,
+    skip: !currentSessionProfileId || isAddress(currentSessionProfileId),
     onCompleted: ({ profile, userSigNonces }) => {
-      if (!profile) {
-        return logout();
-      }
-
       setCurrentProfile(profile as Profile);
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce);
     }
@@ -71,9 +83,12 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   });
 
-  if (loading || loadingPreferences || !isMounted()) {
+  const profileLoading = !currentProfile && loading;
+
+  if (profileLoading || !isMounted()) {
     return <Loading />;
   }
+
 
   return (
     <>
