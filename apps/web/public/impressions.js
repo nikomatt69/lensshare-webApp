@@ -1,6 +1,5 @@
 const impressionsEndpoint = `https://impressions.lenshareapp.xyz/ingest`;
 const publicationsVisibilityInterval = 5000;
-let viewerId = null;
 let visiblePublicationsSet = new Set();
 
 function sendVisiblePublicationsToServer() {
@@ -11,10 +10,7 @@ function sendVisiblePublicationsToServer() {
     fetch(impressionsEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        viewer_id: viewerId,
-        ids: publicationsToSend
-      }),
+      body: JSON.stringify({ ids: publicationsToSend }),
       keepalive: true
     })
       .then(() => {})
@@ -27,6 +23,4 @@ setInterval(sendVisiblePublicationsToServer, publicationsVisibilityInterval);
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'PUBLICATION_VISIBLE') {
     visiblePublicationsSet.add(event.data.id);
-    viewerId = event.data.viewerId;
-  }
-});
+  }});
