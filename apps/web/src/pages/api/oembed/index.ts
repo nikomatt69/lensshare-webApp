@@ -1,8 +1,8 @@
 import { Errors } from '@lensshare/data/errors';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import allowCors from 'src/utils//allowCors';
-import { CACHE_AGE } from 'src/utils//constants';
-import getMetadata from 'src/utils//oembed/getMetadata';
+import { CACHE_AGE } from 'src/utils/constants';
+import getMetadata from 'src/utils/oembed/getMetadata';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { url } = req.query;
