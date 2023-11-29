@@ -4,7 +4,7 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "codegen": "supabase gen types typescript --project-id nberpnnqcqfnrzjpnisb > database.types.ts;",
+    "codegen": "supabase gen types typescript --project-id nwimpuchsqiuweraczzd > database.types.ts;",
 
     "typecheck": "tsc --pretty"
   },
@@ -12,7 +12,7 @@
     "@supabase/supabase-js": "^2.38.4"
   },
   "devDependencies": {
-    "@lensshare/config": "*",
+    
     "typescript": "^5.2.2"
   }
 }

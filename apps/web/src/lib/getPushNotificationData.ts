@@ -1,5 +1,4 @@
 import type { Notification } from '@lensshare/lens';
-
 const getPushNotificationData = (
   notification: Notification
 ): {

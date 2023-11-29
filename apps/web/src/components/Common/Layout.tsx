@@ -29,18 +29,24 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   const { resolvedTheme } = useTheme();
-  const currentProfile = useAppStore((state) => state.currentProfile);
   const setCurrentProfile = useAppStore((state) => state.setCurrentProfile);
+  const loadingPreferences = usePreferencesStore(
+    (state) => state.loadingPreferences
+  );
   const resetPreferences = usePreferencesStore(
     (state) => state.resetPreferences
+  );
+  const loadingFeatureFlags = useFeatureFlagsStore(
+    (state) => state.loadingFeatureFlags
   );
   const resetFeatureFlags = useFeatureFlagsStore(
     (state) => state.resetFeatureFlags
   );
+  const loadingPro = useProStore((state) => state.loadingPro);
+  const resetPro = useProStore((state) => state.resetPro);
   const setLensHubOnchainSigNonce = useNonceStore(
     (state) => state.setLensHubOnchainSigNonce
   );
-  const resetPro = useProStore((state) => state.resetPro);
 
   const isMounted = useIsMounted();
   const { connector } = useAccount();
@@ -81,12 +87,15 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     validateAuthentication();
   });
 
-  const profileLoading = !currentProfile && loading;
-
-  if (profileLoading || !isMounted()) {
+  if (
+    loading ||
+    loadingPreferences ||
+    loadingFeatureFlags ||
+    loadingPro ||
+    !isMounted()
+  ) {
     return <Loading />;
   }
-
   return (
     <>
       <Head>
