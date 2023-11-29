@@ -12,7 +12,7 @@ import streaksList from './handlers/streaksList';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
-const { preflight, corsify } = createCors({
+const { preflight} = createCors({
   origins: ['*'],
   methods: ['HEAD', 'GET', 'POST']
 });
@@ -47,7 +47,7 @@ export default {
 
     return await router
       .handle(incomingRequest)
-      .then(corsify)
+  
       .catch(() => {
         return error(500, Errors.InternalServerError);
       });

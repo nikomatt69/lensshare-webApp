@@ -30,14 +30,14 @@ export default async (request: WorkerRequest) => {
   }
 
   if (!(await validateIsStaff(request))) {
-    return response({ success: false, error: Errors.InvalidAccesstoken });
+    return response({ success: false, error: Errors.SomethingWentWrong });
   }
 
   const { enabled } = body as ExtensionRequest;
 
   try {
     const { payload } = jwt.decode(accessToken as string);
-    const profile_id = payload;
+    const profile_id = payload.id;
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     if (enabled) {

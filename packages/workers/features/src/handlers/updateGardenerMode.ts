@@ -37,7 +37,7 @@ export default async (request: WorkerRequest) => {
 
   try {
     const { payload } = jwt.decode(accessToken as string);
-    const profile_id = payload;
+    const profile_id = payload.id;
     const client = createSupabaseClient(request.env.SUPABASE_KEY);
 
     if (enabled) {
