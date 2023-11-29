@@ -1,4 +1,4 @@
-import { BASE_URL, HEY_API_URL, IS_MAINNET } from '@lensshare/data/constants';
+import { IS_MAINNET, STATS_WORKER_URL } from '@lensshare/data/constants';
 import axios from 'axios';
 
 /**
@@ -7,10 +7,12 @@ import axios from 'axios';
  * @returns The number of views of the publication
  */
 const getPublicationsViews = async (ids: string[]) => {
-  
+  if (!IS_MAINNET) {
+    return [];
+  }
 
   try {
-    const response = await axios.post(`/api/stats/publicationViews`, {
+    const response = await axios.post(`${STATS_WORKER_URL}/publicationViews`, {
       ids
     });
 

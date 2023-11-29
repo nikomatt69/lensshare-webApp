@@ -1,4 +1,4 @@
-import { ACHIEVEMENTS_WORKER_URL } from '@lensshare/data/constants';
+import { ACHIEVEMENTS_WORKER_URL, STATS_WORKER_URL } from '@lensshare/data/constants';
 import type { Profile } from '@lensshare/lens';
 import getProfile from '@lensshare/lib/getProfile';
 import { Card } from '@lensshare/ui';
@@ -15,9 +15,9 @@ interface StreaksProps {
 const Streaks: FC<StreaksProps> = ({ profile }) => {
   const fetchStreaks = async () => {
     try {
-      const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}`
-      );
+      const response = await axios.get(`${STATS_WORKER_URL}/streaksCalendar`, {
+        params: { id: profile.id }
+      });
 
       const outputData = Object.entries(response.data.data).map(
         ([date, count]: any) => ({

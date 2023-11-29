@@ -1,1 +1,1 @@
-export const SUPABASE_URL = 'https://nberpnnqcqfnrzjpnisb.supabase.co';
+export const SUPABASE_URL = 'https://nwimpuchsqiuweraczzd.supabase.co';

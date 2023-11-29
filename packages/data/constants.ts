@@ -8,7 +8,7 @@ export const HEY_API_URL = 'https://api.lenshareapp.xyz';
 
 export const APP_ID = 'lensshare';
 export const APP_NAME = 'LensShare';
-export const APP_VERSION = '0.0.1';
+export const APP_VERSION = '0.1.0';
 export const LENSTOK_URL = process.env.NEXT_PUBLIC_LENSTOK_URL;
 export const DESCRIPTION = 'Decentralized Social Platform';
 export const LENS_NETWORK = process.env.NEXT_PUBLIC_LENS_NETWORK ?? 'mainnet';
@@ -93,6 +93,9 @@ export const OEMBED_WORKER_URL = IS_MAINNET
 export const SPACES_WORKER_URL = IS_MAINNET
   ? 'https://spaces.lenshareapp.xyz'
   : 'https://spaces.lenshareapp.xyz';
+  export const STATS_WORKER_URL = IS_PRODUCTION
+  ? 'https://stats.lenshaerapp.xyz'
+  : 'https://stats.lenshaerapp.xyz';
 export const LEAFWATCH_WORKER_URL = IS_MAINNET
   ? 'https://leafwatch.lenshareapp.xyz'
   : 'https://leafwatch.lenshareapp.xyz';
@@ -103,10 +106,10 @@ export const NFT_WORKER_URL = IS_MAINNET
   ? 'https://nft.lenshareapp.xyz'
   : 'https://nft.lenshareapp.xyz';
 export const GROUPS_WORKER_URL = IS_MAINNET
-  ? 'https://groups.hey.xyz'
-  : 'https://groups.hey.xyz';
+  ? 'https://groups.lenshareapp.xyz'
+  : 'https://groups.lenshareapp.xyz';
 export const CHANNELS_WORKER_URL = IS_MAINNET
-  ? 'https://channels.lenster.xyz'
+  ? 'https://channels.lenshareapp.xyz'
   : 'http://localhost:8093';
 export const COMMUNITIES_WORKER_URL = IS_MAINNET
   ? 'https://communities.lenshareapp.xyz'
@@ -115,15 +118,18 @@ export const LIVE_WORKER_URL = IS_MAINNET
   ? 'https://live.lenshareapp.xyz'
   : 'https://live.lenshareapp.xyz';
 export const STAFF_PICKS_WORKER_URL = IS_MAINNET
-  ? 'https://staff-picks.hey.xyz'
-  : 'https://staff-picks.hey.xyz';
+  ? 'https://staff-picks.lenshareapp.xyz'
+  : 'https://staff-picks.lenshareapp.xyz';
   export const PREFERENCES_WORKER_URL = IS_MAINNET
   ? 'https://preferences.lenshareapp.xyz'
-  : 'https://preferences.hey.xyz';
+  : 'https://preferences.lenshareapp.xyz';
 export const ACHIEVEMENTS_WORKER_URL = 'https://achievements.lenshareapp.xyz';
 export const FEEDS_WORKER_URL = IS_MAINNET
-  ? 'https://feeds.hey.xyz'
-  : 'https://feeds.hey.xyz';
+  ? 'https://feeds.lenshareapp.xyz'
+  : 'https://feeds.lenshareapp.xyz';
+export const PRO_WORKER_URL = IS_PRODUCTION
+  ? 'https://pro.lenshareapp.xyz'
+  : 'https://pro.lenshareapp.xyz';
 export const S3_BUCKET = {
   LENSSHARE: 'lensshare'
 };

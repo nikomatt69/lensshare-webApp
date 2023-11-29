@@ -20,6 +20,7 @@ import { LENSTOK_URL } from '@lensshare/data/constants';
 import LeafwatchProvider from './LeafwatchProvider';
 import SW from '@components/ServiceWorker';
 import FeatureFlagsProvider from './FeatureFlagsProvider';
+import ProProvider from './ProProvider';
 
 const lensApolloClient = apolloClient(authLink);
 const livepeerClient = createReactClient({
@@ -43,6 +44,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
           <QueryClientProvider client={queryClient}>
             <PreferencesProvider />
             <FeatureFlagsProvider />
+            <ProProvider />
             <LivepeerConfig client={livepeerClient} theme={getLivepeerTheme}>
               <ThemeProvider defaultTheme="light" attribute="class">
                 <Layout>{children}</Layout>
