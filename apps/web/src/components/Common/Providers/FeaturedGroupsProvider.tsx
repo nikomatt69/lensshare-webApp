@@ -1,4 +1,4 @@
-import { BASE_URL, HEY_API_URL } from '@lensshare/data/constants';
+import { BASE_URL } from '@lensshare/data/constants';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';

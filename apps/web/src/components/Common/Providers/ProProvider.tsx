@@ -1,6 +1,4 @@
-
-import { BASE_URL } from '@lensshare/data/constants';
-import getCurrentSession from '@lib/getCurrentSession';
+import { BASE_URL, PRO_WORKER_URL } from '@lensshare/data/constants';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -15,8 +13,11 @@ const ProProvider: FC = () => {
 
   const fetchProEnabled = async () => {
     try {
-      if (Boolean(currentSessionProfileId) && !isAddress(currentSessionProfileId)) {
-        const response = await axios.get(`${BASE_URL}/api/pro/getProEnabled`, {
+      if (
+        Boolean(currentSessionProfileId) &&
+        !isAddress(currentSessionProfileId)
+      ) {
+        const response = await axios.get(`${PRO_WORKER_URL}/getProEnabled`, {
           params: { id: currentSessionProfileId }
         });
         const { data } = response;

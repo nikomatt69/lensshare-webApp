@@ -6,7 +6,7 @@ import ingest from './handlers/ingest';
 import buildRequest from './helpers/buildRequest';
 import type { Env, WorkerRequest } from './types';
 
-const { preflight, corsify } = createCors({
+const { preflight } = createCors({
   origins: ['*'],
   methods: ['HEAD', 'GET', 'POST']
 });
@@ -33,11 +33,8 @@ export default {
   ): Promise<Response> {
     const incomingRequest = buildRequest(request, env, ctx);
 
-    return await router
-      .handle(incomingRequest)
-      .then(corsify)
-      .catch(() => {
-        return error(500, Errors.InternalServerError);
-      });
+    return await router.handle(incomingRequest).catch(() => {
+      return error(500, Errors.InternalServerError);
+    });
   }
 };

@@ -1,5 +1,6 @@
 import {
   ArrowsRightLeftIcon,
+  ChatBubbleLeftRightIcon,
   ChatBubbleOvalLeftEllipsisIcon,
   CheckCircleIcon,
   HeartIcon,
@@ -8,10 +9,10 @@ import {
   UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { CalendarIcon } from '@heroicons/react/24/solid';
-import { ACHIEVEMENTS_WORKER_URL } from '@lensshare/data/constants';
+import { ACHIEVEMENTS_WORKER_URL, STATS_WORKER_URL } from '@lensshare/data/constants';
 import { PROFILE, PUBLICATION } from '@lensshare/data/tracking';
 import type { Profile } from '@lensshare/lens';
-import { Card } from '@lensshare/ui';
+import { Card, Spinner } from '@lensshare/ui';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import type { FC } from 'react';
@@ -23,9 +24,9 @@ interface StreaksListProps {
 const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   const fetchStreaksList = async () => {
     try {
-      const response = await axios.get(
-        `${ACHIEVEMENTS_WORKER_URL}/streaks/${profile.id}/latest`
-      );
+      const response = await axios.get(`${STATS_WORKER_URL}/streaksList`, {
+        params: { id: profile.id, date: 'latest' }
+      });
 
       return response.data.data;
     } catch (error) {
@@ -46,9 +47,9 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
       case PUBLICATION.LIKE:
         return <HeartIcon className="h-5 w-5 text-red-500" />;
       case PUBLICATION.NEW_POST:
-        return <PencilSquareIcon className="text-brand h-5 w-5" />;
+        return <PencilSquareIcon className="text-brand-500 h-5 w-5" />;
       case PUBLICATION.NEW_COMMENT:
-        return <ChatBubbleOvalLeftEllipsisIcon className="text-brand h-5 w-5" />;
+        return <ChatBubbleLeftRightIcon className="text-brand-500 h-5 w-5" />;
       case PUBLICATION.MIRROR:
         return <ArrowsRightLeftIcon className="h-5 w-5 text-green-500" />;
       case PUBLICATION.COLLECT_MODULE.COLLECT:
@@ -85,8 +86,11 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
 
   if (isLoading) {
     return (
-      <Card className="p-6">
-        <div>Loading</div>
+      <Card className="p-5">
+        <div className="space-y-2 px-5 py-3.5 text-center font-bold">
+          <Spinner size="md" className="mx-auto" />
+          <div>Loading events</div>
+        </div>
       </Card>
     );
   }
@@ -102,11 +106,11 @@ const StreaksList: FC<StreaksListProps> = ({ profile }) => {
   return (
     <Card>
       <div className="flex items-center space-x-2 px-6 py-5 text-lg font-bold">
-        <CalendarIcon className="text-brand h-6 w-6" />
+        <CalendarIcon className="text-brand-500 h-6 w-6" />
         <span>Latest events</span>
       </div>
       <div className="divider" />
-      <div className="space-y-4 p-6">
+      <div className="m-6 space-y-4">
         {data.map((streak: { id: string; event: string; date: string }) => (
           <div key={streak.id} className="flex items-center space-x-2">
             <EventIcon event={streak.event} />

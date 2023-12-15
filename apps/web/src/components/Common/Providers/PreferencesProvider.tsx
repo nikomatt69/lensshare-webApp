@@ -1,5 +1,4 @@
-import { BASE_URL, HEY_API_URL } from '@lensshare/data/constants';
-import getCurrentSession from '@lib/getCurrentSession';
+import { BASE_URL, PREFERENCES_WORKER_URL } from '@lensshare/data/constants';
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
 
 import { useQuery } from '@tanstack/react-query';
@@ -22,10 +21,15 @@ const PreferencesProvider: FC = () => {
 
   const fetchPreferences = async () => {
     try {
-      if (Boolean(currentSessionProfileId) && !isAddress(currentSessionProfileId)) {
+      if (
+        Boolean(currentSessionProfileId) &&
+        !isAddress(currentSessionProfileId)
+      ) {
         const response = await axios.get(
-          `${BASE_URL}/api/preference/getPreferences`,
-          { params: { id: currentSessionProfileId} }
+          `${PREFERENCES_WORKER_URL}/getPreferences`,
+          {
+            params: { id: currentSessionProfileId }
+          }
         );
         const { data } = response;
 
@@ -45,18 +49,7 @@ const PreferencesProvider: FC = () => {
     queryFn: fetchPreferences
   });
 
-  const fetchVerifiedMembers = async () => {
-    try {
-      const response = await axios.get(`${BASE_URL}/api/feature/getVerified`);
-      const { data } = response;
-      setVerifiedMembers(data.result || []);
-    } catch {}
-  };
-
-  useQuery({
-    queryKey: ['fetchVerifiedMembers'],
-    queryFn: fetchVerifiedMembers
-  });
+  
 
   return null;
 };

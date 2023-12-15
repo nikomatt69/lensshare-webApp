@@ -1,7 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { FeatureFlag } from '@lensshare/data/feature-flags';
 import { BASE_URL } from '@lensshare/data/constants';
-import getCurrentSession from '@lib/getCurrentSession';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { type FC } from 'react';
@@ -24,7 +23,10 @@ const FeatureFlagsProvider: FC = () => {
 
   const fetchFeatureFlags = async () => {
     try {
-      if (Boolean(currentSessionProfileId) && !isAddress(currentSessionProfileId)) {
+      if (
+        Boolean(currentSessionProfileId) &&
+        !isAddress(currentSessionProfileId)
+      ) {
         const response = await axios.get(
           `${BASE_URL}/api/feature/getFeatureFlags`,
           { params: { id: currentSessionProfileId } }
@@ -36,7 +38,6 @@ const FeatureFlagsProvider: FC = () => {
         } = response;
 
         setFeatureFlags(data?.features || []);
-     
       }
     } catch {
     } finally {
